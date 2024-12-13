@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnisoftTest.MVVM.Views.ConfigurationPage"
+             Title="ConfigurationPage">
+    <Grid RowDefinitions=".3*,.8*">
+        <VerticalStackLayout>
+            <Entry Placeholder="Nazwa skryptu" Text="Testowy skrypt"/>
+            <Entry Placeholder="Ścieżka do skryptu" Text="Q:\Programy\autoIt\script\test.au3"/>
+            <Button Text="Add or Update"
+                    Command="{Binding AddOrUpdateCommand}"/>
+
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Scripts}"/>
+
+
+    </Grid>
+</ContentPage>
