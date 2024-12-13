@@ -22,13 +22,22 @@ namespace UnisoftTest.Repositories
 
         }
 
-        public void Add(AutoItScript newScript)
+        public void AddOrUpdate(AutoItScript script)
         {
             int result = 0;
             try
             {
-                result = connection.Insert(newScript);
-                StatusMessage = $"{result} wiersz dodany!";
+                if(script.ScriptId != 0)
+                {
+                    result = connection.Update(script);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    result = connection.Insert(script);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+                
 
             }
             catch (Exception ex)
@@ -43,7 +52,8 @@ namespace UnisoftTest.Repositories
         {
             try
             {
-                return connection.Table<AutoItScript>().ToList();
+                //return connection.Table<AutoItScript>().ToList();
+                return connection.Query<AutoItScript>("SELECT * FROM AutoItScripts").ToList();
             }
             catch (Exception ex)
             {
@@ -69,6 +79,20 @@ namespace UnisoftTest.Repositories
 
             Console.WriteLine(StatusMessage);
             return null;
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                var script = Get(id);
+                connection.Delete(script);
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
         }
 
 
