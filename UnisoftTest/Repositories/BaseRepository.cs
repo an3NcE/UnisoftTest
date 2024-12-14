@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using PropertyChanged;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using UnisoftTest.MVVM.Models;
 
 namespace UnisoftTest.Repositories
 {
+    [AddINotifyPropertyChangedInterface]
     public class BaseRepository
     {
         SQLiteConnection connection;

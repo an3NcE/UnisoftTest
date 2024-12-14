@@ -10,10 +10,11 @@ namespace UnisoftTest
         public App(BaseRepository repo)
         {
             InitializeComponent();
+            BaseRepo = repo;
 
             MainPage = new ConfigurationPage();
 
-            BaseRepo = repo;
+            
         }
     }
 }

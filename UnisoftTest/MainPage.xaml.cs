@@ -57,6 +57,8 @@ namespace UnisoftTest
                 await DisplayAlert("Błąd", $"Nie udało się uruchomić skryptu: {ex.Message}", "OK");
             }
         }
+
+
     }
 
 }

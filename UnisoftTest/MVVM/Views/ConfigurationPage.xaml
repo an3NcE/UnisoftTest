@@ -5,13 +5,23 @@
              Title="ConfigurationPage">
     <Grid RowDefinitions=".3*,.8*">
         <VerticalStackLayout>
-            <Entry Placeholder="Nazwa skryptu" Text="Testowy skrypt"/>
-            <Entry Placeholder="Ścieżka do skryptu" Text="Q:\Programy\autoIt\script\test.au3"/>
+            <Entry Placeholder="Nazwa skryptu" Text="{Binding NameScriptEntry, Mode=TwoWay}"/>
+            <Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>
             <Button Text="Add or Update"
                     Command="{Binding AddOrUpdateCommand}"/>
 
         </VerticalStackLayout>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Scripts}"/>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Scripts}" SelectedItem="{Binding CurrentScript}" SelectionMode="Single" SelectionChangedCommand="{Binding}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions=".3*,.7*">
+                        <Label Text="{Binding ScriptName}"/>
+                        <Label Text="{Binding ScriptPath}" 
+                               Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
 
     </Grid>
