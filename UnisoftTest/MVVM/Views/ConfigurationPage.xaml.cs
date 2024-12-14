@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls;
+using System.Diagnostics;
 using UnisoftTest.MVVM.ViewModels;
 
 namespace UnisoftTest.MVVM.Views;
@@ -22,4 +23,6 @@ public partial class ConfigurationPage : ContentPage
         base.OnDisappearing();
         MessagingCenter.Unsubscribe<ConfigurationPageViewModel, string>(this, "Alert");
     }
+
+    
 }

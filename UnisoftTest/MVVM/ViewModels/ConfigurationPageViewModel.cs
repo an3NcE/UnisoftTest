@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,43 +14,56 @@ namespace UnisoftTest.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class ConfigurationPageViewModel
     {
-        
+
         public List<AutoItScript> Scripts { get; set; }
 
         public AutoItScript CurrentScript { get; set; }
 
         public ICommand AddOrUpdateCommand => new Command(AddOrUpdateComm);
+        public ICommand DeleteCommand => new Command(DeleteComm);
 
+       
 
-        #region EntryInf
-        private string _nameScript;
-        private string _pathScript;
-        #endregion
+        //#region EntryInf
+        //private string _nameScript;
+        //private string _pathScript;
+        //#endregion
 
 
         public ConfigurationPageViewModel()
         {
+            CurrentScript = new AutoItScript();
+
+
             Refresh();
 
 
 
         }
 
-        private  async void AddOrUpdateComm()
+        private void DeleteComm(object obj)
         {
+            App.BaseRepo.Delete(CurrentScript.ScriptId);
+            Refresh();
+        }
+
+
+        private async void AddOrUpdateComm()
+        {
+            
 
             if (CurrentScript == null)
             {
                 CurrentScript = new AutoItScript();
             }
 
-            if(_nameScript!=null ||  _pathScript!=null )
+            if (!string.IsNullOrEmpty(CurrentScript.ScriptName) || !string.IsNullOrEmpty(CurrentScript.ScriptPath))
             {
-                _pathScript = _pathScript.Replace("\"", "");
-                if (File.Exists(_pathScript))
+                CurrentScript.ScriptPath = CurrentScript.ScriptPath.Replace("\"", "");
+                if (File.Exists(CurrentScript.ScriptPath))
                 {
-                    CurrentScript.ScriptName = _nameScript;
-                    CurrentScript.ScriptPath = _pathScript;
+                    //CurrentScript.ScriptName = _nameScript;
+                    //CurrentScript.ScriptPath = _pathScript;
                     App.BaseRepo.AddOrUpdate(CurrentScript);
 
                     Debug.WriteLine(App.BaseRepo.StatusMessage);
@@ -58,21 +72,21 @@ namespace UnisoftTest.MVVM.ViewModels
                 {
                     MessagingCenter.Send(this, "Alert", "Ścieżka skryptu jest błędna.");
                 }
-                
+
             }
             else
+            
+            
+            
             {
                 MessagingCenter.Send(this, "Alert", "Nazwa lub ścieżka skryptu jest pusta.");
             }
-            
+
 
 
             Refresh();
         }
-        private void SetCurrentScript()
-        {
-            
-        }
+      
 
 
         private void Refresh()
@@ -81,31 +95,31 @@ namespace UnisoftTest.MVVM.ViewModels
             Scripts = App.BaseRepo.GetAll();
         }
 
-        #region EntryValues
+        //#region EntryValues
 
-        
 
-        public string NameScriptEntry
-        {
-            get => _nameScript;
-            set
-            {
 
-                _nameScript = value;
+        //public string NameScriptEntry
+        //{
+        //    get => _nameScript;
+        //    set
+        //    {
 
-            }
-        }
-        public string PathScriptEntry
-        {
-            get => _pathScript;
-            set
-            {
+        //        _nameScript = value;
 
-                _pathScript = value;
+        //    }
+        //}
+        //public string PathScriptEntry
+        //{
+        //    get => _pathScript;
+        //    set
+        //    {
 
-            }
-        }
-        #endregion
+        //        _pathScript = value;
+
+        //    }
+        //}
+        //#endregion
 
     }
 }

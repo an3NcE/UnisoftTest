@@ -5,19 +5,21 @@
              Title="ConfigurationPage">
     <Grid RowDefinitions=".3*,.8*">
         <VerticalStackLayout>
-            <Entry Placeholder="Nazwa skryptu" Text="{Binding NameScriptEntry, Mode=TwoWay}"/>
-            <Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>
+            <Entry Placeholder="Nazwa skryptu" Text="{Binding CurrentScript.ScriptName}"/>
+            <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
+            <Entry Placeholder="Ścieżka do skryptu" Text="{Binding CurrentScript.ScriptPath}"/>
             <Button Text="Add or Update"
                     Command="{Binding AddOrUpdateCommand}"/>
-
+            <Button Text="Delete" Command="{Binding DeleteCommand}"  Grid.Column="2" Padding="10"/>
         </VerticalStackLayout>
         <CollectionView Grid.Row="1" ItemsSource="{Binding Scripts}" SelectedItem="{Binding CurrentScript}" SelectionMode="Single" SelectionChangedCommand="{Binding}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid ColumnDefinitions=".3*,.7*">
+                    <Grid ColumnDefinitions=".3*,.5*,.2*">
                         <Label Text="{Binding ScriptName}"/>
                         <Label Text="{Binding ScriptPath}" 
                                Grid.Column="1"/>
+                        <!--<Button Text="Delete" Command="{Binding DeleteCommand}" Clicked="Button_Clicked" Grid.Column="2" Padding="10"/>-->
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
