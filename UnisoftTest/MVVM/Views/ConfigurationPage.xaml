@@ -2,11 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.ConfigurationPage"
-             Title="ConfigurationPage"
+             Title="Konfiguracja Aplikacji"
              BackgroundColor="#404040">
 
-    <Grid RowDefinitions=".5*,.5*">
-        <Grid ColumnDefinitions="*,*">
+    <Grid RowDefinitions=".5*,.5*"
+          BackgroundColor="Black">
+        <Image Grid.Row="0" Grid.RowSpan="2"  Source="bg2.png"  Aspect="Fill" Opacity="0.1"/>
+        <Grid ColumnDefinitions="*,*" Padding="10">
             <VerticalStackLayout Padding="15">
                 <Label Text="Dodanie/Edycja skryptu" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" Margin="10"/>
                 <Label Text="Podaj nazwę testu:" VerticalOptions="End"/>
@@ -28,11 +30,14 @@
             <VerticalStackLayout Grid.Column="1" Padding="15">
                 <Label Text="Konfiguracja aplikacji" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" Margin="10"/>
                 <Label Text="Ścieżka do AutoIT.exe"/>
-                <HorizontalStackLayout HorizontalOptions="Start">
-                    <Entry Placeholder="Podaj ścieżkę do exe" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" />
-                    <ImageButton Source="fav.png" Command="{Binding SavePathAutoItExe}" HeightRequest="10"
-                                 BackgroundColor="Transparent"/>
-                </HorizontalStackLayout>
+                <Grid ColumnDefinitions=".8*,.1*" HorizontalOptions="Start" >
+                    <Entry Placeholder="Podaj ścieżkę do exe" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" />
+                    <ImageButton Source="fav.png" 
+                                 Command="{Binding SavePathAutoItExe}" 
+                                 HeightRequest="10"
+                                 BackgroundColor="Transparent"
+                                 Grid.Column="1"/>
+                </Grid>
                 
 
             </VerticalStackLayout>
@@ -40,7 +45,12 @@
             
         </Grid>
         
-        <CollectionView x:Name="clcVScripts" Grid.Row="1" ItemsSource="{Binding Scripts}" SelectedItem="{Binding CurrentScript}" SelectionMode="Single" SelectionChangedCommand="{Binding}" Margin="50,0,50,0">
+        <CollectionView x:Name="clcVScripts" Grid.Row="1" 
+                        ItemsSource="{Binding Scripts}" 
+                        SelectedItem="{Binding CurrentScript}" 
+                        SelectionMode="Single" 
+                        SelectionChangedCommand="{Binding}" 
+                        Margin="50,0,50,10">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" />
             </CollectionView.ItemsLayout>
@@ -65,18 +75,20 @@
                 <DataTemplate>
 
                     <Grid ColumnDefinitions=".3*,.5*,.2*">
-                        <Border Stroke="Black" StrokeThickness="1" Grid.Column="0">
+                        
+                        <Border Stroke="wheat" StrokeThickness="1" Grid.Column="0">
                             <Label Text="{Binding ScriptName}" 
                                    HorizontalOptions="Center"/>
                         </Border>
 
-                        <Border Stroke="Black" StrokeThickness="1" Grid.Column="1">
+                        <Border Stroke="wheat" StrokeThickness="1" 
+                                Grid.Column="1">
                             <Label Text="{Binding ScriptPath}" 
                                Grid.Column="1"
                                    HorizontalTextAlignment="Center"/>
                         </Border>
 
-                        <Border Stroke="Black" StrokeThickness="1" Grid.Column="2">
+                        <Border Stroke="wheat" StrokeThickness="1" Grid.Column="2">
                             <ImageButton Grid.Column="3" Source="{Binding ImgFav}" Command="{Binding BindingContext.AddToFavorite, Source={x:Reference Name=clcVScripts}}" CommandParameter="{Binding .}" 
                                          HeightRequest="10"
                                          HorizontalOptions="Center"

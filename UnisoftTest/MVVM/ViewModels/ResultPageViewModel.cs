@@ -1,10 +1,12 @@
-﻿using PropertyChanged;
+﻿
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UnisoftTest.MVVM.Models;
@@ -25,11 +27,14 @@ namespace UnisoftTest.MVVM.ViewModels
         public ICommand RunScript => new Command(RunTestScript);
 
         public string resultPath;
-        public string result;
+        public string result = "Proszę ustawić się w odpowiednim module ZSI przed rozpoczęciem testu.";
+        public string ResultEditor { get; set; }
+        
 
         public ResultPageViewModel()
         {
-            result = "Test";
+            
+            ResultEditor = result;
             CurrentFAVScript = new AutoItScript();
             Refresh();
         }
@@ -102,22 +107,17 @@ namespace UnisoftTest.MVVM.ViewModels
                 {
                     // Przechwycenie standardowego wyjścia (ostatnia linia pliku)
                     result = process.StandardOutput.ReadToEnd();
-                    result = result.Replace("\t", "\n");
+                    
+                    
                     process.WaitForExit();  // Czekanie na zakończenie procesu
                     Console.WriteLine("Ostatnia linia z pliku: " + result.Trim()); // Opcjonalnie wypisanie ostatniej linii
-                    //ResultEditor = result;
-                   
+                    result = result.Replace(";", "\n");
+                    ResultEditor = result;
+                    
+
+                    
                 }
-                ////using var stream = await FileSystem.(resultPath);
-                ////using var stream = await FileSystem.(resultPath);
-                //using var reader = new StreamReader(resultPath);
-                ////using var reader = new StreamReader(stream);
-
-                //while (reader.Peek() != -1)
-                //{
-                //    result = await reader.ReadLineAsync();
-
-                //}
+                
             }
             catch (Exception ex)
             {
@@ -134,7 +134,7 @@ namespace UnisoftTest.MVVM.ViewModels
         //    {
 
         //        result = value;
-        //        OnPropertyChanged(nameof(ResultEditor));
+        //        //OnPropertyChanged(nameof(ResultEditor));
         //    }
 
         //}

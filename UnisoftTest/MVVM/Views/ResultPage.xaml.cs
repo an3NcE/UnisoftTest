@@ -21,7 +21,7 @@ public partial class ResultPage : ContentPage
         base.OnAppearing();
         if (BindingContext is ResultPageViewModel viewModel)
         {
-            //viewModel.ResultEditor = viewModel.result;
+            
             viewModel.Refresh();
             
         }

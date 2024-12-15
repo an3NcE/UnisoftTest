@@ -5,23 +5,25 @@
              Title="ResultPage"
              NavigationPage.HasNavigationBar="False"
             >
-    <Grid RowDefinitions=".04*, .5*, .1*"
-          ColumnDefinitions=".5*,.5*">
+    <Grid RowDefinitions=".07*, .5*, .1*"
+          ColumnDefinitions=".5*,.5*" BackgroundColor="Black">
+        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg.png"  Aspect="Fill" Opacity="0.3"/>
         <HorizontalStackLayout Grid.Row="0" 
                        HorizontalOptions="End"
                        VerticalOptions="End"
                                Grid.ColumnSpan="2">
             <ImageButton  Source="settings.png"
              BackgroundColor="Transparent" 
-             Command="{Binding GoToConfPage}" />
+             Command="{Binding GoToConfPage}" 
+                          Margin="10"/>
 
         </HorizontalStackLayout>
 
-        <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="WhiteSmoke" Margin="10,50,10,0">
+        <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="FloralWhite" Margin="10,50,10,0" >
             <CollectionView x:Name="clcVScriptsFAV"                          
                         ItemsSource="{Binding FavScripts}"                       
                         SelectionMode="Single" 
-                        SelectionChangedCommand="{Binding}"  >
+                        SelectionChangedCommand="{Binding}" >
                 <!--SelectedItem="{Binding CurrentFavScript}"-->
                 <CollectionView.Header>
                     <Grid >
@@ -31,13 +33,19 @@
                                TextColor="Black"/>
                     </Grid>
                 </CollectionView.Header>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <Grid  Padding="0" ColumnDefinitions=".8*,.2*">
+
+                        <Grid  ColumnDefinitions=".8*,.2*" >
+                            
                             <Grid.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
                                     <GradientStop Color="#D3D3D3" Offset="0.0" />
                                     <!-- Jasnoszary -->
                                     <GradientStop Color="#A9A9A9" Offset="0.5" />
@@ -46,12 +54,14 @@
                                     <!-- Jasnoszary -->
                                 </LinearGradientBrush>
                             </Grid.Background>
+                            
 
                             <Label Text="{Binding ScriptName}" 
-                           HorizontalOptions="Center"
+                           HorizontalOptions="Center" 
                                    TextColor="Black"
                                    HeightRequest="30"
-                                   VerticalOptions="Center"/>
+                                   VerticalOptions="Center"
+                                       />
                             <ImageButton Grid.Column="1" Source="arrowr.png" Command="{Binding BindingContext.RunScript, Source={x:Reference Name=clcVScriptsFAV}}" CommandParameter="{Binding .}" 
                                          HeightRequest="10"
                                          HorizontalOptions="Center"
@@ -61,13 +71,15 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+        </Frame >
+
+        <Frame Grid.Row="1" Grid.Column="1"  Margin="10,50,10,0" CornerRadius="20" BackgroundColor="Gray">
+
+            <VerticalStackLayout >
+                <Label Text="Wyniki Testu wydajnościowego:" FontAttributes="Bold"/>
+                <Editor Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" />
+            </VerticalStackLayout>
         </Frame>
-        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-            <Label x:Name="lblResult" Text="{Binding result, Mode=TwoWay}"/>
-            <Entry Text="{Binding ResultEditor, Mode=TwoWay}"/>
-            <Editor Text="{Binding ResultEditor, Mode=TwoWay}" />
-        </VerticalStackLayout>
-        
 
 
 
