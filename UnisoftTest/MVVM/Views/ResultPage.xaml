@@ -22,8 +22,9 @@
                          Source="settings.png"
                          Command="{Binding GoToConfPage}" 
                          Margin="10"
+                         HeightRequest="35"
                          HorizontalOptions="End" 
-                         VerticalOptions="Center"
+                         VerticalOptions="Start"
                          Aspect="AspectFit"
                          />
         </Grid>
@@ -88,12 +89,14 @@
         </Frame >
 
         <Frame Grid.Row="1" Grid.Column="1"  Margin="10,50,10,0" CornerRadius="20" BackgroundColor="Transparent">
-            <Grid BackgroundColor="Transparent">
+            <Grid BackgroundColor="Transparent" VerticalOptions="FillAndExpand" >
                 <Image  Grid.ColumnSpan="2" Source="bgcyan.png"  Aspect="Fill" Opacity="0.3" />
-                <VerticalStackLayout Margin="15" >
+                <Grid Margin="15" 
+                      RowDefinitions=".1*,.9*"
+                      >
                     <Label Text="Wyniki Testu wydajnościowego:" FontAttributes="Bold" Margin="10,0,0,0"/>
-                    <Editor Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" />
-                </VerticalStackLayout>
+                    <Editor Grid.Row="1" Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" />
+                </Grid>
             </Grid>
         </Frame>
 

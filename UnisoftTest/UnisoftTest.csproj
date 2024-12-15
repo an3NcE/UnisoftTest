@@ -21,10 +21,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>UnisoftTest</ApplicationTitle>
+		<ApplicationTitle>UniTest</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.unisofttest</ApplicationId>
+		<ApplicationId>com.immanence.unisofttest</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -43,7 +43,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg"  BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -64,8 +64,11 @@
 	  <None Remove="Resources\Images\bg4.png" />
 	  <None Remove="Resources\Images\bgcyan.png" />
 	  <None Remove="Resources\Images\bgpink.png" />
+	  <None Remove="Resources\Images\delete.png" />
 	  <None Remove="Resources\Images\fav.png" />
 	  <None Remove="Resources\Images\logoResultView.png" />
+	  <None Remove="Resources\Images\save1.png" />
+	  <None Remove="Resources\Images\save2.png" />
 	  <None Remove="Resources\Images\settings.png" />
 	  <None Remove="Resources\Images\unFav.png" />
 	  <None Remove="Resources\Splash\splash-svg.svg" />
