@@ -20,7 +20,7 @@ namespace UnisoftTest
         {
             var window = base.CreateWindow(activationState);
             const int newWidth = 1000;
-            const int newHeight = 700;
+            const int newHeight = 750;
 
             window.MaximumWidth = newWidth;
             window.MaximumHeight = newHeight;

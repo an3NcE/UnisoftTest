@@ -23,7 +23,9 @@
                          Command="{Binding GoToConfPage}" 
                          Margin="10"
                          HorizontalOptions="End" 
-                         VerticalOptions="Center"/>
+                         VerticalOptions="Center"
+                         Aspect="AspectFit"
+                         />
         </Grid>
 
         <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="Transparent" Margin="10,50,10,0"  >
