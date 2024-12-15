@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="456" height="456" fill="#512BD4" />
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456 456" width="456" height="456">
+	<title>appicon-svg</title>
+	<defs>
+		<image width="75" height="83" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABTCAMAAADgFQouAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAFRQTFRFAIeqAJGsAI2uAIiqAAAAAIusAI2uAIusAIqsAIusAIyuAIusAIyujhgvmRAmmBAmmBAnowcdrAAVmRAmpwQZrAAVqwEW/kwAqQAhvgAFpQYbowgdIEvYRgAAABx0Uk5TJCUmDwD/a+Hd6Vv08f3+/v/u4f3///8BAwT//56MWJQAAACeSURBVHic7da9DoJQDIZhjvy6EZH7vz8W40YU0IAGkFZB0oGEtwOcfDRPzlTqPOd19X7p5X5+7bvCRV1N+/QNrbnLYWHt0kpkVK21AhFF9y9WfJvmcYmFhYWFhWVhHYcflrKcvqLqMM39q2ali7ZbURfNOj3MrKxZRanWubazcrlDYGGZWeP6nBO5mBpR0R//nDlYWFhYWFhYWFibtZ7jewi+gs99jgAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+	</style>
+	<use id="applogo" href="#img1" transform="matrix(5.494,0,0,5.494,22,0)"/>
 </svg>

@@ -16,5 +16,21 @@ namespace UnisoftTest
 
             
         }
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            var window = base.CreateWindow(activationState);
+            const int newWidth = 1000;
+            const int newHeight = 700;
+
+            window.MaximumWidth = newWidth;
+            window.MaximumHeight = newHeight;
+            window.MinimumWidth = newWidth;
+            window.MinimumHeight = newHeight;
+
+            return window;
+
+
+        }
+
     }
 }

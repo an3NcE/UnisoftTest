@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.ConfigurationPage"
              Title="Konfiguracja Aplikacji"
-             BackgroundColor="#404040">
+             BackgroundColor="#404040"
+             NavigationPage.HasNavigationBar="False">
 
     <Grid RowDefinitions=".5*,.5*"
           BackgroundColor="Black">
