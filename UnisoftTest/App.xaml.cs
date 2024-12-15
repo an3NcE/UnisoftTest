@@ -12,7 +12,7 @@ namespace UnisoftTest
             InitializeComponent();
             BaseRepo = repo;
 
-            MainPage = new ConfigurationPage();
+            MainPage = new NavigationPage( new ResultPage());
 
             
         }

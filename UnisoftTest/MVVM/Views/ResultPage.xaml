@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnisoftTest.MVVM.Views.ResultPage"
+             Title="ResultPage"
+             NavigationPage.HasNavigationBar="False"
+            >
+    <Grid RowDefinitions=".04*, .5*, .1*"
+          ColumnDefinitions=".5*,.5*">
+        <HorizontalStackLayout Grid.Row="0" 
+                       HorizontalOptions="End"
+                       VerticalOptions="End"
+                               Grid.ColumnSpan="2">
+            <ImageButton  Source="settings.png"
+             BackgroundColor="Transparent" 
+             Command="{Binding GoToConfPage}" />
+
+        </HorizontalStackLayout>
+
+        <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="WhiteSmoke" Margin="10,50,10,0">
+            <CollectionView x:Name="clcVScriptsFAV"                          
+                        ItemsSource="{Binding FavScripts}"                       
+                        SelectionMode="Single" 
+                        SelectionChangedCommand="{Binding}"  >
+                <!--SelectedItem="{Binding CurrentFavScript}"-->
+                <CollectionView.Header>
+                    <Grid >
+                        <Label Text="Nazwa Testu"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="Black"/>
+                    </Grid>
+                </CollectionView.Header>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid  Padding="0" ColumnDefinitions=".8*,.2*">
+                            <Grid.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#D3D3D3" Offset="0.0" />
+                                    <!-- Jasnoszary -->
+                                    <GradientStop Color="#A9A9A9" Offset="0.5" />
+                                    <!-- Średni szary -->
+                                    <GradientStop Color="#D3D3D3" Offset="1.0" />
+                                    <!-- Jasnoszary -->
+                                </LinearGradientBrush>
+                            </Grid.Background>
+
+                            <Label Text="{Binding ScriptName}" 
+                           HorizontalOptions="Center"
+                                   TextColor="Black"
+                                   HeightRequest="30"
+                                   VerticalOptions="Center"/>
+                            <ImageButton Grid.Column="1" Source="arrowr.png" Command="{Binding BindingContext.RunScript, Source={x:Reference Name=clcVScriptsFAV}}" CommandParameter="{Binding .}" 
+                                         HeightRequest="10"
+                                         HorizontalOptions="Center"
+                                         BackgroundColor="Transparent"/>
+                        </Grid>
+                        
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </Frame>
+
+    </Grid>
+
+
+
+</ContentPage>

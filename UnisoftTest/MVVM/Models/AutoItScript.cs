@@ -18,5 +18,7 @@ namespace UnisoftTest.MVVM.Models
         public string ScriptResults {  get; set; }
         public string ImgFav {  get; set; }
         public bool IsFavorite {  get; set; }
+        public DateTime ScriptCreatedAt {  get; set; }
+        public DateTime ScriptUpdatedAt {  get; set; }
     }
 }

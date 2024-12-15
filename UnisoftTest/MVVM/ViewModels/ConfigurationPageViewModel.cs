@@ -16,15 +16,22 @@ namespace UnisoftTest.MVVM.ViewModels
     {
 
         public List<AutoItScript> Scripts { get; set; }
+        public List<AppSettings> AppSettingsList { get; set; }
 
         public AutoItScript CurrentScript { get; set; }
+        public AppSettings AppSettingsExePath { get; set; }
+
+        string pathAutoItexeName = "AutoItExePath"; 
 
         public ICommand AddOrUpdateCommand => new Command(AddOrUpdateComm);
         public ICommand DeleteCommand => new Command(DeleteComm);
         public ICommand AddToFavorite => new Command(AddToFav);
-        
+        public ICommand SavePathAutoItExe => new Command(SavePathExe);
 
         
+
+
+
 
 
 
@@ -37,12 +44,32 @@ namespace UnisoftTest.MVVM.ViewModels
         public ConfigurationPageViewModel()
         {
             CurrentScript = new AutoItScript();
+            //AppSettingsExePath = new AppSettings();
+            //App.BaseRepo.DeleteSet();
 
 
             Refresh();
 
 
 
+        }
+
+        private void SavePathExe()
+        {
+            if (AppSettingsExePath == null)
+            {
+                AppSettingsExePath = new AppSettings();
+            }
+            AppSettingsExePath.SettingsId = 0;
+            AppSettingsExePath.SettingsName = pathAutoItexeName;
+            if (AppSettingsExePath.SettingsValue != null)
+            {
+                AppSettingsExePath.SettingsValue = AppSettingsExePath.SettingsValue.Replace("\"", "");
+            }
+            
+
+            App.BaseRepo.AddOrUpdateAppSettingsPathExe(AppSettingsExePath);
+            Refresh();
         }
 
         private void DeleteComm(object obj)
@@ -97,11 +124,19 @@ namespace UnisoftTest.MVVM.ViewModels
 
         private void Refresh()
         {
-            
+            AppSettingsList = App.BaseRepo.GetAllSettings();
             Scripts = App.BaseRepo.GetAll();
             CurrentScript = new AutoItScript();
             IsChecked = false;
-            
+            //AppSettingsExePath = new AppSettings();
+
+            AppSettingsExePath = App.BaseRepo.GetPathExe(pathAutoItexeName);
+            if (AppSettingsExePath == null)
+            {
+                SavePathExe();
+            }
+            //AppSettingsExePath = new AppSettings();
+
         }
 
         
@@ -124,7 +159,7 @@ namespace UnisoftTest.MVVM.ViewModels
         public void AddToFav(object obj)
         {
             var currentScript = obj as AutoItScript;
-            if (_isChecked == true || (!currentScript.IsFavorite && !Scripts.Contains(currentScript)))
+            if (_isChecked == true || (!currentScript.IsFavorite ))
             {
                 currentScript.IsFavorite = true;
                 currentScript.ImgFav = "unfav.png";

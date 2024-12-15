@@ -57,7 +57,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\arrowr.png" />
 	  <None Remove="Resources\Images\fav.png" />
+	  <None Remove="Resources\Images\settings.png" />
 	  <None Remove="Resources\Images\unFav.png" />
 	</ItemGroup>
 
@@ -71,6 +73,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="MVVM\Views\ConfigurationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\ResultPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

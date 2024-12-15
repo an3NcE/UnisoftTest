@@ -15,7 +15,7 @@
                 <Label Text="Podaj ścieżkę do skryptu:" VerticalOptions="End" Padding="0,15,0,0"/>
                 <Entry Placeholder="Ścieżka do skryptu" Text="{Binding CurrentScript.ScriptPath}"/>
                 <Grid ColumnDefinitions="Auto,Auto">
-                    <CheckBox CheckedChanged="CheckBox_CheckedChanged" Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
+                    <CheckBox Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
                     <Label Text="Dodaj do głównej" Grid.Column="1" VerticalOptions="Center"/>
                 </Grid>
                 <HorizontalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
@@ -28,7 +28,12 @@
             <VerticalStackLayout Grid.Column="1" Padding="15">
                 <Label Text="Konfiguracja aplikacji" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" Margin="10"/>
                 <Label Text="Ścieżka do AutoIT.exe"/>
-                <Entry Placeholder="sdsaads"/>
+                <HorizontalStackLayout HorizontalOptions="Start">
+                    <Entry Placeholder="Podaj ścieżkę do exe" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" />
+                    <ImageButton Source="fav.png" Command="{Binding SavePathAutoItExe}" HeightRequest="10"
+                                 BackgroundColor="Transparent"/>
+                </HorizontalStackLayout>
+                
 
             </VerticalStackLayout>
             
