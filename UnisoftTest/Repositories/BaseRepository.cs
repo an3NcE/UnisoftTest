@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿using Microsoft.Maui.Controls;
+using PropertyChanged;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -29,13 +30,25 @@ namespace UnisoftTest.Repositories
             int result = 0;
             try
             {
-                if(script.ScriptId != 0)
+                if (script.IsFavorite)
+                {
+                    
+                    script.ImgFav = "unfav.png";
+                }
+                else
+                {
+                    
+                    script.ImgFav = "fav.png";
+                }
+
+                if (script.ScriptId != 0)
                 {
                     result = connection.Update(script);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
+                    
                     result = connection.Insert(script);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
@@ -95,6 +108,12 @@ namespace UnisoftTest.Repositories
 
                 StatusMessage = $"Error: {ex.Message}";
             }
+        }
+
+        public void FavScript(AutoItScript script)
+        {
+            connection.Update(script);
+            
         }
 
 

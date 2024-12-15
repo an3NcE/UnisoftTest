@@ -24,5 +24,8 @@ public partial class ConfigurationPage : ContentPage
         MessagingCenter.Unsubscribe<ConfigurationPageViewModel, string>(this, "Alert");
     }
 
-    
+    private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+
+    }
 }

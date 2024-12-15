@@ -16,5 +16,7 @@ namespace UnisoftTest.MVVM.Models
         public string ScriptName {  get; set; }
         public string ScriptPath {  get; set; }
         public string ScriptResults {  get; set; }
+        public string ImgFav {  get; set; }
+        public bool IsFavorite {  get; set; }
     }
 }

@@ -2,25 +2,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.ConfigurationPage"
-             Title="ConfigurationPage">
-    <Grid RowDefinitions=".3*,.8*">
-        <VerticalStackLayout>
-            <Entry Placeholder="Nazwa skryptu" Text="{Binding CurrentScript.ScriptName}"/>
-            <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
-            <Entry Placeholder="Ścieżka do skryptu" Text="{Binding CurrentScript.ScriptPath}"/>
-            <Button Text="Add or Update"
-                    Command="{Binding AddOrUpdateCommand}"/>
-            <Button Text="Delete" Command="{Binding DeleteCommand}"  Grid.Column="2" Padding="10"/>
-        </VerticalStackLayout>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Scripts}" SelectedItem="{Binding CurrentScript}" SelectionMode="Single" SelectionChangedCommand="{Binding}">
+             Title="ConfigurationPage"
+             BackgroundColor="#404040">
+
+    <Grid RowDefinitions=".5*,.5*">
+        <Grid ColumnDefinitions="*,*">
+            <VerticalStackLayout Padding="15">
+                <Label Text="Dodanie/Edycja skryptu" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" Margin="10"/>
+                <Label Text="Podaj nazwę testu:" VerticalOptions="End"/>
+                <Entry Placeholder="Nazwa skryptu" Text="{Binding CurrentScript.ScriptName}"/>
+                <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
+                <Label Text="Podaj ścieżkę do skryptu:" VerticalOptions="End" Padding="0,15,0,0"/>
+                <Entry Placeholder="Ścieżka do skryptu" Text="{Binding CurrentScript.ScriptPath}"/>
+                <Grid ColumnDefinitions="Auto,Auto">
+                    <CheckBox CheckedChanged="CheckBox_CheckedChanged" Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
+                    <Label Text="Dodaj do głównej" Grid.Column="1" VerticalOptions="Center"/>
+                </Grid>
+                <HorizontalStackLayout Padding="10" Spacing="10" HorizontalOptions="Center">
+                    <Button Text="Add or Update"
+          Command="{Binding AddOrUpdateCommand}" HorizontalOptions="Center"/>
+                    <Button Text="Delete" Command="{Binding DeleteCommand}"  Padding="10" HorizontalOptions="Center"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="1" Padding="15">
+                <Label Text="Konfiguracja aplikacji" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" Margin="10"/>
+                <Label Text="Ścieżka do AutoIT.exe"/>
+                <Entry Placeholder="sdsaads"/>
+
+            </VerticalStackLayout>
+            
+            
+        </Grid>
+        
+        <CollectionView x:Name="clcVScripts" Grid.Row="1" ItemsSource="{Binding Scripts}" SelectedItem="{Binding CurrentScript}" SelectionMode="Single" SelectionChangedCommand="{Binding}" Margin="50,0,50,0">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+
+                <Grid ColumnDefinitions=".3*,.5*,.2*">
+                    <Label Text="Nazwa"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Ścieżka" 
+                           Grid.Column="1"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Czy na głównej?"
+                           Grid.Column="2"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                </Grid>
+
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
+
                     <Grid ColumnDefinitions=".3*,.5*,.2*">
-                        <Label Text="{Binding ScriptName}"/>
-                        <Label Text="{Binding ScriptPath}" 
-                               Grid.Column="1"/>
-                        <!--<Button Text="Delete" Command="{Binding DeleteCommand}" Clicked="Button_Clicked" Grid.Column="2" Padding="10"/>-->
+                        <Border Stroke="Black" StrokeThickness="1" Grid.Column="0">
+                            <Label Text="{Binding ScriptName}" 
+                                   HorizontalOptions="Center"/>
+                        </Border>
+
+                        <Border Stroke="Black" StrokeThickness="1" Grid.Column="1">
+                            <Label Text="{Binding ScriptPath}" 
+                               Grid.Column="1"
+                                   HorizontalTextAlignment="Center"/>
+                        </Border>
+
+                        <Border Stroke="Black" StrokeThickness="1" Grid.Column="2">
+                            <ImageButton Grid.Column="3" Source="{Binding ImgFav}" Command="{Binding BindingContext.AddToFavorite, Source={x:Reference Name=clcVScripts}}" CommandParameter="{Binding .}" 
+                                         HeightRequest="10"
+                                         HorizontalOptions="Center"
+                                         BackgroundColor="Transparent"/>
+                        </Border>
                     </Grid>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

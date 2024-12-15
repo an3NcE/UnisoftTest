@@ -21,8 +21,12 @@ namespace UnisoftTest.MVVM.ViewModels
 
         public ICommand AddOrUpdateCommand => new Command(AddOrUpdateComm);
         public ICommand DeleteCommand => new Command(DeleteComm);
+        public ICommand AddToFavorite => new Command(AddToFav);
+        
 
-       
+        
+
+
 
         //#region EntryInf
         //private string _nameScript;
@@ -65,8 +69,10 @@ namespace UnisoftTest.MVVM.ViewModels
                     //CurrentScript.ScriptName = _nameScript;
                     //CurrentScript.ScriptPath = _pathScript;
                     App.BaseRepo.AddOrUpdate(CurrentScript);
+                    
 
                     Debug.WriteLine(App.BaseRepo.StatusMessage);
+                    Refresh();
                 }
                 else
                 {
@@ -84,7 +90,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
 
 
-            Refresh();
+            
         }
       
 
@@ -93,7 +99,44 @@ namespace UnisoftTest.MVVM.ViewModels
         {
             
             Scripts = App.BaseRepo.GetAll();
+            CurrentScript = new AutoItScript();
+            IsChecked = false;
+            
         }
+
+        
+        
+        private bool _isChecked;
+
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                if (_isChecked != value)
+                {
+                    _isChecked = value;
+                    
+                }
+            }
+        }
+
+        public void AddToFav(object obj)
+        {
+            var currentScript = obj as AutoItScript;
+            if (_isChecked == true || (!currentScript.IsFavorite && !Scripts.Contains(currentScript)))
+            {
+                currentScript.IsFavorite = true;
+                currentScript.ImgFav = "unfav.png";
+            }else
+            {
+                currentScript.IsFavorite = false;
+                currentScript.ImgFav = "fav.png";
+            }
+            App.BaseRepo.FavScript(currentScript);
+            Refresh();
+        }
+
 
         //#region EntryValues
 
