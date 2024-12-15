@@ -124,13 +124,13 @@ namespace UnisoftTest.MVVM.ViewModels
 
         private void Refresh()
         {
-            AppSettingsList = App.BaseRepo.GetAllSettings();
+            //AppSettingsList = App.BaseRepo.GetAllSettings();
             Scripts = App.BaseRepo.GetAll();
             CurrentScript = new AutoItScript();
             IsChecked = false;
             //AppSettingsExePath = new AppSettings();
 
-            AppSettingsExePath = App.BaseRepo.GetPathExe(pathAutoItexeName);
+            AppSettingsExePath = App.BaseRepo.GetPathExe(0);
             if (AppSettingsExePath == null)
             {
                 SavePathExe();

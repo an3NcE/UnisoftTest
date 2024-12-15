@@ -6,7 +6,12 @@ public partial class ResultPage : ContentPage
 {
 	public ResultPage()
 	{
-		InitializeComponent();
+        MessagingCenter.Subscribe<ResultPageViewModel, string>(this, "Alert", async (sender, message) =>
+        {
+            await DisplayAlert("Informacja", message, "OK");
+        });
+
+        InitializeComponent();
 		BindingContext = new ResultPageViewModel();
         NavigationPage.SetHasNavigationBar(this, false);
     }
@@ -18,5 +23,11 @@ public partial class ResultPage : ContentPage
         {
             viewModel.Refresh();
         }
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        MessagingCenter.Unsubscribe<ResultPageViewModel, string>(this, "Alert");
     }
 }

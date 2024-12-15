@@ -59,12 +59,12 @@ namespace UnisoftTest.Repositories
             
         }
 
-        public AppSettings GetPathExe(string name)
+        public AppSettings GetPathExe(int id)
         {
             try
             {
                 //connection.Execute($"DELETE FROM AppSettings where SettingsName<>{name}");
-                return connection.Table<AppSettings>().FirstOrDefault(x => x.SettingsName == name);
+                return connection.Table<AppSettings>().FirstOrDefault(x => x.SettingsId == id);
             }
             catch (Exception ex)
             {

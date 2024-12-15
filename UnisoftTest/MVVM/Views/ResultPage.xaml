@@ -31,7 +31,7 @@
                                TextColor="Black"/>
                     </Grid>
                 </CollectionView.Header>
-                
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
@@ -57,11 +57,15 @@
                                          HorizontalOptions="Center"
                                          BackgroundColor="Transparent"/>
                         </Grid>
-                        
+
                     </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Frame>
+
+        <Editor Text="{Binding result}" Grid.Row="1" Grid.Column="1"/>
+
+
 
     </Grid>
 
