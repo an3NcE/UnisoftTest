@@ -62,8 +62,12 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Frame>
-
-        <Editor Text="{Binding result}" Grid.Row="1" Grid.Column="1"/>
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+            <Label x:Name="lblResult" Text="{Binding result, Mode=TwoWay}"/>
+            <Entry Text="{Binding ResultEditor, Mode=TwoWay}"/>
+            <Editor Text="{Binding ResultEditor, Mode=TwoWay}" />
+        </VerticalStackLayout>
+        
 
 
 

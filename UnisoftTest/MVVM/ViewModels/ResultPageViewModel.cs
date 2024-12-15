@@ -1,6 +1,7 @@
 ﻿using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
         public ResultPageViewModel()
         {
+            result = "Test";
             CurrentFAVScript = new AutoItScript();
             Refresh();
         }
@@ -103,6 +105,8 @@ namespace UnisoftTest.MVVM.ViewModels
                     result = result.Replace("\t", "\n");
                     process.WaitForExit();  // Czekanie na zakończenie procesu
                     Console.WriteLine("Ostatnia linia z pliku: " + result.Trim()); // Opcjonalnie wypisanie ostatniej linii
+                    //ResultEditor = result;
+                   
                 }
                 ////using var stream = await FileSystem.(resultPath);
                 ////using var stream = await FileSystem.(resultPath);
@@ -120,8 +124,27 @@ namespace UnisoftTest.MVVM.ViewModels
 
                 Debug.WriteLine(ex);
             }
-            
+
         }
+
+        //public string ResultEditor
+        //{
+        //    get => result;
+        //    set
+        //    {
+
+        //        result = value;
+        //        OnPropertyChanged(nameof(ResultEditor));
+        //    }
+
+        //}
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         private void GoToConfigurationPage(object obj)
         {
