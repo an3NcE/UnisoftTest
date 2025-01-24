@@ -12,9 +12,10 @@ namespace UnisoftTest
             InitializeComponent();
             BaseRepo = repo;
 
-            MainPage = new NavigationPage( new ResultPage());
+            //MainPage = new NavigationPage( new ResultPage());
+            MainPage = new AppShell();
+            //NavigationPage.SetHasNavigationBar(this, false);
 
-            
         }
         protected override Window CreateWindow(IActivationState activationState)
         {

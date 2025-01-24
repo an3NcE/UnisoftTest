@@ -13,7 +13,7 @@ public partial class ResultPage : ContentPage
 
         InitializeComponent();
 		BindingContext = new ResultPageViewModel();
-        NavigationPage.SetHasNavigationBar(this, false);
+        //NavigationPage.SetHasNavigationBar(this, false);
     }
 
     protected override void OnAppearing()

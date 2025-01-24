@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.ResultPage"
-             Title="ResultPage"
-             NavigationPage.HasNavigationBar="False"
+             Title="Testy Wydajnościowe"
+             
             >
+    <!--NavigationPage.HasNavigationBar="True"-->
     <Grid RowDefinitions=".1*, .5*, .1*"
           ColumnDefinitions=".5*,.5*" BackgroundColor="Black">
         <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg3.png"  Aspect="Fill" Opacity="0.5"/>
@@ -27,6 +28,7 @@
                          VerticalOptions="Start"
                          Aspect="AspectFit"
                          BackgroundColor="Transparent"
+                         IsVisible="False"
                          />
         </Grid>
 

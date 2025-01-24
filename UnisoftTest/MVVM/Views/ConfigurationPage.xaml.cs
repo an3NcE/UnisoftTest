@@ -16,7 +16,9 @@ public partial class ConfigurationPage : ContentPage
         });
 
         BindingContext = new ConfigurationPageViewModel();
-	}
+
+        
+    }
 
     protected override void OnDisappearing()
     {

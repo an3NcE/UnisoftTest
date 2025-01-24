@@ -37,6 +37,9 @@ namespace UnisoftTest.MVVM.ViewModels
             ResultEditor = result;
             CurrentFAVScript = new AutoItScript();
             Refresh();
+            //rejestracja strony
+            //Routing.RegisterRoute(nameof(ConfigurationPage), typeof(ConfigurationPage));
+            
         }
 
         public void Refresh()
@@ -146,9 +149,12 @@ namespace UnisoftTest.MVVM.ViewModels
         //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         //}
 
-        private void GoToConfigurationPage(object obj)
+        private async void GoToConfigurationPage(object obj)
         {
-            (Application.Current.MainPage as NavigationPage)?.PushAsync(new ConfigurationPage());
+            //(Application.Current.MainPage as NavigationPage)?.PushAsync(new ConfigurationPage());
+            //await Shell.Current.GoToAsync(nameof(ConfigurationPage));
+            await Shell.Current.GoToAsync("ConfigurationPageRoute");
+
         }
     }
 }

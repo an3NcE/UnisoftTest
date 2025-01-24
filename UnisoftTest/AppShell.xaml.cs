@@ -1,10 +1,16 @@
-﻿namespace UnisoftTest
+﻿using UnisoftTest.MVVM.Views;
+
+namespace UnisoftTest
 {
     public partial class AppShell : Shell
     {
         public AppShell()
         {
             InitializeComponent();
+            //Routing.RegisterRoute("ResultPageHome", typeof(ResultPage)); // Rejestracja trasy dla ResultPage
+            //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
+            
+
         }
     }
 }

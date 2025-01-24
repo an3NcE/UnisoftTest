@@ -3,13 +3,32 @@
     x:Class="UnisoftTest.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:UnisoftTest"
-    Shell.FlyoutBehavior="Disabled"
-    Title="UnisoftTest">
+    xmlns:local="clr-namespace:UnisoftTest.MVVM.Views"
+    Shell.FlyoutBehavior="Flyout"
+    Title="UnisoftTest"
+    Shell.TabBarIsVisible="True"
+    Shell.NavBarIsVisible="False">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Testy Wydajnościowe">
+        <!--<ShellContent
+                    Title="Home"
+                    ContentTemplate="{DataTemplate local:MainPage}"
+                    Route="MainPage" />-->
+        <ShellContent
+                    Title="Testy Wydajnościowe"
+                    ContentTemplate="{DataTemplate local:ResultPage}"
+                    Route="ResultPage" />
+        <ShellContent
+            Title="Panel Konfiguracyjny"
+            ContentTemplate="{DataTemplate local:ConfigurationPage}"
+            Icon="settings.png"
+            Route="ResultPage" 
+            />
+    </FlyoutItem>
+    
+
+
+
+
 
 </Shell>
