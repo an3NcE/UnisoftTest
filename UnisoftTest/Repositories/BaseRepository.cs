@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnisoftTest.MVVM.Models;
+using UniTest.MVVM.Models;
 using static SQLite.SQLite3;
 
 namespace UnisoftTest.Repositories
@@ -26,6 +27,7 @@ namespace UnisoftTest.Repositories
 
             connection.CreateTable<AutoItScript>();
             connection.CreateTable<AppSettings>();
+            connection.CreateTable<CopyBaseScripts>();
 
 
         }

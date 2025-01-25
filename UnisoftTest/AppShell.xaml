@@ -7,9 +7,23 @@
     Shell.FlyoutBehavior="Flyout"
     Title="UnisoftTest"
     Shell.TabBarIsVisible="True"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="False"
+    >
 
-    <FlyoutItem Title="Testy Wydajnościowe">
+    <!--<Shell.FlyoutContent>
+        <Grid>
+             
+            <Image Source="bg.png" 
+                   Aspect="AspectFill" 
+                   HorizontalOptions="FillAndExpand" 
+                   VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </Shell.FlyoutContent>-->
+
+    <FlyoutItem Title="Testy Wydajnościowe" 
+                Icon="tests.png"
+                >
+
         <!--<ShellContent
                     Title="Home"
                     ContentTemplate="{DataTemplate local:MainPage}"
@@ -17,17 +31,36 @@
         <ShellContent
                     Title="Testy Wydajnościowe"
                     ContentTemplate="{DataTemplate local:ResultPage}"
+                    Icon="tests.png"
                     Route="ResultPage" />
         <ShellContent
             Title="Panel Konfiguracyjny"
             ContentTemplate="{DataTemplate local:ConfigurationPage}"
-            Icon="settings.png"
-            Route="ResultPage" 
+            Icon="wrench.png"
+            Route="ConfigurationPage" 
             />
+
+
     </FlyoutItem>
-    
 
+    <FlyoutItem Title="Kopia Bazy" >
+        <ShellContent
+            Title="Kopia Bazy"
+            ContentTemplate="{DataTemplate local:CopyBasePage}"
+            Route="CopyBasePage" />
+        <ShellContent
+                    Title="Konfiguracja kopii"
+                    ContentTemplate="{DataTemplate local:CopyBaseConfigurationPage}"
+                    Route="CopyBaseConfigurationPage" />
+    </FlyoutItem>
 
+    <FlyoutItem Title="Kopia Bazy2"  FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent
+        Title="Kopia Bazy"
+        ContentTemplate="{DataTemplate local:CopyBasePage}"
+        Route="CopyBasePage2" />
+
+    </FlyoutItem>
 
 
 

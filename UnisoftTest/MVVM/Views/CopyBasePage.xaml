@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnisoftTest.MVVM.Views.CopyBasePage"
+             Title="CopyBasePage">
+    
+    <Grid RowDefinitions=".15*, .3*, .6*"
+      ColumnDefinitions=".5*" BackgroundColor="Green">
+        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
+        <Grid Grid.Row="0" 
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="End"
+          Grid.ColumnSpan="2">
+            <Image 
+               Source="logoresultview.png"  
+               Aspect="AspectFit" 
+               HorizontalOptions="Start" 
+               Margin="5,10,0,0"/>
+            
+        </Grid>
+
+        <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="Transparent" Margin="10,20,10,0"  >
+            <Grid BackgroundColor="Transparent">
+                <Image  Grid.ColumnSpan="2" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" />
+
+               
+            </Grid>
+        </Frame >
+
+        <Frame Grid.Row="2" Grid.Column="1"  Margin="10,10,10,15" CornerRadius="20" BackgroundColor="Transparent">
+            <Grid BackgroundColor="Transparent" VerticalOptions="FillAndExpand" >
+                <Image  Grid.ColumnSpan="2" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" />
+                <Grid Margin="15" 
+                  RowDefinitions=".1*,.9*"
+                  >
+                    <Label Text="Rezultat Kopiowania Bazy:" FontAttributes="Bold" Margin="10,0,0,0"/>
+                    <Editor Grid.Row="1" Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" />
+                </Grid>
+            </Grid>
+        </Frame>
+
+        <Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>
+
+    </Grid>
+</ContentPage>

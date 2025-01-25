@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnisoftTest.MVVM.Views.CopyBaseConfigurationPage"
+             Title="CopyBaseConfigurationPage">
+    <Grid RowDefinitions=".5*,.5*"
+          ColumnDefinitions=".5*,.5*"
+         BackgroundColor="DarkGreen">
+        <Image Grid.Row="0" Grid.RowSpan="2"
+               Grid.ColumnSpan="2"
+               Source="bg4.png"  Aspect="Fill" Opacity="0.2"/>
+        
+        <Grid ColumnDefinitions=".5*,.5*" Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"
+              Grid.ColumnSpan="2">
+            <Label Text="Dodanie/Edycja skryptu" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" />
+            <VerticalStackLayout Padding="0">
+                
+                <Label Text="Z bazy:" VerticalOptions="End"/>
+                <Entry Placeholder="Główna Baza" Text="{Binding CurrentScript.ScriptName}"/>
+                <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
+                <Label Text="Do bazy" VerticalOptions="End" />
+                <Entry Placeholder="Docelowa baza" Text="{Binding CurrentScript.ScriptPath}"/>
+                <Grid ColumnDefinitions="Auto,Auto">
+                    <CheckBox Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
+                    <Label Text="Widoczność skryptu" Grid.Column="1" VerticalOptions="Center"/>
+                </Grid>
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <ImageButton  Source="save1.png"
+                                 Command="{Binding AddOrUpdateCommand}" 
+                                 HeightRequest="35"
+                                 Aspect="AspectFit"
+                                 BackgroundColor="Transparent"/>
+                    <ImageButton Source="delete.png" Command="{Binding DeleteCommand}"  
+                                HeightRequest="35" 
+                                Aspect="AspectFit" 
+                                BackgroundColor="Transparent"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+            
+
+
+        </Grid>
+
+        <VerticalStackLayout Grid.Column="1" Padding="0" 
+                             HorizontalOptions="FillAndExpand" Margin="5,10,0,0"
+                             VerticalOptions="FillAndExpand">
+            <!--<Label Text="Konfiguracja aplikacji" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" />-->
+            <Label Text="Skrypt" Margin="10,0,0,0"/>
+            <Grid >
+                <Entry Placeholder="Wstaw skrypt" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" 
+              HorizontalOptions="StartAndExpand" 
+              VerticalOptions="FillAndExpand"
+                       Margin="10"
+                       />
+                
+            </Grid>
+
+
+        </VerticalStackLayout>
+
+
+    </Grid>
+</ContentPage>
