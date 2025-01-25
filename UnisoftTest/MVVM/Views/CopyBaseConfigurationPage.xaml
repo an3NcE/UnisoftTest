@@ -3,22 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.CopyBaseConfigurationPage"
              Title="CopyBaseConfigurationPage">
-    <Grid RowDefinitions=".5*,.5*"
+    <Grid RowDefinitions=".08*,.57*,.45*"
           ColumnDefinitions=".5*,.5*"
-         BackgroundColor="DarkGreen">
-        <Image Grid.Row="0" Grid.RowSpan="2"
+         BackgroundColor="DarkGreen"
+          VerticalOptions="FillAndExpand">
+        <Image Grid.Row="0" 
+               Grid.RowSpan="3"
                Grid.ColumnSpan="2"
                Source="bg4.png"  Aspect="Fill" Opacity="0.2"/>
+        <Label Text="Dodanie/Edycja skryptu" 
+               Grid.ColumnSpan="2"
+               VerticalOptions="Center"
+               HorizontalTextAlignment="Center"
+               FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" 
+               Grid.Row="0"/>
         
-        <Grid ColumnDefinitions=".5*,.5*" Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"
-              Grid.ColumnSpan="2">
-            <Label Text="Dodanie/Edycja skryptu" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" />
-            <VerticalStackLayout Padding="0">
-                
+
+            <VerticalStackLayout Margin="10"
+                                 Grid.Row="1">
+
                 <Label Text="Z bazy:" VerticalOptions="End"/>
                 <Entry Placeholder="Główna Baza" Text="{Binding CurrentScript.ScriptName}"/>
                 <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
-                <Label Text="Do bazy" VerticalOptions="End" />
+                <Label Text="Do bazy:" VerticalOptions="End" />
                 <Entry Placeholder="Docelowa baza" Text="{Binding CurrentScript.ScriptPath}"/>
                 <Grid ColumnDefinitions="Auto,Auto">
                     <CheckBox Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
@@ -37,27 +44,26 @@
                 </HorizontalStackLayout>
 
             </VerticalStackLayout>
-            
 
 
-        </Grid>
 
-        <VerticalStackLayout Grid.Column="1" Padding="0" 
+        
+
+        <ScrollView Grid.Column="1" 
+                             Grid.Row="1"
+                             Grid.RowSpan="2"
+                             Padding="0" 
                              HorizontalOptions="FillAndExpand" Margin="5,10,0,0"
-                             VerticalOptions="FillAndExpand">
-            <!--<Label Text="Konfiguracja aplikacji" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" />-->
-            <Label Text="Skrypt" Margin="10,0,0,0"/>
-            <Grid >
-                <Entry Placeholder="Wstaw skrypt" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" 
-              HorizontalOptions="StartAndExpand" 
-              VerticalOptions="FillAndExpand"
-                       Margin="10"
-                       />
-                
-            </Grid>
+                             VerticalOptions="FillAndExpand" >
 
+            <!--<Label Text="Skrypt" Margin="10,0,0,0"/>-->
 
-        </VerticalStackLayout>
+            <Editor Placeholder="Wstaw skrypt" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="FillAndExpand"
+                        Margin="10"/>
+
+        </ScrollView>
 
 
     </Grid>

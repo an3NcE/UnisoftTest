@@ -31,6 +31,39 @@ namespace UnisoftTest.Repositories
 
 
         }
+        #region BaseScript
+        public void AddOrUpdateBaseScript(CopyBaseScripts script)
+        {
+            int result = 0;
+            try
+            {
+                
+
+                if (script.BaseScriptId != 0)
+                {
+                    script.CreateScriptDate = DateTime.Now;
+                    result = connection.Update(script);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    script.CreateScriptDate = DateTime.Now;
+                    result = connection.Insert(script);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            Console.WriteLine(StatusMessage);
+        }
+        #endregion
+
+
 
         #region AppSettings
 
