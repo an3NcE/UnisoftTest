@@ -61,6 +61,24 @@ namespace UnisoftTest.Repositories
             }
             Console.WriteLine(StatusMessage);
         }
+
+        public List<CopyBaseScripts> GetAllBaseScripts()
+        {
+            try
+            {
+                //return connection.Table<AutoItScript>().ToList();
+                return connection.Query<CopyBaseScripts>("SELECT * FROM CopyBaseScripts").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        }
+
         #endregion
 
 
