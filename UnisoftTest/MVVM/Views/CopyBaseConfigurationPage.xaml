@@ -17,37 +17,49 @@
                HorizontalTextAlignment="Center"
                FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" 
                Grid.Row="0"/>
-        
 
-            <VerticalStackLayout Margin="10"
+
+        <VerticalStackLayout Margin="10"
                                  Grid.Row="1">
 
-                <Label Text="Z bazy:" VerticalOptions="End"/>
-                <Entry Placeholder="Główna Baza" Text="{Binding CurrentScript.ScriptName}"/>
-                <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
-                <Label Text="Do bazy:" VerticalOptions="End" />
-                <Entry Placeholder="Docelowa baza" Text="{Binding CurrentScript.ScriptPath}"/>
-                <Grid ColumnDefinitions="Auto,Auto">
-                    <CheckBox Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
-                    <Label Text="Widoczność skryptu" Grid.Column="1" VerticalOptions="Center"/>
-                </Grid>
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                    <ImageButton  Source="save1.png"
+            <Label Text="Z bazy:" VerticalOptions="End"/>
+            <Entry Placeholder="Główna Baza" Text="{Binding CurrentScript.SourceBaseName}"/>
+            <!--<Entry Placeholder="Ścieżka do skryptu" Text="{Binding PathScriptEntry, Mode=TwoWay}"/>-->
+            <Label Text="Do bazy:" VerticalOptions="End" />
+            <Entry Placeholder="Docelowa baza" Text="{Binding CurrentScript.DestinationBaseName}"/>
+            <Grid ColumnDefinitions="Auto,Auto">
+                <CheckBox Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
+                <Label Text="Widoczność skryptu" Grid.Column="1" VerticalOptions="Center"/>
+            </Grid>
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <ImageButton  Source="save1.png"
                                  Command="{Binding AddOrUpdateCommand}" 
                                  HeightRequest="35"
                                  Aspect="AspectFit"
                                  BackgroundColor="Transparent"/>
-                    <ImageButton Source="delete.png" Command="{Binding DeleteCommand}"  
+                <ImageButton Source="delete.png" Command="{Binding DeleteCommand}"  
                                 HeightRequest="35" 
                                 Aspect="AspectFit" 
                                 BackgroundColor="Transparent"/>
-                </HorizontalStackLayout>
+            </HorizontalStackLayout>
 
-            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding BaseScripts}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions=".5*,.5*">
+                        <Label Text="{Binding SourceBaseName}" />
+                        <Label Text="test" Grid.Column="1"/>
+                    </Grid>
+                    
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
 
 
-
-        
 
         <ScrollView Grid.Column="1" 
                              Grid.Row="1"
@@ -58,7 +70,7 @@
 
             <!--<Label Text="Skrypt" Margin="10,0,0,0"/>-->
 
-            <Editor Placeholder="Wstaw skrypt" Text="{Binding AppSettingsExePath.SettingsValue, Mode=TwoWay}" 
+            <Editor Placeholder="Wstaw skrypt" Text="{Binding CurrentScript.CopyBaseScript, Mode=TwoWay}" 
                         HorizontalOptions="FillAndExpand" 
                         VerticalOptions="FillAndExpand"
                         Margin="10"/>

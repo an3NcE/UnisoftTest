@@ -14,7 +14,7 @@ namespace UniTest.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class CopyBaseConfigurationPageViewModel
     {
-        public List<CopyBaseScripts> Scripts { get; set; }
+        public List<CopyBaseScripts> BaseScripts { get; set; }
         public CopyBaseScripts CurrentScript { get; set; }
 
         public ICommand AddOrUpdateCommand => new Command(AddOrUpdateComm);
@@ -22,6 +22,7 @@ namespace UniTest.MVVM.ViewModels
         public CopyBaseConfigurationPageViewModel()
         {
             CurrentScript = new CopyBaseScripts();
+            Refresh();
         }
 
         private async void AddOrUpdateComm()
@@ -50,8 +51,8 @@ namespace UniTest.MVVM.ViewModels
         }
         private void Refresh()
         {
-            
-            Scripts = App.BaseRepo.GetAllBaseScripts();
+
+            BaseScripts = App.BaseRepo.GetAllBaseScripts();
             CurrentScript = new CopyBaseScripts();
             
 
