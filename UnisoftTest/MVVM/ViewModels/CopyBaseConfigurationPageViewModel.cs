@@ -18,6 +18,7 @@ namespace UniTest.MVVM.ViewModels
         public CopyBaseScripts CurrentScript { get; set; }
 
         public ICommand AddOrUpdateCommand => new Command(AddOrUpdateComm);
+        public ICommand DeleteCommand => new Command(DeleteComm);
 
         public CopyBaseConfigurationPageViewModel()
         {
@@ -34,7 +35,7 @@ namespace UniTest.MVVM.ViewModels
                 CurrentScript = new CopyBaseScripts();
             }
 
-            if (!string.IsNullOrEmpty(CurrentScript.SourceBaseName) || !string.IsNullOrEmpty(CurrentScript.DestinationBaseName) || !string.IsNullOrEmpty(CurrentScript.CopyBaseScript))
+            if (!string.IsNullOrEmpty(CurrentScript.SourceBaseName) & !string.IsNullOrEmpty(CurrentScript.DestinationBaseName) & !string.IsNullOrEmpty(CurrentScript.CopyBaseScript))
             {
                 App.BaseRepo.AddOrUpdateBaseScript(CurrentScript);
 
@@ -58,6 +59,12 @@ namespace UniTest.MVVM.ViewModels
 
             //AppSettingsExePath = new AppSettings();
 
+        }
+
+        private void DeleteComm(object obj)
+        {
+            App.BaseRepo.DeleteBaseScript(CurrentScript.BaseScriptId);
+            Refresh();
         }
     }
 }

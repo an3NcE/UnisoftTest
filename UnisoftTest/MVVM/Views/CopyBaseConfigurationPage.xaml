@@ -11,7 +11,7 @@
                Grid.RowSpan="3"
                Grid.ColumnSpan="2"
                Source="bg4.png"  Aspect="Fill" Opacity="0.2"/>
-        <Label Text="Dodanie/Edycja skryptu" 
+        <Label Text="Dodanie/Edycja skryptu kopiowania bazy" 
                Grid.ColumnSpan="2"
                VerticalOptions="Center"
                HorizontalTextAlignment="Center"
@@ -45,19 +45,73 @@
 
         </VerticalStackLayout>
 
-        <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding BaseScripts}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid ColumnDefinitions=".5*,.5*">
-                        <Label Text="{Binding SourceBaseName}" />
-                        <Label Text="test" Grid.Column="1"/>
-                    </Grid>
-                    
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+        <Frame CornerRadius="20" 
+               Grid.Row="2" 
+               BackgroundColor="Transparent">
+            <Grid BackgroundColor="Transparent">
+                <Image   Source="bgpink.png"  Aspect="Fill" Opacity="0.4" />
 
-        </CollectionView>
+                <CollectionView 
+                        ItemsSource="{Binding BaseScripts}"
+                        SelectedItem="{Binding CurrentScript}" 
+                        SelectionMode="Single" 
+                        SelectionChangedCommand="{Binding}"
+                        BackgroundColor="Gray">
+                    <CollectionView.Header>
+
+                        <Grid ColumnDefinitions=".3*,.3*,.4*">
+
+                            <Label Text="Z bazy:"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               />
+                            <Label Text="Do bazy:" 
+                           Grid.Column="1"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                            <Label Text="Data:"
+                           Grid.Column="2"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                        </Grid>
+
+                    </CollectionView.Header>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                     ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions=".3*,.3*,.4*"
+                          >
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#D3D3D3" Offset="0.0" />
+                                        <!-- Jasnoszary -->
+                                        <GradientStop Color="#A9A9A9" Offset="0.5" />
+                                        <!-- Średni szary -->
+                                        <GradientStop Color="#D3D3D3" Offset="1.0" />
+                                        <!-- Jasnoszary -->
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+
+                                <Label Text="{Binding SourceBaseName}" 
+                               HorizontalOptions="Center"
+                               TextColor="Black"/>
+                                <Label Text="{Binding DestinationBaseName}" Grid.Column="1"
+                               HorizontalOptions="Center"
+                               TextColor="Black"/>
+                                <Label Text="{Binding CreateScriptDate}" Grid.Column="2"
+                               HorizontalOptions="Center"
+                               TextColor="Black"/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </Grid>
+        </Frame >
 
 
 

@@ -79,6 +79,22 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
+        public void DeleteBaseScript(int id)
+        {
+            try
+            {
+                //var script = Get(id);
+                //connection.Delete(script);
+                connection.Execute($"DELETE FROM CopyBaseScripts where BaseScriptId={id}");
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+        }
+
+
         #endregion
 
 

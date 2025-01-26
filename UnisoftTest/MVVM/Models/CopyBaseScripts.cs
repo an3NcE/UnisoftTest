@@ -10,7 +10,7 @@ namespace UniTest.MVVM.Models
     [Table("CopyBaseScripts")]
     public class CopyBaseScripts
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int BaseScriptId { get; set; }
         public string SourceBaseName { get; set; }
         public string DestinationBaseName { get; set; }
