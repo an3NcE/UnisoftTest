@@ -35,11 +35,14 @@ namespace UnisoftTest.Repositories
         public void AddOrUpdateBaseScript(CopyBaseScripts script)
         {
             int result = 0;
+            var existingScript = connection.Find<CopyBaseScripts>(script.BaseScriptId);
             try
             {
                 
 
-                if (script.BaseScriptId != 0)
+                //if (script.BaseScriptId != 0)
+                //if (connection.Query<CopyBaseScripts>($"SELECT * FROM CopyBaseScripts WHERE BaseScriptId={script.BaseScriptId}").Any())
+                if (existingScript !=null)
                 {
                     script.CreateScriptDate = DateTime.Now;
                     result = connection.Update(script);

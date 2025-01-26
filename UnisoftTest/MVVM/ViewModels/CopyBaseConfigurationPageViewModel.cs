@@ -22,7 +22,7 @@ namespace UniTest.MVVM.ViewModels
 
         public CopyBaseConfigurationPageViewModel()
         {
-            CurrentScript = new CopyBaseScripts();
+            //CurrentScript = new CopyBaseScripts();
             Refresh();
         }
 

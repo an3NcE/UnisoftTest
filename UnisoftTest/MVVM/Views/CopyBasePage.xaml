@@ -20,10 +20,12 @@
         </Grid>
 
         <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="Transparent" Margin="10,20,10,0"  >
-            <Grid BackgroundColor="Transparent">
-                <Image  Grid.ColumnSpan="2" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" />
+            <Grid BackgroundColor="Transparent"
+                  ColumnDefinitions=".7*,.3*">
+                <Image  Grid.ColumnSpan="2" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" Grid.RowSpan="2"/>
+                <Picker ItemsSource="{Binding BaseScripts}"
+                        ItemDisplayBinding="{Binding DisplayName}"/>
 
-               
             </Grid>
         </Frame >
 
