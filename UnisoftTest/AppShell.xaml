@@ -47,11 +47,13 @@
         <ShellContent
             Title="Kopia Bazy"
             ContentTemplate="{DataTemplate local:CopyBasePage}"
+            Icon="tests.png"
             Route="CopyBasePage" />
         <ShellContent
                     Title="Konfiguracja kopii"
                     ContentTemplate="{DataTemplate local:CopyBaseConfigurationPage}"
-                    Route="CopyBaseConfigurationPage" />
+                    Route="CopyBaseConfigurationPage" 
+                    Icon="wrench.png"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Kopia Bazy2"  FlyoutDisplayOptions="AsMultipleItems">

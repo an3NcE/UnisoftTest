@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.CopyBasePage"
              Title="CopyBasePage">
-    
+
     <Grid RowDefinitions=".15*, .3*, .6*"
       ColumnDefinitions=".5*" BackgroundColor="Green">
         <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
@@ -12,24 +12,33 @@
           VerticalOptions="End"
           Grid.ColumnSpan="2">
             <Image 
-               Source="logoresultview.png"  
+               Source="logocopybaseview.png"  
                Aspect="AspectFit" 
                HorizontalOptions="Start" 
                Margin="5,10,0,0"/>
-            
+
         </Grid>
 
         <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="Transparent" Margin="10,20,10,0"  >
             <Grid BackgroundColor="Transparent"
                   ColumnDefinitions=".7*,.3*">
                 <Image  Grid.ColumnSpan="2" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" Grid.RowSpan="2"/>
-                <Picker ItemsSource="{Binding BaseScripts}"
+                <Picker x:Name="pickBaseScript"
+                        ItemsSource="{Binding BaseScripts}"
                         ItemDisplayBinding="{Binding DisplayName}"
                         Title="Wybierz skrypt"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center"
                         TitleColor="White"
                         Margin="5"/>
+                <ImageButton Grid.Column="1" 
+             Source="arrowr.png" 
+             Command="{Binding RunScript}" 
+             CommandParameter="{Binding SelectedItem, Source={x:Reference pickBaseScript}}" 
+             HeightRequest="10"
+             HorizontalOptions="Center"
+             VerticalOptions="Center"
+             BackgroundColor="Transparent" />
 
             </Grid>
         </Frame >
