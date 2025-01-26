@@ -24,7 +24,12 @@
                   ColumnDefinitions=".7*,.3*">
                 <Image  Grid.ColumnSpan="2" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" Grid.RowSpan="2"/>
                 <Picker ItemsSource="{Binding BaseScripts}"
-                        ItemDisplayBinding="{Binding DisplayName}"/>
+                        ItemDisplayBinding="{Binding DisplayName}"
+                        Title="Wybierz skrypt"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        TitleColor="White"
+                        Margin="5"/>
 
             </Grid>
         </Frame >

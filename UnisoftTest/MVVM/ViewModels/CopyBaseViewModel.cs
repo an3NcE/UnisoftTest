@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using UniTest.MVVM.Models;
 
 namespace UnisoftTest.MVVM.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class CopyBasePageViewModel
     {
         public List<CopyBaseScripts> BaseScripts { get; set; }
