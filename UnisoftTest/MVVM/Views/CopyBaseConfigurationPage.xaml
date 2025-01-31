@@ -113,23 +113,32 @@
             </Grid>
         </Frame >
 
+        <Grid Grid.Column="1" 
+              Grid.Row="1"
+              Grid.RowSpan="2"
+              VerticalOptions="FillAndExpand" 
+              RowDefinitions=".1*,.9*">
+            <Editor Margin="10,10,0,0"
+                    Placeholder="Wstaw skrypt cmd"
+                    Text="{Binding CurrentScript.CopyBaseScriptCMD, Mode=TwoWay}"/>
 
+            <ScrollView Grid.Row="1"
+                     Padding="0" 
+                     HorizontalOptions="FillAndExpand" Margin="5,10,0,0"
+                     VerticalOptions="FillAndExpand" >
 
-        <ScrollView Grid.Column="1" 
-                             Grid.Row="1"
-                             Grid.RowSpan="2"
-                             Padding="0" 
-                             HorizontalOptions="FillAndExpand" Margin="5,10,0,0"
-                             VerticalOptions="FillAndExpand" >
+                <!--<Label Text="Skrypt" Margin="10,0,0,0"/>-->
 
-            <!--<Label Text="Skrypt" Margin="10,0,0,0"/>-->
+                <Editor Placeholder="Wstaw skrypt SQL" Text="{Binding CurrentScript.CopyBaseScript, Mode=TwoWay}" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand"
+                Margin="10"/>
 
-            <Editor Placeholder="Wstaw skrypt" Text="{Binding CurrentScript.CopyBaseScript, Mode=TwoWay}" 
-                        HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="FillAndExpand"
-                        Margin="10"/>
+            </ScrollView>
 
-        </ScrollView>
+        </Grid>
+
+        
 
 
     </Grid>

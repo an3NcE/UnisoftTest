@@ -27,4 +27,6 @@ public partial class ConfigurationPage : ContentPage
     }
 
     
+
+
 }

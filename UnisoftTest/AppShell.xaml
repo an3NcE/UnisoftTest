@@ -37,7 +37,8 @@
             Title="Panel Konfiguracyjny"
             ContentTemplate="{DataTemplate local:ConfigurationPage}"
             Icon="wrench.png"
-            Route="ConfigurationPage" 
+            Route="ConfigurationPage"
+            
             />
 
 

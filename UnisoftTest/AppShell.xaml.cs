@@ -9,8 +9,10 @@ namespace UnisoftTest
             InitializeComponent();
             //Routing.RegisterRoute("ResultPageHome", typeof(ResultPage)); // Rejestracja trasy dla ResultPage
             //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
-            
-
+            App.BaseRepo.AddOrUpdateAppAdministrator(true);
+            Routing.RegisterRoute("ResultPage", typeof(ResultPage));
         }
+
+       
     }
 }

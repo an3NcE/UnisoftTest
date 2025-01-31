@@ -14,6 +14,7 @@ namespace UniTest.MVVM.Models
         public int BaseScriptId { get; set; }
         public string SourceBaseName { get; set; }
         public string DestinationBaseName { get; set; }
+        public string CopyBaseScriptCMD { get; set; }
         public string CopyBaseScript { get; set; }
 
         public DateTime CreateScriptDate { get; set; }

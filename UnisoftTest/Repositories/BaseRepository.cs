@@ -1,8 +1,10 @@
-﻿using Microsoft.Maui.Controls;
+﻿
+using Microsoft.Maui.Controls;
 using PropertyChanged;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace UnisoftTest.Repositories
         public string StatusMessage;
         public List<AppSettings> AppSettingsList { get; set; }
         public AppSettings AppSettingsExePath { get; set; }
+        public AppSettings AdministratorSet { get; set; }
 
 
         public BaseRepository()
@@ -29,13 +32,16 @@ namespace UnisoftTest.Repositories
             connection.CreateTable<AppSettings>();
             connection.CreateTable<CopyBaseScripts>();
 
+            
+
+
 
         }
         #region BaseScript
         public void AddOrUpdateBaseScript(CopyBaseScripts script)
         {
             int result = 0;
-            var existingScript = connection.Find<CopyBaseScripts>(script.BaseScriptId);
+            var existingScript = connection.Find<CopyBaseScripts>("Administrator");
             try
             {
                 
@@ -104,9 +110,53 @@ namespace UnisoftTest.Repositories
 
         #region AppSettings
 
+        public void AddOrUpdateAppAdministrator(bool admValue)
+        {
+            AdministratorSet = new AppSettings();
+            int result = 0;
+            AdministratorSet.SettingsName = "Administrator2";
+            AdministratorSet.SettingsId = 1;
+            if ( admValue = true)
+            {
+                AdministratorSet.SettingsValue = "1";
+            }
+            else
+            {
+                AdministratorSet.SettingsValue = "0";
+            }
+            
+            var existingScript = connection.Find<AppSettings>(AdministratorSet.SettingsId);
+            
+
+            try
+            {
+                if (existingScript != null)
+                {
+                    AdministratorSet.SettingsCreatedAt = DateTime.Now;
+                    result = connection.Update(AdministratorSet);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    AdministratorSet.SettingsCreatedAt = DateTime.Now;
+                    result = connection.Insert(AdministratorSet);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
         public void AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
         {
             int result = 0;
+            appSettings.SettingsId = 0;
+
             try
             {
                 if (appSettings.SettingsValue != null)

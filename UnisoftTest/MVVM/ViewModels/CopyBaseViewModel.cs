@@ -43,7 +43,9 @@ namespace UnisoftTest.MVVM.ViewModels
 
             var currentCopyBaseScript = obj as CopyBaseScripts;
 
-            string txtScript = currentCopyBaseScript.CopyBaseScript;
+            string txtScript = currentCopyBaseScript.CopyBaseScriptCMD;
+
+            string sqlFilePath = Path.Combine(Path.GetTempPath(), "script.sql");
 
             //ResultEditor = txtScript;
             try
@@ -51,13 +53,15 @@ namespace UnisoftTest.MVVM.ViewModels
                 // Włącz ikonę ładowania
                 LoadingIcon(true);
 
+                File.WriteAllText(sqlFilePath, currentCopyBaseScript.CopyBaseScript);
+
                 // Wykonaj ciężkie zadanie w tle
                 await Task.Run(() =>
                 {
                     // Symulacja ciężkiego zadania
                     Process process = new Process();
                     process.StartInfo.FileName = "cmd.exe";
-                    process.StartInfo.Arguments = $"/c {txtScript}";
+                    process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
                     process.StartInfo.UseShellExecute = false;
@@ -85,6 +89,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 // Wyłącz ikonę ładowania
                 LoadingIcon(false);
             }
+            File.Delete(sqlFilePath);
         }
 
         public void LoadingIcon(bool isRunning)
