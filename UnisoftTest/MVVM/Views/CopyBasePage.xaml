@@ -5,7 +5,7 @@
              Title="CopyBasePage">
 
     <Grid RowDefinitions=".15*, .3*, .6*"
-      ColumnDefinitions=".5*" BackgroundColor="Green">
+      ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
         <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
         <Grid Grid.Row="0" 
           HorizontalOptions="FillAndExpand"
@@ -60,7 +60,7 @@
             </Grid>
         </Frame>
 
-        <Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>
+        <!--<Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>-->
 
     </Grid>
 </ContentPage>

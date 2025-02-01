@@ -8,27 +8,46 @@
     Title="UnisoftTest"
     Shell.TabBarIsVisible="True"
     Shell.NavBarIsVisible="False"
+    Shell.TabBarUnselectedColor="DarkSlateGray"
     >
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <HorizontalStackLayout   HorizontalOptions="FillAndExpand" >
+                <Image 
+                       Source="{Binding Icon}"
+                       Margin="5"
+                       HeightRequest="45" 
+                       
+                    Background="Wheat"/>
+                <Label 
+                       Text="{Binding Title}"
+                       TextColor="Wheat"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center" 
+                       HorizontalOptions="FillAndExpand"
+                       />
 
-    <!--<Shell.FlyoutContent>
-        <Grid>
-             
-            <Image Source="bg.png" 
-                   Aspect="AspectFill" 
-                   HorizontalOptions="FillAndExpand" 
-                   VerticalOptions="FillAndExpand"/>
+            </HorizontalStackLayout>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="Wheat">
+            <Image Source="bg4.png" Opacity=".3"/>
+            <Image Source="tekstlogo.png"/>
         </Grid>
-    </Shell.FlyoutContent>-->
+
+    </Shell.FlyoutHeader>
+
 
     <FlyoutItem Title="Testy Wydajnościowe" 
                 Icon="tests.png"
                 >
 
-        <!--<ShellContent
-                    Title="Home"
-                    ContentTemplate="{DataTemplate local:MainPage}"
-                    Route="MainPage" />-->
-        <ShellContent
+
+        <ShellContent 
                     Title="Testy Wydajnościowe"
                     ContentTemplate="{DataTemplate local:ResultPage}"
                     Icon="tests.png"
@@ -38,32 +57,48 @@
             ContentTemplate="{DataTemplate local:ConfigurationPage}"
             Icon="wrench.png"
             Route="ConfigurationPage"
+            IsVisible="{Binding isAdministrator}"
             
             />
 
 
     </FlyoutItem>
 
-    <FlyoutItem Title="Kopia Bazy" >
+    <FlyoutItem Title="Kopia Bazy" 
+                Icon="base.png">
         <ShellContent
             Title="Kopia Bazy"
             ContentTemplate="{DataTemplate local:CopyBasePage}"
-            Icon="tests.png"
+            Icon="base.png"
             Route="CopyBasePage" />
         <ShellContent
                     Title="Konfiguracja kopii"
                     ContentTemplate="{DataTemplate local:CopyBaseConfigurationPage}"
                     Route="CopyBaseConfigurationPage" 
-                    Icon="wrench.png"/>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Kopia Bazy2"  FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent
-        Title="Kopia Bazy"
-        ContentTemplate="{DataTemplate local:CopyBasePage}"
-        Route="CopyBasePage2" />
+                    Icon="wrench.png"
+                    IsVisible="{Binding isAdministrator}"/>
 
     </FlyoutItem>
+
+
+    <Shell.FlyoutFooter >
+        <Grid HorizontalOptions="FillAndExpand" BackgroundColor="CadetBlue" RowDefinitions=".7*,.3*" >
+
+            <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" >
+                <Label x:Name="lblAdministrator" Text="Czy jesteś Administratorem?" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Wheat"/>
+                <CheckBox CheckedChanged="SetAdministrator" HorizontalOptions="End" Color="Wheat"/>
+            </HorizontalStackLayout>
+
+            <Label Grid.Row="1" 
+                   Text="ver 1.1" 
+                   TextColor="Wheat"
+                   HorizontalOptions="End" 
+                   VerticalOptions="End"/>
+        </Grid>
+
+    </Shell.FlyoutFooter>
+
+
 
 
 

@@ -5,7 +5,7 @@
              Title="CopyBaseConfigurationPage">
     <Grid RowDefinitions=".08*,.57*,.45*"
           ColumnDefinitions=".5*,.5*"
-         BackgroundColor="DarkGreen"
+         BackgroundColor="DarkSlateGray"
           VerticalOptions="FillAndExpand">
         <Image Grid.Row="0" 
                Grid.RowSpan="3"
