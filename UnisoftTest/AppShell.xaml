@@ -57,7 +57,7 @@
             ContentTemplate="{DataTemplate local:ConfigurationPage}"
             Icon="wrench.png"
             Route="ConfigurationPage"
-            IsVisible="{Binding isAdministrator}"
+            IsVisible="{Binding isAdministrator, Mode=TwoWay}"
             
             />
 
@@ -76,7 +76,7 @@
                     ContentTemplate="{DataTemplate local:CopyBaseConfigurationPage}"
                     Route="CopyBaseConfigurationPage" 
                     Icon="wrench.png"
-                    IsVisible="{Binding isAdministrator}"/>
+                    IsVisible="{Binding isAdministrator, Mode=TwoWay}"/>
 
     </FlyoutItem>
 
@@ -86,7 +86,8 @@
 
             <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" >
                 <Label x:Name="lblAdministrator" Text="Czy jesteś Administratorem?" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Wheat"/>
-                <CheckBox CheckedChanged="SetAdministrator" HorizontalOptions="End" Color="Wheat"/>
+                <!--<CheckBox  HorizontalOptions="End" Color="Wheat" IsChecked="{Binding SetAdministrator}"/>-->
+                <CheckBox CheckedChanged="SetAdministrator" HorizontalOptions="End" Color="Wheat" IsChecked="{Binding isAdministratorChecked, Mode=TwoWay}"/>
             </HorizontalStackLayout>
 
             <Label Grid.Row="1" 

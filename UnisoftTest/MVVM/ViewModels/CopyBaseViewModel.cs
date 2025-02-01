@@ -43,6 +43,12 @@ namespace UnisoftTest.MVVM.ViewModels
 
             var currentCopyBaseScript = obj as CopyBaseScripts;
 
+            if (currentCopyBaseScript.CopyBaseScript == null || currentCopyBaseScript.CopyBaseScriptCMD == null)
+            {
+                ResultEditor = "Niepoprawny skrypt!";
+                return;
+            }
+
             string txtScript = currentCopyBaseScript.CopyBaseScriptCMD;
 
             string sqlFilePath = Path.Combine(Path.GetTempPath(), "script.sql");
