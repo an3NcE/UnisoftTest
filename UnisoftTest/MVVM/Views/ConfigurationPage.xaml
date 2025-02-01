@@ -17,7 +17,7 @@
                 <Label Text="Podaj ścieżkę do skryptu:" VerticalOptions="End" />
                 <Entry Placeholder="Ścieżka do skryptu" Text="{Binding CurrentScript.ScriptPath}"/>
                 <Grid ColumnDefinitions="Auto,Auto">
-                    <CheckBox Color="Green"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
+                    <CheckBox Color="Wheat"  IsChecked="{Binding CurrentScript.IsFavorite}"/>
                     <Label Text="Dodaj do głównej" Grid.Column="1" VerticalOptions="Center"/>
                 </Grid>
                 <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">

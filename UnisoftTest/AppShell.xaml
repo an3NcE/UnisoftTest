@@ -36,7 +36,7 @@
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="Wheat">
             <Image Source="bg4.png" Opacity=".3"/>
-            <Image Source="tekstlogo.png"/>
+            <Image Source="tekstlogo.png" Margin="5"/>
         </Grid>
 
     </Shell.FlyoutHeader>

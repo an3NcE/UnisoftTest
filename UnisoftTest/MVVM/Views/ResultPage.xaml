@@ -45,8 +45,7 @@
                         <Grid >
                             <Label Text="Nazwa Testu"
                                FontAttributes="Bold"
-                               HorizontalOptions="Center"
-                               TextColor="Black"/>
+                               HorizontalOptions="Center"/>
                         </Grid>
                     </CollectionView.Header>
                     <CollectionView.ItemsLayout>
@@ -63,11 +62,11 @@
                                 <Grid.Background>
 
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                                        <GradientStop Color="#D3D3D3" Offset="0.0" />
+                                        <GradientStop Color="Wheat" Offset="0.0" />
                                         <!-- Jasnoszary -->
                                         <GradientStop Color="#A9A9A9" Offset="0.5" />
                                         <!-- Średni szary -->
-                                        <GradientStop Color="#D3D3D3" Offset="1.0" />
+                                        <GradientStop Color="Wheat" Offset="1.0" />
                                         <!-- Jasnoszary -->
                                     </LinearGradientBrush>
                                 </Grid.Background>
@@ -76,6 +75,7 @@
                                 <Label Text="{Binding ScriptName}" 
                            HorizontalOptions="Center" 
                                    TextColor="Black"
+                                       FontAttributes="Bold"
                                    HeightRequest="30"
                                    VerticalOptions="Center"
                                        />
@@ -97,8 +97,8 @@
                 <Grid Margin="15" 
                       RowDefinitions=".1*,.9*"
                       >
-                    <Label Text="Wyniki Testu wydajnościowego:" FontAttributes="Bold" Margin="10,0,0,0"/>
-                    <Editor Grid.Row="1" Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" />
+                    <Label Text="Wyniki Testu wydajnościowego:" FontAttributes="Bold" Margin="10,0,0,0" />
+                    <Editor Grid.Row="1" Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" TextColor="Wheat"/>
                 </Grid>
             </Grid>
         </Frame>

@@ -86,11 +86,11 @@
                           >
                                 <Grid.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                                        <GradientStop Color="#D3D3D3" Offset="0.0" />
+                                        <GradientStop Color="Wheat" Offset="0.0" />
                                         <!-- Jasnoszary -->
                                         <GradientStop Color="#A9A9A9" Offset="0.5" />
                                         <!-- Średni szary -->
-                                        <GradientStop Color="#D3D3D3" Offset="1.0" />
+                                        <GradientStop Color="Wheat" Offset="1.0" />
                                         <!-- Jasnoszary -->
                                     </LinearGradientBrush>
                                 </Grid.Background>

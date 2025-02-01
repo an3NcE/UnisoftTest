@@ -29,7 +29,6 @@
                         Title="Wybierz skrypt"
                         HorizontalTextAlignment="Center"
                         VerticalTextAlignment="Center"
-                        TitleColor="White"
                         Margin="5"/>
                 <ImageButton Grid.Column="1" 
              Source="arrowr.png" 
