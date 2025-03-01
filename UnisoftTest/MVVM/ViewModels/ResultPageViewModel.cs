@@ -48,7 +48,7 @@ namespace UnisoftTest.MVVM.ViewModels
         }
         private async void RunTestScript(object obj)
         {
-            AppSettingsExePath = App.BaseRepo.GetPathExe(0);
+            AppSettingsExePath = App.BaseRepo.GetSettings(0);
             var currentFavScript = obj as AutoItScript;
 
             try

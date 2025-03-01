@@ -62,10 +62,10 @@ namespace UnisoftTest.MVVM.ViewModels
             }
             AppSettingsExePath.SettingsId = 0;
             AppSettingsExePath.SettingsName = pathAutoItexeName;
-            if (AppSettingsExePath.SettingsValue != null)
-            {
-                AppSettingsExePath.SettingsValue = AppSettingsExePath.SettingsValue.Replace("\"", "");
-            }
+            //if (AppSettingsExePath.SettingsValue != null)
+            //{
+            //    AppSettingsExePath.SettingsValue = AppSettingsExePath.SettingsValue.Replace("\"", "");
+            //}
             
 
             App.BaseRepo.AddOrUpdateAppSettingsPathExe(AppSettingsExePath);
@@ -130,7 +130,7 @@ namespace UnisoftTest.MVVM.ViewModels
             IsChecked = false;
             //AppSettingsExePath = new AppSettings();
 
-            AppSettingsExePath = App.BaseRepo.GetPathExe(0);
+            AppSettingsExePath = App.BaseRepo.GetSettings(0);
             if (AppSettingsExePath == null)
             {
                 SavePathExe();

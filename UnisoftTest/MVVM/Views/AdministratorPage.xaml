@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnisoftTest.MVVM.Views.AdministratorPage"
+             Title="AdministratorPage">
+    <Grid RowDefinitions=".3*,.7*"
+       BackgroundColor="Black">
+        <Image Grid.Row="0" Grid.RowSpan="2"  Source="bg3.png"  Aspect="Fill" Opacity="0.2"/>
+        <Grid ColumnDefinitions=".5*,.5*" Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+           
+            <VerticalStackLayout Grid.Column="1" Padding="0" HorizontalOptions="FillAndExpand" Margin="5,0,0,0">
+                <Label Text="Hasło administratora" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" />
+                <Label Text="" Margin="15,0,0,0"/>
+                <Grid ColumnDefinitions=".8*,.2*"  >
+                    <Entry Placeholder="Podaj hasło dodatkowe" Text="{Binding AppSettingsPassword.SettingsValue, Mode=TwoWay}" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="Center"/>
+                    <ImageButton Source="save1.png" 
+                              Command="{Binding SaveNewPassworCm}" 
+                              Aspect="AspectFit"
+                              BackgroundColor="Transparent"
+                              Grid.Column="1"
+                              HeightRequest="35"
+                              Background="Transparent"/>
+                </Grid>
+
+
+            </VerticalStackLayout>
+
+
+        </Grid>
+
+        <CollectionView x:Name="clcVScripts" Grid.Row="1" 
+                     ItemsSource="{Binding Scripts}" 
+                     SelectedItem="{Binding CurrentScript}" 
+                     SelectionMode="Single" 
+                     SelectionChangedCommand="{Binding}" 
+                     Margin="50,0,50,10">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+
+                <Grid ColumnDefinitions=".3*,.5*,.2*">
+                    <Label Text="Nazwa"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        />
+                    <Label Text="Ścieżka" 
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"/>
+                    <Label Text="Czy na głównej?"
+                        Grid.Column="2"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"/>
+                </Grid>
+
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid ColumnDefinitions=".3*,.5*,.2*">
+
+                        <Border Stroke="wheat" StrokeThickness="1" Grid.Column="0">
+                            <Label Text="{Binding ScriptName}" 
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                        </Border>
+
+                        <Border Stroke="wheat" StrokeThickness="1" 
+                             Grid.Column="1">
+                            <Label Text="{Binding ScriptPath}" 
+                            Grid.Column="1"
+                                HorizontalTextAlignment="Center"
+                                VerticalOptions="Center"
+                                />
+                        </Border>
+
+                        <Border Stroke="wheat" StrokeThickness="1" Grid.Column="2" >
+                            <ImageButton Grid.Column="3" Source="{Binding ImgFav}" Command="{Binding BindingContext.AddToFavorite, Source={x:Reference Name=clcVScripts}}" CommandParameter="{Binding .}" 
+                                      HeightRequest="1"
+                                      HorizontalOptions="Center"
+                                      BackgroundColor="Transparent"
+                                      Margin="10"
+                                      />
+                        </Border>
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+    </Grid>
+</ContentPage>

@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using UnisoftTest.MVVM.Models;
 using UnisoftTest.MVVM.Views;
 
 namespace UnisoftTest
@@ -8,6 +9,9 @@ namespace UnisoftTest
     {
         public bool isAdministrator { get; set; }
         public bool isAdministratorChecked { get; set; }
+
+        public AppSettings AppSettingsPassword { get; set; }
+        string secondAdminPW ;
         public AppShell()
         {
             InitializeComponent();
@@ -55,6 +59,16 @@ namespace UnisoftTest
                 lblAdministrator.Text = "Czy jesteś Administratorem?";
                 App.BaseRepo.AddOrUpdateAppAdministrator(false);
             }
+
+        }
+
+        private void GetSecondPW()
+        {
+
+
+            AppSettingsPassword = App.BaseRepo.GetSettings(2);
+            secondAdminPW = AppSettingsPassword.SettingsValue;
+            //AppSettingsExePath = new AppSettings();
 
         }
     }

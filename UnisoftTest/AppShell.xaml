@@ -44,6 +44,7 @@
 
     <FlyoutItem Title="Testy Wydajnościowe" 
                 Icon="tests.png"
+                IsVisible="True"
                 >
 
 
@@ -65,7 +66,8 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Kopia Bazy" 
-                Icon="base.png">
+                Icon="base.png"
+                IsVisible="True">
         <ShellContent
             Title="Kopia Bazy"
             ContentTemplate="{DataTemplate local:CopyBasePage}"
@@ -78,6 +80,18 @@
                     Icon="wrench.png"
                     IsVisible="{Binding isAdministrator, Mode=TwoWay}"/>
 
+    </FlyoutItem>
+
+    <FlyoutItem Title="Panel Administracyjny" 
+            Icon="tests.png"
+            IsVisible="True"
+            >
+        <ShellContent 
+                Title="Panel Administracyjny"
+                ContentTemplate="{DataTemplate local:AdministratorPage}"
+                Icon="tests.png"
+                Route="AdministratorPage" />
+        
     </FlyoutItem>
 
 

@@ -6,10 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnisoftTest.MVVM.Models;
 using UniTest.MVVM.Models;
+using UniToolbox.MVVM.Models;
 using static SQLite.SQLite3;
 
 namespace UnisoftTest.Repositories
@@ -31,17 +33,67 @@ namespace UnisoftTest.Repositories
             connection.CreateTable<AutoItScript>();
             connection.CreateTable<AppSettings>();
             connection.CreateTable<CopyBaseScripts>();
-
-            
-
+            connection.CreateTable<Modules>();
 
 
         }
+
+        #region Module
+        public void AddOrUpdateModule(Modules module)
+        {
+            int result = 0;
+            var existingModule = connection.Find<Modules>(module.ModuleName);
+            try
+            {
+
+                //if (script.BaseScriptId != 0)
+                //if (connection.Query<CopyBaseScripts>($"SELECT * FROM CopyBaseScripts WHERE BaseScriptId={script.BaseScriptId}").Any())
+                if (existingModule != null)
+                {
+                    module.LastModified = DateTime.Now;
+                    result = connection.Update(module);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    module.LastModified = DateTime.Now;
+                    result = connection.Insert(module);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            Console.WriteLine(StatusMessage);
+        }
+
+        public List<Modules> GetAllModules()
+        {
+            try
+            {
+                //return connection.Table<AutoItScript>().ToList();
+                return connection.Query<Modules>("SELECT * FROM Modules").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        }
+        #endregion
+
         #region BaseScript
         public void AddOrUpdateBaseScript(CopyBaseScripts script)
         {
             int result = 0;
-            var existingScript = connection.Find<CopyBaseScripts>("Administrator");
+            var existingScript = connection.Find<CopyBaseScripts>(script.BaseScriptId);
             try
             {
                 
@@ -155,7 +207,7 @@ namespace UnisoftTest.Repositories
         public void AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
         {
             int result = 0;
-            appSettings.SettingsId = 0;
+            //appSettings.SettingsId = 0;
 
             try
             {
@@ -181,7 +233,7 @@ namespace UnisoftTest.Repositories
             
         }
 
-        public AppSettings GetPathExe(int id)
+        public AppSettings GetSettings(int id)
         {
             try
             {
