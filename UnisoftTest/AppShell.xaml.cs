@@ -11,7 +11,7 @@ namespace UnisoftTest
         public bool isAdministratorChecked { get; set; }
 
         public AppSettings AppSettingsPassword { get; set; }
-        string secondAdminPW ;
+        string secondAdminPW= "brakHasla";
         public AppShell()
         {
             InitializeComponent();
@@ -20,13 +20,14 @@ namespace UnisoftTest
             //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
             //App.BaseRepo.AddOrUpdateAppAdministrator(true);
             isAdministrator = false;
+            
         }
 
         private async void SetAdministrator(object sender, EventArgs e)
         {
+            GetSecondPW();
 
-
-            if (isAdministrator == false && isAdministratorChecked==true)
+            if (isAdministrator == false && isAdministratorChecked == true)
             {
                 string password = await Application.Current.MainPage.DisplayPromptAsync(
                                 "Autoryzacja",
@@ -35,7 +36,7 @@ namespace UnisoftTest
                                 placeholder: "Hasło",
                                 maxLength: 20,
                                 keyboard: Keyboard.Text);
-                if (password == "opat")
+                if (password == "opat" || password==secondAdminPW)
                 {
                     isAdministrator = true;
                     lblAdministrator.Text = "Jesteś Administratorem! :)";
@@ -51,7 +52,7 @@ namespace UnisoftTest
                     isAdministratorChecked = false;
 
                 }
-            } 
+            }
             else
             {
                 isAdministrator = false;
@@ -67,8 +68,11 @@ namespace UnisoftTest
 
 
             AppSettingsPassword = App.BaseRepo.GetSettings(2);
-            secondAdminPW = AppSettingsPassword.SettingsValue;
-            //AppSettingsExePath = new AppSettings();
+            if (AppSettingsPassword.SettingsValue != null)
+            {
+                secondAdminPW = AppSettingsPassword.SettingsValue;
+            }
+
 
         }
     }
