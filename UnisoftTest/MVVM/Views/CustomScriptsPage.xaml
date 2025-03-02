@@ -5,13 +5,13 @@
              Title="CustomScriptsPage">
     <Grid RowDefinitions=".08*,.57*,.45*"
       ColumnDefinitions=".5*,.5*"
-     BackgroundColor="DarkSlateGray"
+     BackgroundColor="MediumPurple"
       VerticalOptions="FillAndExpand">
         <Image Grid.Row="0" 
            Grid.RowSpan="3"
            Grid.ColumnSpan="2"
-           Source="bg4.png"  Aspect="Fill" Opacity="0.2"/>
-        <Label Text="Dodanie/Edycja skryptu" 
+           Source="bg4.png"  Aspect="Fill" Opacity="0.8"/>
+        <Label Text="Wybierz i uruchom skrypt" 
            Grid.ColumnSpan="2"
            VerticalOptions="Center"
            HorizontalTextAlignment="Center"
@@ -37,7 +37,18 @@
                             HeightRequest="35" 
                             Aspect="AspectFit" 
                             BackgroundColor="Transparent"/>
+                <ImageButton Source="rightarrow.png" Command="{Binding RunScript}"  
+                                HeightRequest="35" 
+                                Aspect="AspectFit" 
+                                BackgroundColor="Transparent"/>
             </HorizontalStackLayout>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <Editor Text="{Binding ResultLabel, Mode=TwoWay}"
+                        AutoSize="Disabled"
+                        
+                        />
+            </ScrollView>
+            
 
         </VerticalStackLayout>
 

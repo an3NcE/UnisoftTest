@@ -79,7 +79,7 @@
                                    HeightRequest="30"
                                    VerticalOptions="Center"
                                        />
-                                <ImageButton Grid.Column="1" Source="arrowr.png" Command="{Binding BindingContext.RunScript, Source={x:Reference Name=clcVScriptsFAV}}" CommandParameter="{Binding .}" 
+                                <ImageButton Grid.Column="1" Source="rightarrow.png" Command="{Binding BindingContext.RunScript, Source={x:Reference Name=clcVScriptsFAV}}" CommandParameter="{Binding .}" 
                                          HeightRequest="10"
                                          HorizontalOptions="Center"
                                          BackgroundColor="Transparent"/>

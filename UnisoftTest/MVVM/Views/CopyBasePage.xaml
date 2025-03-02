@@ -31,7 +31,7 @@
                         VerticalTextAlignment="Center"
                         Margin="5"/>
                 <ImageButton Grid.Column="1" 
-             Source="arrowr.png" 
+             Source="rightarrow.png" 
              Command="{Binding RunScript}" 
              CommandParameter="{Binding SelectedItem, Source={x:Reference pickBaseScript}}" 
              HeightRequest="10"
