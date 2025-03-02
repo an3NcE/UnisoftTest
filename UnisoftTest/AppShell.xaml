@@ -82,6 +82,19 @@
 
     </FlyoutItem>
 
+    <FlyoutItem Title="Dodatkowe skrypty" 
+            Icon="base.png"
+            
+            x:Name="fiCustomScriptsPage">
+        <ShellContent
+        Title="Dodatkowe skrypty"
+        ContentTemplate="{DataTemplate local:CustomScriptsPage}"
+        Icon="base.png"
+        Route="CopyBasePage" />
+        
+
+    </FlyoutItem>
+
     <FlyoutItem Title="Panel Administracyjny" 
             Icon="tests.png"
             IsVisible="{Binding isAdministrator, Mode=TwoWay}"

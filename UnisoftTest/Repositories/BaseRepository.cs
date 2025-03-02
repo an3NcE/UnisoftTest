@@ -35,6 +35,7 @@ namespace UnisoftTest.Repositories
             connection.CreateTable<AppSettings>();
             connection.CreateTable<CopyBaseScripts>();
             connection.CreateTable<Modules>();
+            connection.CreateTable<CustomScripts>();
 
             AllModules = GetAllModules();
             if (AllModules.Count == 0)
@@ -148,6 +149,75 @@ namespace UnisoftTest.Repositories
         }
 
         #endregion
+
+        #region CustomScript
+        public void AddOrUpdateCustomScript(CustomScripts script)
+        {
+            int result = 0;
+            var existingScript = connection.Find<CustomScripts>(script.CustomScriptId);
+            try
+            {
+
+
+                //if (script.BaseScriptId != 0)
+                //if (connection.Query<CopyBaseScripts>($"SELECT * FROM CopyBaseScripts WHERE BaseScriptId={script.BaseScriptId}").Any())
+                if (existingScript != null)
+                {
+                    script.CreateScriptDate = DateTime.Now;
+                    result = connection.Update(script);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    script.CreateScriptDate = DateTime.Now;
+                    result = connection.Insert(script);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            Console.WriteLine(StatusMessage);
+        }
+
+        public List<CustomScripts> GetAllCustomScripts()
+        {
+            try
+            {
+                //return connection.Table<AutoItScript>().ToList();
+                return connection.Query<CustomScripts>("SELECT * FROM CustomScripts").ToList();
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        }
+
+        public void DeleteCustomScript(int id)
+        {
+            try
+            {
+                //var script = Get(id);
+                //connection.Delete(script);
+                connection.Execute($"DELETE FROM CustomScripts where CustomScriptId={id}");
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+        }
+
+        #endregion
+
 
         #region BaseScript
         public void AddOrUpdateBaseScript(CopyBaseScripts script)
@@ -340,6 +410,24 @@ namespace UnisoftTest.Repositories
                 StatusMessage = $"Error: {ex.Message}";
             }
         }
+
+        public AppSettings GetAdministratorStatus()
+        {
+            int id = 1;
+            try
+            {
+                
+                return connection.Table<AppSettings>().FirstOrDefault(x => x.SettingsId == id);
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        } 
 
         #endregion
 
