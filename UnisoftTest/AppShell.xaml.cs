@@ -70,7 +70,7 @@ namespace UnisoftTest
                                 placeholder: "Hasło",
                                 maxLength: 20,
                                 keyboard: Keyboard.Text);
-                password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (password == "opat" || password==secondAdminPW)
                 {
                     isAdministrator = true;

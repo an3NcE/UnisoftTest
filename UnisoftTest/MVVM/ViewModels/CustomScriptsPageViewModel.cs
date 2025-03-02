@@ -87,6 +87,12 @@ namespace UnisoftTest.MVVM.ViewModels
                 return;
             }
 
+            if (CurrentScript.CustomScriptSQL.ToLower().Contains("drop") || CurrentScript.CustomScriptSQL.ToLower().Contains("delete"))
+            {
+                MessagingCenter.Send(this, "Alert", "Niewłaściwy skrypt!");
+                return;
+            }
+
             
 
             if (CurrentScript.CustomScriptCMD == null || CurrentScript.CustomScriptSQL == null)
@@ -113,8 +119,8 @@ namespace UnisoftTest.MVVM.ViewModels
                     // Symulacja ciężkiego zadania
                     Process process = new Process();
                     process.StartInfo.FileName = "cmd.exe";
-                    //process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
-                    process.StartInfo.Arguments = $"/c {txtScript}";
+                    process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
+                    //process.StartInfo.Arguments = $"/c {txtScript}";
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
                     process.StartInfo.UseShellExecute = false;
