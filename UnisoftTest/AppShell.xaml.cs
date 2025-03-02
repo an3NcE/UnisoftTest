@@ -22,7 +22,29 @@ namespace UnisoftTest
             //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
             //App.BaseRepo.AddOrUpdateAppAdministrator(true);
             isAdministrator = false;
-            
+            AllModules = App.BaseRepo.GetAllModules();
+            CheckModules();
+        }
+
+        private void CheckModules()
+        {
+            if (AllModules[1].ModuleAccess==true)
+            {
+                fiConfigurationPage.IsVisible = true;
+            }
+            else
+            {
+                fiConfigurationPage.IsVisible = false;
+            }
+
+            if (AllModules[2].ModuleAccess == true)
+            {
+                fiCopyBasePage.IsVisible = true;
+            }
+            else
+            {
+                fiCopyBasePage.IsVisible = false;
+            }
         }
 
         private async void SetAdministrator(object sender, EventArgs e)
@@ -45,6 +67,8 @@ namespace UnisoftTest
                     lblAdministrator.Text = "Jesteś Administratorem! :)";
                     App.BaseRepo.AddOrUpdateAppAdministrator(true);
                     isAdministratorChecked = true;
+                    fiCopyBasePage.IsVisible = true;
+                    fiConfigurationPage.IsVisible = true;
                 }
                 else
                 {

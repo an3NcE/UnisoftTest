@@ -44,10 +44,9 @@
 
     <FlyoutItem Title="Testy Wydajnościowe" 
                 Icon="tests.png"
-                IsVisible="True"
+                
+                x:Name="fiConfigurationPage"
                 >
-
-
         <ShellContent 
                     Title="Testy Wydajnościowe"
                     ContentTemplate="{DataTemplate local:ResultPage}"
@@ -67,7 +66,8 @@
 
     <FlyoutItem Title="Kopia Bazy" 
                 Icon="base.png"
-                IsVisible="True">
+                
+                x:Name="fiCopyBasePage">
         <ShellContent
             Title="Kopia Bazy"
             ContentTemplate="{DataTemplate local:CopyBasePage}"
