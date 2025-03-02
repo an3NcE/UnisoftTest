@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>UniToolbox</ApplicationTitle>
+		<ApplicationTitle>UnisoftTest</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.immanence.unisofttest</ApplicationId>

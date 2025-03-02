@@ -7,7 +7,13 @@
        BackgroundColor="Black">
         <Image Grid.Row="0" Grid.RowSpan="2"  Source="bg3.png"  Aspect="Fill" Opacity="0.2"/>
         <Grid ColumnDefinitions=".5*,.5*" Padding="10" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-           
+            <ImageButton Source="save1.png" 
+                          Command="{Binding DeleteModules}" 
+                          Aspect="AspectFit"
+                          BackgroundColor="Transparent"
+                          Grid.Column="0"
+                          HeightRequest="35"
+                          Background="Transparent"/>
             <VerticalStackLayout Grid.Column="1" Padding="0" HorizontalOptions="FillAndExpand" Margin="5,0,0,0">
                 <Label Text="Hasło administratora" FontSize="Title" HorizontalOptions="Center" FontAttributes="Bold" />
                 <Label Text="" Margin="15,0,0,0"/>
@@ -31,8 +37,8 @@
         </Grid>
 
         <CollectionView x:Name="clcVScripts" Grid.Row="1" 
-                     ItemsSource="{Binding Scripts}" 
-                     SelectedItem="{Binding CurrentScript}" 
+                     ItemsSource="{Binding AllModules}" 
+                     SelectedItem="{Binding CurrentModule}" 
                      SelectionMode="Single" 
                      SelectionChangedCommand="{Binding}" 
                      Margin="50,0,50,10">
@@ -42,15 +48,15 @@
             <CollectionView.Header>
 
                 <Grid ColumnDefinitions=".3*,.5*,.2*">
-                    <Label Text="Nazwa"
+                    <Label Text="Nazwa Modułu"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         />
-                    <Label Text="Ścieżka" 
+                    <Label Text="Data aktualizacji" 
                         Grid.Column="1"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"/>
-                    <Label Text="Czy na głównej?"
+                    <Label Text="Czy widoczny?"
                         Grid.Column="2"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"/>
@@ -63,14 +69,14 @@
                     <Grid ColumnDefinitions=".3*,.5*,.2*">
 
                         <Border Stroke="wheat" StrokeThickness="1" Grid.Column="0">
-                            <Label Text="{Binding ScriptName}" 
+                            <Label Text="{Binding ModuleName}" 
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"/>
                         </Border>
 
                         <Border Stroke="wheat" StrokeThickness="1" 
                              Grid.Column="1">
-                            <Label Text="{Binding ScriptPath}" 
+                            <Label Text="{Binding LastModified}" 
                             Grid.Column="1"
                                 HorizontalTextAlignment="Center"
                                 VerticalOptions="Center"
@@ -78,12 +84,17 @@
                         </Border>
 
                         <Border Stroke="wheat" StrokeThickness="1" Grid.Column="2" >
-                            <ImageButton Grid.Column="3" Source="{Binding ImgFav}" Command="{Binding BindingContext.AddToFavorite, Source={x:Reference Name=clcVScripts}}" CommandParameter="{Binding .}" 
+                            <ImageButton Grid.Column="3" Source="{Binding ImgVisualState}" Command="{Binding BindingContext.VisualStatePage, Source={x:Reference Name=clcVScripts}}" CommandParameter="{Binding .}" 
                                       HeightRequest="1"
                                       HorizontalOptions="Center"
                                       BackgroundColor="Transparent"
                                       Margin="10"
                                       />
+                            <!--<CheckBox Grid.Column="3"  IsChecked="{Binding ModuleAccess, Mode=TwoWay}" CheckedChanged="cbVisualStatePage"
+                                          HorizontalOptions="Center"
+                                          BackgroundColor="Transparent"
+                                          Margin="10"
+                                          />-->
                         </Border>
                     </Grid>
 

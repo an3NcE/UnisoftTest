@@ -1,6 +1,7 @@
 ﻿using PropertyChanged;
 using UnisoftTest.MVVM.Models;
 using UnisoftTest.MVVM.Views;
+using UniToolbox.MVVM.Models;
 
 namespace UnisoftTest
 {
@@ -9,6 +10,7 @@ namespace UnisoftTest
     {
         public bool isAdministrator { get; set; }
         public bool isAdministratorChecked { get; set; }
+        public List<Modules> AllModules { get; set; }
 
         public AppSettings AppSettingsPassword { get; set; }
         string secondAdminPW= "brakHasla";
@@ -36,6 +38,7 @@ namespace UnisoftTest
                                 placeholder: "Hasło",
                                 maxLength: 20,
                                 keyboard: Keyboard.Text);
+                password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (password == "opat" || password==secondAdminPW)
                 {
                     isAdministrator = true;

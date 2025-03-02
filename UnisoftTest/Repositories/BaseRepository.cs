@@ -25,6 +25,7 @@ namespace UnisoftTest.Repositories
         public AppSettings AppSettingsExePath { get; set; }
         public AppSettings AdministratorSet { get; set; }
 
+        public List<Modules> AllModules { get; set; }
 
         public BaseRepository()
         {
@@ -35,14 +36,50 @@ namespace UnisoftTest.Repositories
             connection.CreateTable<CopyBaseScripts>();
             connection.CreateTable<Modules>();
 
-
+            AllModules = GetAllModules();
+            if (AllModules.Count == 0)
+            {
+                AddModules();
+            }
         }
 
         #region Module
+        public void AddModules()
+        {
+            Modules AdministratorPage = new Modules
+            {
+                ModulID = 0,
+                ModuleName = "PanelAdministracyjny",
+                ModuleAccess = false,
+                LastModified = DateTime.Now,
+                ImgVisualState = "fav.png"
+            };
+            connection.Insert(AdministratorPage);
+
+            Modules ResultPage = new Modules
+            {
+                ModulID = 1,
+                ModuleName = "TestyWydajnosciowe",
+                ModuleAccess = false,
+                LastModified = DateTime.Now,
+                ImgVisualState = "fav.png"
+            };
+            connection.Insert(ResultPage);
+
+            Modules CopyBasePage = new Modules
+            {
+                ModulID = 2,
+                ModuleName = "KopiowanieBazy",
+                ModuleAccess = false,
+                LastModified = DateTime.Now,
+                ImgVisualState = "fav.png"
+            };
+            connection.Insert(CopyBasePage);
+        }
         public void AddOrUpdateModule(Modules module)
         {
             int result = 0;
-            var existingModule = connection.Find<Modules>(module.ModuleName);
+            var existingModule = connection.Find<Modules>(module.ModulID);
             try
             {
 
@@ -87,6 +124,29 @@ namespace UnisoftTest.Repositories
             Console.WriteLine(StatusMessage);
             return null;
         }
+
+        public void VisualModuleSTatus(Modules script)
+        {
+            connection.Update(script);
+
+        }
+
+        public void DeleteAllModules()
+        {
+            try
+            {
+                //var script = Get(id);
+                //connection.Delete(script);
+                connection.Execute($"DELETE FROM Modules ");
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            AddModules();
+        }
+
         #endregion
 
         #region BaseScript

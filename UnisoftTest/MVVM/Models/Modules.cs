@@ -13,6 +13,7 @@ namespace UniToolbox.MVVM.Models
         [PrimaryKey]
         public int ModulID { get; set; }
         public string ModuleName { get; set; }
+        public string ImgVisualState { get; set; }
         public bool ModuleAccess { get; set; }
 
         public DateTime LastModified { get; set; }
