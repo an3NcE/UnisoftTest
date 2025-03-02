@@ -13,7 +13,7 @@ namespace UnisoftTest.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class CustomScriptsPageViewModel
     {
-        public string isAdministrator { get; set; }
+        public bool isAdministrator { get; set; }
         public AppSettings AppSettingsAdministrator { get; set; }
         public List<CustomScripts> CustomScripts { get; set; }
         public CustomScripts CurrentScript { get; set; }
@@ -24,13 +24,22 @@ namespace UnisoftTest.MVVM.ViewModels
         {
             Refresh();
         }
-        private void Refresh()
+        public void Refresh()
         {
 
             CustomScripts = App.BaseRepo.GetAllCustomScripts();
             CurrentScript = new CustomScripts();
 
             AppSettingsAdministrator = App.BaseRepo.GetAdministratorStatus();
+            
+            if (AppSettingsAdministrator.SettingsValue == "0")
+            {
+                isAdministrator = false;
+            }
+            else
+            {
+                isAdministrator = true;
+            }
             //AppSettingsExePath = new AppSettings();
 
         }

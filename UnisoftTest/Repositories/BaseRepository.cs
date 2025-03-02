@@ -38,44 +38,69 @@ namespace UnisoftTest.Repositories
             connection.CreateTable<CustomScripts>();
 
             AllModules = GetAllModules();
-            if (AllModules.Count == 0)
-            {
-                AddModules();
-            }
+
+            AddModules();
+
         }
 
         #region Module
         public void AddModules()
         {
-            Modules AdministratorPage = new Modules
+            var newModules = new List<Modules>
+                            {
+                                new Modules { ModulID = 0, ModuleName = "PanelAdministracyjny", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
+                                new Modules { ModulID = 1, ModuleName = "TestyWydajnosciowe", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
+                                new Modules { ModulID = 2, ModuleName = "KopiowanieBazy", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
+                                new Modules { ModulID = 3, ModuleName = "DodatkoweSkrypty", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" }
+                            };
+            if (AllModules.Count  != newModules.Count)
             {
-                ModulID = 0,
-                ModuleName = "PanelAdministracyjny",
-                ModuleAccess = false,
-                LastModified = DateTime.Now,
-                ImgVisualState = "fav.png"
-            };
-            connection.Insert(AdministratorPage);
+                foreach (var module in newModules)
+                {
+                    if (!AllModules.Any(m => m.ModuleName == module.ModuleName)) // Sprawdź, czy dany moduł już istnieje
+                    {
+                        connection.Insert(module);
+                    }
+                }
+            }
+            //Modules AdministratorPage = new Modules
+            //{
+            //    ModulID = 0,
+            //    ModuleName = "PanelAdministracyjny",
+            //    ModuleAccess = false,
+            //    LastModified = DateTime.Now,
+            //    ImgVisualState = "fav.png"
+            //};
+            //connection.Insert(AdministratorPage);
 
-            Modules ResultPage = new Modules
-            {
-                ModulID = 1,
-                ModuleName = "TestyWydajnosciowe",
-                ModuleAccess = false,
-                LastModified = DateTime.Now,
-                ImgVisualState = "fav.png"
-            };
-            connection.Insert(ResultPage);
+            //Modules ResultPage = new Modules
+            //{
+            //    ModulID = 1,
+            //    ModuleName = "TestyWydajnosciowe",
+            //    ModuleAccess = false,
+            //    LastModified = DateTime.Now,
+            //    ImgVisualState = "fav.png"
+            //};
+            //connection.Insert(ResultPage);
 
-            Modules CopyBasePage = new Modules
-            {
-                ModulID = 2,
-                ModuleName = "KopiowanieBazy",
-                ModuleAccess = false,
-                LastModified = DateTime.Now,
-                ImgVisualState = "fav.png"
-            };
-            connection.Insert(CopyBasePage);
+            //Modules CopyBasePage = new Modules
+            //{
+            //    ModulID = 2,
+            //    ModuleName = "KopiowanieBazy",
+            //    ModuleAccess = false,
+            //    LastModified = DateTime.Now,
+            //    ImgVisualState = "fav.png"
+            //};
+            //connection.Insert(CopyBasePage);
+            //Modules CustomScriptsPage = new Modules
+            //{
+            //    ModulID = 3,
+            //    ModuleName = "DodatkoweSkrypty",
+            //    ModuleAccess = false,
+            //    LastModified = DateTime.Now,
+            //    ImgVisualState = "fav.png"
+            //};
+            //connection.Insert(CopyBasePage);
         }
         public void AddOrUpdateModule(Modules module)
         {
@@ -226,11 +251,11 @@ namespace UnisoftTest.Repositories
             var existingScript = connection.Find<CopyBaseScripts>(script.BaseScriptId);
             try
             {
-                
+
 
                 //if (script.BaseScriptId != 0)
                 //if (connection.Query<CopyBaseScripts>($"SELECT * FROM CopyBaseScripts WHERE BaseScriptId={script.BaseScriptId}").Any())
-                if (existingScript !=null)
+                if (existingScript != null)
                 {
                     script.CreateScriptDate = DateTime.Now;
                     result = connection.Update(script);
@@ -298,7 +323,7 @@ namespace UnisoftTest.Repositories
             int result = 0;
             AdministratorSet.SettingsName = "Administrator2";
             AdministratorSet.SettingsId = 1;
-            if ( admValue = true)
+            if (admValue == true)
             {
                 AdministratorSet.SettingsValue = "1";
             }
@@ -306,9 +331,9 @@ namespace UnisoftTest.Repositories
             {
                 AdministratorSet.SettingsValue = "0";
             }
-            
+
             var existingScript = connection.Find<AppSettings>(AdministratorSet.SettingsId);
-            
+
 
             try
             {
@@ -359,8 +384,8 @@ namespace UnisoftTest.Repositories
 
                 throw;
             }
-            
-            
+
+
         }
 
         public AppSettings GetSettings(int id)
@@ -416,7 +441,7 @@ namespace UnisoftTest.Repositories
             int id = 1;
             try
             {
-                
+
                 return connection.Table<AppSettings>().FirstOrDefault(x => x.SettingsId == id);
             }
             catch (Exception ex)
@@ -427,7 +452,7 @@ namespace UnisoftTest.Repositories
 
             Console.WriteLine(StatusMessage);
             return null;
-        } 
+        }
 
         #endregion
 
@@ -443,12 +468,12 @@ namespace UnisoftTest.Repositories
             {
                 if (script.IsFavorite)
                 {
-                    
+
                     script.ImgFav = "unfav.png";
                 }
                 else
                 {
-                    
+
                     script.ImgFav = "fav.png";
                 }
 
@@ -464,7 +489,7 @@ namespace UnisoftTest.Repositories
                     result = connection.Insert(script);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -543,7 +568,7 @@ namespace UnisoftTest.Repositories
         public void FavScript(AutoItScript script)
         {
             connection.Update(script);
-            
+
         }
 
         #endregion

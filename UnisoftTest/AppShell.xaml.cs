@@ -18,6 +18,7 @@ namespace UnisoftTest
         {
             InitializeComponent();
             BindingContext = this;
+            App.BaseRepo.AddOrUpdateAppAdministrator(false);
             //Routing.RegisterRoute("ResultPageHome", typeof(ResultPage)); // Rejestracja trasy dla ResultPage
             //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
             //App.BaseRepo.AddOrUpdateAppAdministrator(true);
@@ -44,6 +45,15 @@ namespace UnisoftTest
             else
             {
                 fiCopyBasePage.IsVisible = false;
+            }
+
+            if (AllModules[3].ModuleAccess == true)
+            {
+                fiCustomScriptsPage.IsVisible = true;
+            }
+            else
+            {
+                fiCustomScriptsPage.IsVisible = false;
             }
         }
 
