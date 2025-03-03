@@ -42,6 +42,17 @@
     </Shell.FlyoutHeader>
 
 
+    <FlyoutItem Title="Strona startowa"
+        Icon="rocket.png"
+        
+        x:Name="fiStartPage">
+        <ShellContent
+    ContentTemplate="{DataTemplate local:StartPage}"
+    Route="StartPage" />
+
+
+    </FlyoutItem>
+
     <FlyoutItem Title="Testy Wydajnościowe" 
                 Icon="tests.png"
                 
@@ -91,7 +102,7 @@
         ContentTemplate="{DataTemplate local:CustomScriptsPage}"
         Icon="script.png"
         Route="CopyBasePage" />
-        
+
 
     </FlyoutItem>
 
@@ -104,7 +115,7 @@
                 ContentTemplate="{DataTemplate local:AdministratorPage}"
                 Icon="administrator.png"
                 Route="AdministratorPage" />
-        
+
     </FlyoutItem>
 
 

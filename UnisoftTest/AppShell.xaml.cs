@@ -23,15 +23,18 @@ namespace UnisoftTest
             //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
             //App.BaseRepo.AddOrUpdateAppAdministrator(true);
             isAdministrator = false;
-            AllModules = App.BaseRepo.GetAllModules();
+            
             CheckModules();
         }
 
-        private void CheckModules()
+        private async void CheckModules()
         {
+            AllModules = App.BaseRepo.GetAllModules();
+            int countPage =0;
             if (AllModules[1].ModuleAccess==true)
             {
                 fiConfigurationPage.IsVisible = true;
+                countPage++;
             }
             else
             {
@@ -41,19 +44,32 @@ namespace UnisoftTest
             if (AllModules[2].ModuleAccess == true)
             {
                 fiCopyBasePage.IsVisible = true;
+                countPage++;
             }
             else
             {
                 fiCopyBasePage.IsVisible = false;
+               
             }
 
             if (AllModules[3].ModuleAccess == true)
             {
                 fiCustomScriptsPage.IsVisible = true;
+                countPage++;
             }
             else
             {
                 fiCustomScriptsPage.IsVisible = false;
+            }
+
+            if (countPage==0)
+            {
+                fiStartPage.IsVisible = true;
+                
+            }
+            else
+            {
+                fiStartPage.IsVisible= false;
             }
         }
 
@@ -79,6 +95,7 @@ namespace UnisoftTest
                     isAdministratorChecked = true;
                     fiCopyBasePage.IsVisible = true;
                     fiConfigurationPage.IsVisible = true;
+                    fiCustomScriptsPage.IsVisible = true;
                 }
                 else
                 {
@@ -96,6 +113,10 @@ namespace UnisoftTest
                 isAdministratorChecked = false;
                 lblAdministrator.Text = "Czy jesteś Administratorem?";
                 App.BaseRepo.AddOrUpdateAppAdministrator(false);
+                fiCopyBasePage.IsVisible = false;
+                fiConfigurationPage.IsVisible = false;
+                fiCustomScriptsPage.IsVisible = false;
+                CheckModules();
             }
 
         }
@@ -105,7 +126,7 @@ namespace UnisoftTest
 
 
             AppSettingsPassword = App.BaseRepo.GetSettings(2);
-            if (AppSettingsPassword.SettingsValue != null)
+            if (AppSettingsPassword !=null && AppSettingsPassword.SettingsValue != null)
             {
                 secondAdminPW = AppSettingsPassword.SettingsValue;
             }
