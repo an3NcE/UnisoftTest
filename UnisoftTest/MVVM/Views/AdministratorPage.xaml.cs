@@ -12,6 +12,12 @@ public partial class AdministratorPage : ContentPage
 
 		BindingContext = new AdministratorPageViewModel();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        entryPW.Focus();
+        
+    }
 
     //private void cbVisualStatePage(object sender, CheckedChangedEventArgs e)
     //{

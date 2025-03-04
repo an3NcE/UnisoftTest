@@ -76,6 +76,10 @@ namespace UnisoftTest
         private async void SetAdministrator(object sender, EventArgs e)
         {
             GetSecondPW();
+            if (isAdministrator == true)
+            {
+                await Shell.Current.GoToAsync("//AdministratorPage");
+            }
 
             if (isAdministrator == false && isAdministratorChecked == true)
             {
@@ -96,6 +100,8 @@ namespace UnisoftTest
                     fiCopyBasePage.IsVisible = true;
                     fiConfigurationPage.IsVisible = true;
                     fiCustomScriptsPage.IsVisible = true;
+                    await Shell.Current.GoToAsync("//AdministratorPage");
+                    //await Shell.Current.Navigation.PopToRootAsync();
                 }
                 else
                 {
@@ -109,6 +115,7 @@ namespace UnisoftTest
             }
             else
             {
+                
                 isAdministrator = false;
                 isAdministratorChecked = false;
                 lblAdministrator.Text = "Czy jesteś Administratorem?";

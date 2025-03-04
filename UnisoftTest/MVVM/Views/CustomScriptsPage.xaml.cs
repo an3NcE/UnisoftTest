@@ -25,6 +25,18 @@ public partial class CustomScriptsPage : ContentPage
         }
     }
 
+    //protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    //{
+    //    base.OnNavigatedTo(args);
+
+    //    if (BindingContext is CustomScriptsPageViewModel viewModel)
+    //    {
+    //        viewModel.Refresh();
+    //    }
+    //}
+
+
+
     protected override void OnDisappearing()
     {
         base.OnDisappearing();

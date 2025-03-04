@@ -20,7 +20,8 @@
                 <Grid ColumnDefinitions=".8*,.2*"  >
                     <Entry Placeholder="Podaj hasło dodatkowe" Text="{Binding AppSettingsPassword.SettingsValue, Mode=TwoWay}" 
                         HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                           x:Name="entryPW" />
                     <ImageButton Source="save1.png" 
                               Command="{Binding SaveNewPassworCm}" 
                               Aspect="AspectFit"
