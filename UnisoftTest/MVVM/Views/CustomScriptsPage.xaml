@@ -42,13 +42,14 @@
                                 Aspect="AspectFit" 
                                 BackgroundColor="Transparent"/>
             </HorizontalStackLayout>
-            <ScrollView VerticalOptions="FillAndExpand">
-                <Editor Text="{Binding ResultLabel, Mode=TwoWay}"
-                        AutoSize="Disabled"
-                        
+           
+            <ScrollView HorizontalOptions="FillAndExpand" Margin="0,10,0,0"
+                         VerticalOptions="FillAndExpand" >
+                <Editor Placeholder="Wstaw skrypt SQL" Text="{Binding ResultLabel, Mode=TwoWay}" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="FillAndExpand"
                         />
             </ScrollView>
-            
 
         </VerticalStackLayout>
 

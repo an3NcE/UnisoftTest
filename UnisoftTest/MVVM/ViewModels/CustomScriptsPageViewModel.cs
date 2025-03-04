@@ -82,6 +82,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
         private async void RunCustomScript()
         {
+            ResultLabel = "";
             if (CurrentScript == null)
             {
                 return;
@@ -137,11 +138,14 @@ namespace UnisoftTest.MVVM.ViewModels
                     }
 
                     process.WaitForExit();
+                    
+                    
                 });
             }
             catch (Exception ex)
             {
                 ResultLabel = $"Błąd: {ex.Message}";
+                return;
             }
             finally
             {
@@ -149,7 +153,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 //LoadingIcon(false);
             }
             File.Delete(sqlFilePath);
-            ResultLabel += "Skrypt wykonany prawidłowo, baza zaktualizowana!";
+            
         }
     }
 }

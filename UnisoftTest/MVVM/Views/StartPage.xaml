@@ -5,24 +5,19 @@
              Title="StartPage"
              Shell.TabBarIsVisible="False"
              >
-    <Grid 
-       ColumnDefinitions=".5*,.5*" BackgroundColor="DarkSlateGrey">
-        <Image Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg3.png"  Aspect="Fill" Opacity="0.5"/>
-        <Image 
-        Source="unitoolbox.png"  
-        Aspect="AspectFit" 
-        HorizontalOptions="Center" 
-       VerticalOptions="Start"
-        Margin="10,30,10,0"
-               Grid.ColumnSpan="2"/>
-        <VerticalStackLayout Grid.Row="1" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand">
+    <Grid BackgroundColor="DarkSlateGrey">
+        <Image Source="bg3.png"  Aspect="Fill" Opacity="0.4"/>
+        
+        <VerticalStackLayout  VerticalOptions="CenterAndExpand">
             
-            <Label Text="Witaj w aplikacji UniToolbox" FontSize="Header" HorizontalTextAlignment="Center"/>
+            <Label Text="Witaj w aplikacji UniToolbox" FontSize="Header" HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
             <Label Text="W lewym górnym rogu znajduje się menu, zaloguj się jako administrator i wybierz moduły." 
-                   FontSize="Body" HorizontalTextAlignment="Center"/>
+                   FontSize="Body" HorizontalTextAlignment="Center"
+                   FontAttributes="Bold"/>
         </VerticalStackLayout>
 
-        <!--<Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>-->
+        
 
     </Grid>
 </ContentPage>
