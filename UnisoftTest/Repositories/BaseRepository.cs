@@ -19,7 +19,8 @@ namespace UnisoftTest.Repositories
     [AddINotifyPropertyChangedInterface]
     public class BaseRepository
     {
-        SQLiteConnection connection;
+        //SQLiteConnection connection;
+        SQLiteAsyncConnection connection;
         public string StatusMessage;
         public List<AppSettings> AppSettingsList { get; set; }
         public AppSettings AppSettingsExePath { get; set; }
@@ -27,20 +28,54 @@ namespace UnisoftTest.Repositories
 
         public List<Modules> AllModules { get; set; }
 
+
+
         public BaseRepository()
         {
-            connection = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
+            //connection = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
+            InitializeDatabaseAsync().ConfigureAwait(false);
+            //QuerySubscribedAsync();
+        }
 
-            connection.CreateTable<AutoItScript>();
-            connection.CreateTable<AppSettings>();
-            connection.CreateTable<CopyBaseScripts>();
-            connection.CreateTable<Modules>();
-            connection.CreateTable<CustomScripts>();
+        private async Task InitializeDatabaseAsync()
+        {
+            string password = await Constants.GetDatabasePasswordAsync();
+            var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
+                          c.Execute("PRAGMA cipher_compatibility = 3"));
+            //connection = new SQLiteAsyncConnection(options);
+            connection = new SQLiteAsyncConnection(Constants.DatabasePath);
 
-            AllModules = GetAllModules();
+            await connection.CreateTableAsync<AutoItScript>();
+            await connection.CreateTableAsync<AppSettings>();
+            await connection.CreateTableAsync<CopyBaseScripts>();
+            await connection.CreateTableAsync<Modules>();
+            await connection.CreateTableAsync<CustomScripts>();
 
+
+            AllModules = await GetAllModules();
             AddModules();
+            
+        }
+        private async Task Init()
+        {
 
+
+            //string password = await Constants.GetDatabasePasswordAsync();
+            //var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
+            //{
+            //    c.Execute("PRAGMA cipher_compatibility = 3");
+            //});
+            //connection = new SQLiteAsyncConnection(options);
+            connection = new SQLiteAsyncConnection(Constants.DatabasePath);
+            await connection.CreateTableAsync<Modules>();
+             
+            var result = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
+        }
+        public async Task<List<Modules>> QuerySubscribedAsync()
+        {
+            await Init();
+            var result = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
+            return result;
         }
 
         #region Module
@@ -53,13 +88,13 @@ namespace UnisoftTest.Repositories
                                 new Modules { ModulID = 2, ModuleName = "KopiowanieBazy", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
                                 new Modules { ModulID = 3, ModuleName = "DodatkoweSkrypty", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" }
                             };
-            if (AllModules.Count  != newModules.Count)
+            if (AllModules.Count != newModules.Count)
             {
                 foreach (var module in newModules)
                 {
                     if (!AllModules.Any(m => m.ModuleName == module.ModuleName)) // Sprawdź, czy dany moduł już istnieje
                     {
-                        connection.Insert(module);
+                        connection.InsertAsync(module);
                     }
                 }
             }
@@ -71,7 +106,7 @@ namespace UnisoftTest.Repositories
             //    LastModified = DateTime.Now,
             //    ImgVisualState = "fav.png"
             //};
-            //connection.Insert(AdministratorPage);
+            //connection.InsertAsync(AdministratorPage);
 
             //Modules ResultPage = new Modules
             //{
@@ -81,7 +116,7 @@ namespace UnisoftTest.Repositories
             //    LastModified = DateTime.Now,
             //    ImgVisualState = "fav.png"
             //};
-            //connection.Insert(ResultPage);
+            //connection.InsertAsync(ResultPage);
 
             //Modules CopyBasePage = new Modules
             //{
@@ -91,7 +126,7 @@ namespace UnisoftTest.Repositories
             //    LastModified = DateTime.Now,
             //    ImgVisualState = "fav.png"
             //};
-            //connection.Insert(CopyBasePage);
+            //connection.InsertAsync(CopyBasePage);
             //Modules CustomScriptsPage = new Modules
             //{
             //    ModulID = 3,
@@ -100,12 +135,12 @@ namespace UnisoftTest.Repositories
             //    LastModified = DateTime.Now,
             //    ImgVisualState = "fav.png"
             //};
-            //connection.Insert(CopyBasePage);
+            //connection.InsertAsync(CopyBasePage);
         }
-        public void AddOrUpdateModule(Modules module)
+        public async void AddOrUpdateModule(Modules module)
         {
             int result = 0;
-            var existingModule = connection.Find<Modules>(module.ModulID);
+            var existingModule = await connection.FindAsync<Modules>(module.ModulID);
             try
             {
 
@@ -114,13 +149,13 @@ namespace UnisoftTest.Repositories
                 if (existingModule != null)
                 {
                     module.LastModified = DateTime.Now;
-                    result = connection.Update(module);
+                    result = await connection.UpdateAsync(module);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
                     module.LastModified = DateTime.Now;
-                    result = connection.Insert(module);
+                    result = await connection.InsertAsync(module);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
 
@@ -134,12 +169,32 @@ namespace UnisoftTest.Repositories
             Console.WriteLine(StatusMessage);
         }
 
-        public List<Modules> GetAllModules()
+        public async Task<List<Modules>> GetAllModules()
         {
             try
             {
+                try
+                {
+                    var result3 = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
+                    var result2 = connection.ExecuteScalarAsync<int>("SELECT 1");
+
+                    Console.WriteLine("Wynik: " + result2);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Błąd: " + ex.Message);
+                }
                 //return connection.Table<AutoItScript>().ToList();
-                return connection.Query<Modules>("SELECT * FROM Modules").ToList();
+                var result = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
+                if (result == null || result.Count == 0)
+                {
+                    Console.WriteLine("Brak wyników w tabeli Modules.");
+                }
+                else
+                {
+                    Console.WriteLine($"Znaleziono {result.Count} wyników.");
+                }
+                return result.ToList();
             }
             catch (Exception ex)
             {
@@ -153,7 +208,7 @@ namespace UnisoftTest.Repositories
 
         public void VisualModuleSTatus(Modules script)
         {
-            connection.Update(script);
+            connection.UpdateAsync(script);
 
         }
 
@@ -163,7 +218,7 @@ namespace UnisoftTest.Repositories
             {
                 //var script = Get(id);
                 //connection.Delete(script);
-                connection.Execute($"DELETE FROM Modules ");
+                connection.ExecuteAsync($"DELETE FROM Modules ");
             }
             catch (Exception ex)
             {
@@ -176,10 +231,10 @@ namespace UnisoftTest.Repositories
         #endregion
 
         #region CustomScript
-        public void AddOrUpdateCustomScript(CustomScripts script)
+        public async void AddOrUpdateCustomScript(CustomScripts script)
         {
             int result = 0;
-            var existingScript = connection.Find<CustomScripts>(script.CustomScriptId);
+            var existingScript = connection.FindAsync<CustomScripts>(script.CustomScriptId);
             try
             {
 
@@ -189,13 +244,13 @@ namespace UnisoftTest.Repositories
                 if (existingScript != null)
                 {
                     script.CreateScriptDate = DateTime.Now;
-                    result = connection.Update(script);
+                    result = await connection.UpdateAsync(script);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
                     script.CreateScriptDate = DateTime.Now;
-                    result = connection.Insert(script);
+                    result = await connection.InsertAsync(script);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
 
@@ -209,12 +264,12 @@ namespace UnisoftTest.Repositories
             Console.WriteLine(StatusMessage);
         }
 
-        public List<CustomScripts> GetAllCustomScripts()
+        public async Task<List<CustomScripts>> GetAllCustomScripts()
         {
             try
             {
-                //return connection.Table<AutoItScript>().ToList();
-                return connection.Query<CustomScripts>("SELECT * FROM CustomScripts").ToList();
+                var result = await connection.QueryAsync<CustomScripts>("SELECT * FROM CustomScripts");
+                return result.ToList();
             }
             catch (Exception ex)
             {
@@ -232,7 +287,7 @@ namespace UnisoftTest.Repositories
             {
                 //var script = Get(id);
                 //connection.Delete(script);
-                connection.Execute($"DELETE FROM CustomScripts where CustomScriptId={id}");
+                connection.ExecuteAsync($"DELETE FROM CustomScripts where CustomScriptId={id}");
             }
             catch (Exception ex)
             {
@@ -245,10 +300,10 @@ namespace UnisoftTest.Repositories
 
 
         #region BaseScript
-        public void AddOrUpdateBaseScript(CopyBaseScripts script)
+        public async Task AddOrUpdateBaseScript(CopyBaseScripts script)
         {
             int result = 0;
-            var existingScript = connection.Find<CopyBaseScripts>(script.BaseScriptId);
+            var existingScript = await connection.FindAsync<CopyBaseScripts>(script.BaseScriptId);
             try
             {
 
@@ -258,13 +313,13 @@ namespace UnisoftTest.Repositories
                 if (existingScript != null)
                 {
                     script.CreateScriptDate = DateTime.Now;
-                    result = connection.Update(script);
+                    result = await connection.UpdateAsync(script);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
                     script.CreateScriptDate = DateTime.Now;
-                    result = connection.Insert(script);
+                    result = await connection.InsertAsync(script);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
 
@@ -278,12 +333,13 @@ namespace UnisoftTest.Repositories
             Console.WriteLine(StatusMessage);
         }
 
-        public List<CopyBaseScripts> GetAllBaseScripts()
+        public async Task<List<CopyBaseScripts>> GetAllBaseScripts()
         {
             try
             {
                 //return connection.Table<AutoItScript>().ToList();
-                return connection.Query<CopyBaseScripts>("SELECT * FROM CopyBaseScripts").ToList();
+                var result = await connection.QueryAsync<CopyBaseScripts>("SELECT * FROM CopyBaseScripts");
+                return result;
             }
             catch (Exception ex)
             {
@@ -301,7 +357,7 @@ namespace UnisoftTest.Repositories
             {
                 //var script = Get(id);
                 //connection.Delete(script);
-                connection.Execute($"DELETE FROM CopyBaseScripts where BaseScriptId={id}");
+                connection.ExecuteAsync($"DELETE FROM CopyBaseScripts where BaseScriptId={id}");
             }
             catch (Exception ex)
             {
@@ -317,7 +373,7 @@ namespace UnisoftTest.Repositories
 
         #region AppSettings
 
-        public void AddOrUpdateAppAdministrator(bool admValue)
+        public async void AddOrUpdateAppAdministrator(bool admValue)
         {
             AdministratorSet = new AppSettings();
             int result = 0;
@@ -332,7 +388,7 @@ namespace UnisoftTest.Repositories
                 AdministratorSet.SettingsValue = "0";
             }
 
-            var existingScript = connection.Find<AppSettings>(AdministratorSet.SettingsId);
+            var existingScript = await connection.FindAsync<AppSettings>(AdministratorSet.SettingsId);
 
 
             try
@@ -340,13 +396,13 @@ namespace UnisoftTest.Repositories
                 if (existingScript != null)
                 {
                     AdministratorSet.SettingsCreatedAt = DateTime.Now;
-                    result = connection.Update(AdministratorSet);
+                    result = await connection.UpdateAsync(AdministratorSet);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
                     AdministratorSet.SettingsCreatedAt = DateTime.Now;
-                    result = connection.Insert(AdministratorSet);
+                    result = await connection.InsertAsync(AdministratorSet);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
             }
@@ -359,7 +415,7 @@ namespace UnisoftTest.Repositories
 
         }
 
-        public void AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
+        public async void AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
         {
             int result = 0;
             //appSettings.SettingsId = 0;
@@ -369,13 +425,13 @@ namespace UnisoftTest.Repositories
                 if (appSettings.SettingsValue != null)
                 {
                     appSettings.SettingsCreatedAt = DateTime.Now;
-                    result = connection.Update(appSettings);
+                    result = await connection.UpdateAsync(appSettings);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
                     appSettings.SettingsCreatedAt = DateTime.Now;
-                    result = connection.Insert(appSettings);
+                    result = await connection.InsertAsync(appSettings);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
             }
@@ -388,12 +444,12 @@ namespace UnisoftTest.Repositories
 
         }
 
-        public AppSettings GetSettings(int id)
+        public async Task<AppSettings> GetSettings(int id)
         {
             try
             {
                 //connection.Execute($"DELETE FROM AppSettings where SettingsName<>{name}");
-                return connection.Table<AppSettings>().FirstOrDefault(x => x.SettingsId == id);
+                return await connection.Table<AppSettings>().FirstOrDefaultAsync(x => x.SettingsId == id);
             }
             catch (Exception ex)
             {
@@ -405,12 +461,12 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public List<AppSettings> GetAllSettings()
+        public async Task<List<AppSettings>> GetAllSettings()
         {
             try
             {
-                //return connection.Table<AutoItScript>().ToList();
-                return connection.Query<AppSettings>("SELECT * FROM AppSettings").ToList();
+                var result = await connection.QueryAsync<AppSettings>("SELECT * FROM AppSettings");
+                return result.ToList();
             }
             catch (Exception ex)
             {
@@ -422,12 +478,12 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public void DeleteSet()
+        public async void DeleteSet()
         {
             try
             {
                 //var script = Get(id);
-                connection.Execute($"DELETE FROM AppSettings ");
+                await connection.ExecuteAsync($"DELETE FROM AppSettings ");
             }
             catch (Exception ex)
             {
@@ -436,13 +492,13 @@ namespace UnisoftTest.Repositories
             }
         }
 
-        public AppSettings GetAdministratorStatus()
+        public async Task<AppSettings> GetAdministratorStatus()
         {
             int id = 1;
             try
             {
 
-                return connection.Table<AppSettings>().FirstOrDefault(x => x.SettingsId == id);
+                return await connection.Table<AppSettings>().FirstOrDefaultAsync(x => x.SettingsId == id);
             }
             catch (Exception ex)
             {
@@ -461,7 +517,7 @@ namespace UnisoftTest.Repositories
         #region AutoItScript
 
 
-        public void AddOrUpdate(AutoItScript script)
+        public async void AddOrUpdate(AutoItScript script)
         {
             int result = 0;
             try
@@ -480,13 +536,13 @@ namespace UnisoftTest.Repositories
                 if (script.ScriptId != 0)
                 {
                     script.ScriptUpdatedAt = DateTime.Now;
-                    result = connection.Update(script);
+                    result = await connection.UpdateAsync(script);
                     StatusMessage = $"{result} wiersz zaktualizowany!";
                 }
                 else
                 {
                     script.ScriptCreatedAt = DateTime.Now;
-                    result = connection.Insert(script);
+                    result = await connection.InsertAsync(script);
                     StatusMessage = $"{result} wiersz dodany!";
                 }
 
@@ -500,12 +556,12 @@ namespace UnisoftTest.Repositories
             Console.WriteLine(StatusMessage);
         }
 
-        public List<AutoItScript> GetAll()
+        public async Task<List<AutoItScript>> GetAll()
         {
             try
             {
-                //return connection.Table<AutoItScript>().ToList();
-                return connection.Query<AutoItScript>("SELECT * FROM AutoItScripts").ToList();
+                var result = await connection.QueryAsync<AutoItScript>("SELECT * FROM AutoItScripts");
+                return result.ToList();
             }
             catch (Exception ex)
             {
@@ -517,12 +573,12 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public List<AutoItScript> GetAllFav()
+        public async Task<List<AutoItScript>> GetAllFav()
         {
             try
             {
-                //return connection.Table<AutoItScript>().ToList();
-                return connection.Query<AutoItScript>("SELECT * FROM AutoItScripts where IsFavorite=true").ToList();
+                var result = await connection.QueryAsync<AutoItScript>("SELECT * FROM AutoItScripts where IsFavorite=true");
+                return result.ToList();
             }
             catch (Exception ex)
             {
@@ -534,11 +590,11 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public AutoItScript Get(int id)
+        public async Task<AutoItScript> Get(int id)
         {
             try
             {
-                return connection.Table<AutoItScript>().FirstOrDefault(x => x.ScriptId == id);
+                return await connection.Table<AutoItScript>().FirstOrDefaultAsync(x => x.ScriptId == id);
             }
             catch (Exception ex)
             {
@@ -550,13 +606,13 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
             try
             {
                 //var script = Get(id);
                 //connection.Delete(script);
-                connection.Execute($"DELETE FROM AutoItScripts where ScriptId={id}");
+                await connection.ExecuteAsync($"DELETE FROM AutoItScripts where ScriptId={id}");
             }
             catch (Exception ex)
             {
@@ -565,9 +621,9 @@ namespace UnisoftTest.Repositories
             }
         }
 
-        public void FavScript(AutoItScript script)
+        public async void FavScript(AutoItScript script)
         {
-            connection.Update(script);
+             await connection.UpdateAsync(script);
 
         }
 

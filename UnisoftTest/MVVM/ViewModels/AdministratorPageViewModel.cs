@@ -29,7 +29,7 @@ namespace UniToolbox.MVVM.ViewModels
             CurrentModule = new Modules();
             Refresh();
 
-            AllModules = App.BaseRepo.GetAllModules();
+            
         }
 
         private void SaveNewPassword()
@@ -95,22 +95,24 @@ namespace UniToolbox.MVVM.ViewModels
             Refresh();
         }
 
-        private void Refresh()
+        private async void Refresh()
         {
-            AllModules = App.BaseRepo.GetAllModules();
+            //AllModules = await App.BaseRepo.GetAllModules();
 
-            AppSettingsPassword = App.BaseRepo.GetSettings(2);
+            AppSettingsPassword = await App.BaseRepo.GetSettings(2);
             if (AppSettingsPassword == null)
             {
                 SaveNewPassword();
             }
             //AppSettingsExePath = new AppSettings();
+            AllModules = await App.BaseRepo.GetAllModules();
 
         }
-        private void DeleteAllModules()
+        private async void DeleteAllModules()
         {
             App.BaseRepo.DeleteAllModules();
             Refresh();
+            
         }
 
         

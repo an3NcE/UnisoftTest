@@ -37,10 +37,10 @@ namespace UniTest.MVVM.ViewModels
 
             if (!string.IsNullOrEmpty(CurrentScript.SourceBaseName) & !string.IsNullOrEmpty(CurrentScript.DestinationBaseName) & !string.IsNullOrEmpty(CurrentScript.CopyBaseScript))
             {
-                App.BaseRepo.AddOrUpdateBaseScript(CurrentScript);
+                await App.BaseRepo.AddOrUpdateBaseScript(CurrentScript);
 
                 Debug.WriteLine(App.BaseRepo.StatusMessage);
-                Refresh();
+                await Refresh();
 
 
             }
@@ -50,10 +50,10 @@ namespace UniTest.MVVM.ViewModels
             }
 
         }
-        private void Refresh()
+        private async Task Refresh()
         {
 
-            BaseScripts = App.BaseRepo.GetAllBaseScripts();
+            BaseScripts = await App.BaseRepo.GetAllBaseScripts();
             CurrentScript = new CopyBaseScripts();
             
 

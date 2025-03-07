@@ -27,15 +27,15 @@ namespace UnisoftTest.MVVM.ViewModels
         {
             Refresh();
         }
-        public void Refresh()
+        public async void Refresh()
         {
             //ResultLabel = "test";
-            CustomScripts = App.BaseRepo.GetAllCustomScripts();
+            CustomScripts = await App.BaseRepo.GetAllCustomScripts();
             CurrentScript = new CustomScripts();
 
-            AppSettingsAdministrator = App.BaseRepo.GetAdministratorStatus();
+            AppSettingsAdministrator = await App.BaseRepo.GetAdministratorStatus();
             
-            if (AppSettingsAdministrator.SettingsValue == "0")
+            if (AppSettingsAdministrator.SettingsValue == "0" || AppSettingsAdministrator == null)
             {
                 isAdministrator = false;
             }

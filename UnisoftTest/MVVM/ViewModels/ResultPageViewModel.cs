@@ -42,13 +42,13 @@ namespace UnisoftTest.MVVM.ViewModels
             
         }
 
-        public void Refresh()
+        public async void Refresh()
         {
-            FavScripts = App.BaseRepo.GetAllFav();
+            FavScripts = await App.BaseRepo.GetAllFav();
         }
         private async void RunTestScript(object obj)
         {
-            AppSettingsExePath = App.BaseRepo.GetSettings(0);
+            AppSettingsExePath = await App.BaseRepo.GetSettings(0);
             var currentFavScript = obj as AutoItScript;
 
             try

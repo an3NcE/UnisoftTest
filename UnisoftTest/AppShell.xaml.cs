@@ -29,7 +29,7 @@ namespace UnisoftTest
 
         private async void CheckModules()
         {
-            AllModules = App.BaseRepo.GetAllModules();
+            AllModules = await App.BaseRepo.GetAllModules();
             int countPage =0;
             if (AllModules[1].ModuleAccess==true)
             {
@@ -91,7 +91,7 @@ namespace UnisoftTest
                                 maxLength: 20,
                                 keyboard: Keyboard.Text);
                 //password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                if (password == "opat" || password==secondAdminPW)
+                if (password == "1" || password==secondAdminPW)
                 {
                     isAdministrator = true;
                     lblAdministrator.Text = "Jesteś Administratorem! :)";
@@ -128,11 +128,11 @@ namespace UnisoftTest
 
         }
 
-        private void GetSecondPW()
+        private async void GetSecondPW()
         {
 
 
-            AppSettingsPassword = App.BaseRepo.GetSettings(2);
+            AppSettingsPassword = await App.BaseRepo.GetSettings(2);
             if (AppSettingsPassword !=null && AppSettingsPassword.SettingsValue != null)
             {
                 secondAdminPW = AppSettingsPassword.SettingsValue;

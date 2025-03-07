@@ -10,9 +10,11 @@ namespace UnisoftTest
     public static class Constants
     {
         private const string DBFileName = "DBUnisoftTest.db3";
+       
 
-        public const SQLiteOpenFlags Flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache;
+       // public const SQLiteOpenFlags Flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache;
 
+        
         public static string DatabasePath
         {
             get
@@ -20,7 +22,12 @@ namespace UnisoftTest
                 return Path.Combine(FileSystem.AppDataDirectory, DBFileName);
             }
         }
-
+        public static async Task<string> GetDatabasePasswordAsync()
+        {
+            string passwordToSave = "TwojeSuperSilneHasłoDoBazy";
+            await SecureStorage.SetAsync("TwojeSuperSilneHasłoDoBazy", passwordToSave);
+            return await SecureStorage.GetAsync("TwojeSuperSilneHasłoDoBazy");
+        }
 
     }
 }

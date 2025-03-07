@@ -29,9 +29,9 @@ namespace UnisoftTest.MVVM.ViewModels
         }
 
 
-        public void Refresh()
+        public async void Refresh()
         {
-            BaseScripts = App.BaseRepo.GetAllBaseScripts();
+            BaseScripts = await App.BaseRepo.GetAllBaseScripts();
 
         }
         private async void RunCopyBaseScript(object obj)
