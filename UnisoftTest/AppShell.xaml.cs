@@ -27,7 +27,7 @@ namespace UnisoftTest
             CheckModules();
         }
 
-        private async void CheckModules()
+        private async Task CheckModules()
         {
             AllModules = await App.BaseRepo.GetAllModules();
             int countPage =0;
@@ -119,7 +119,7 @@ namespace UnisoftTest
                 isAdministrator = false;
                 isAdministratorChecked = false;
                 lblAdministrator.Text = "Czy jesteś Administratorem?";
-                App.BaseRepo.AddOrUpdateAppAdministrator(false);
+                await App.BaseRepo.AddOrUpdateAppAdministrator(false);
                 fiCopyBasePage.IsVisible = false;
                 fiConfigurationPage.IsVisible = false;
                 fiCustomScriptsPage.IsVisible = false;

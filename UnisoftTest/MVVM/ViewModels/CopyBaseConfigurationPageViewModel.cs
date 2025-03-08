@@ -61,9 +61,9 @@ namespace UniTest.MVVM.ViewModels
 
         }
 
-        private void DeleteComm(object obj)
+        private async void DeleteComm(object obj)
         {
-            App.BaseRepo.DeleteBaseScript(CurrentScript.BaseScriptId);
+            await App.BaseRepo.DeleteBaseScript(CurrentScript.BaseScriptId);
             Refresh();
         }
     }

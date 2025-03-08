@@ -34,16 +34,18 @@ namespace UnisoftTest.Repositories
         {
             //connection = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
             InitializeDatabaseAsync().ConfigureAwait(false);
-            //QuerySubscribedAsync();
+            
         }
 
         private async Task InitializeDatabaseAsync()
         {
             string password = await Constants.GetDatabasePasswordAsync();
             var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
-                          c.Execute("PRAGMA cipher_compatibility = 3"));
-            //connection = new SQLiteAsyncConnection(options);
-            connection = new SQLiteAsyncConnection(Constants.DatabasePath);
+            c.Execute("PRAGMA cipher_compatibility = 3"));
+            
+            connection = new SQLiteAsyncConnection(options);
+            
+
 
             await connection.CreateTableAsync<AutoItScript>();
             await connection.CreateTableAsync<AppSettings>();
@@ -56,27 +58,7 @@ namespace UnisoftTest.Repositories
             AddModules();
             
         }
-        private async Task Init()
-        {
-
-
-            //string password = await Constants.GetDatabasePasswordAsync();
-            //var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
-            //{
-            //    c.Execute("PRAGMA cipher_compatibility = 3");
-            //});
-            //connection = new SQLiteAsyncConnection(options);
-            connection = new SQLiteAsyncConnection(Constants.DatabasePath);
-            await connection.CreateTableAsync<Modules>();
-             
-            var result = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
-        }
-        public async Task<List<Modules>> QuerySubscribedAsync()
-        {
-            await Init();
-            var result = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
-            return result;
-        }
+        
 
         #region Module
         public void AddModules()
@@ -231,10 +213,10 @@ namespace UnisoftTest.Repositories
         #endregion
 
         #region CustomScript
-        public async void AddOrUpdateCustomScript(CustomScripts script)
+        public async Task AddOrUpdateCustomScript(CustomScripts script)
         {
             int result = 0;
-            var existingScript = connection.FindAsync<CustomScripts>(script.CustomScriptId);
+            var existingScript = await connection.FindAsync<CustomScripts>(script.CustomScriptId);
             try
             {
 
@@ -281,13 +263,13 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public void DeleteCustomScript(int id)
+        public async Task DeleteCustomScript(int id)
         {
             try
             {
                 //var script = Get(id);
                 //connection.Delete(script);
-                connection.ExecuteAsync($"DELETE FROM CustomScripts where CustomScriptId={id}");
+                await connection.ExecuteAsync($"DELETE FROM CustomScripts where CustomScriptId={id}");
             }
             catch (Exception ex)
             {
@@ -351,13 +333,13 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public void DeleteBaseScript(int id)
+        public async Task DeleteBaseScript(int id)
         {
             try
             {
                 //var script = Get(id);
                 //connection.Delete(script);
-                connection.ExecuteAsync($"DELETE FROM CopyBaseScripts where BaseScriptId={id}");
+                await connection.ExecuteAsync($"DELETE FROM CopyBaseScripts where BaseScriptId={id}");
             }
             catch (Exception ex)
             {
@@ -373,7 +355,7 @@ namespace UnisoftTest.Repositories
 
         #region AppSettings
 
-        public async void AddOrUpdateAppAdministrator(bool admValue)
+        public async Task AddOrUpdateAppAdministrator(bool admValue)
         {
             AdministratorSet = new AppSettings();
             int result = 0;
@@ -388,6 +370,7 @@ namespace UnisoftTest.Repositories
                 AdministratorSet.SettingsValue = "0";
             }
 
+            
             var existingScript = await connection.FindAsync<AppSettings>(AdministratorSet.SettingsId);
 
 
@@ -415,7 +398,7 @@ namespace UnisoftTest.Repositories
 
         }
 
-        public async void AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
+        public async Task AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
         {
             int result = 0;
             //appSettings.SettingsId = 0;
@@ -478,7 +461,7 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public async void DeleteSet()
+        public async Task DeleteSet()
         {
             try
             {
@@ -517,7 +500,7 @@ namespace UnisoftTest.Repositories
         #region AutoItScript
 
 
-        public async void AddOrUpdate(AutoItScript script)
+        public async Task AddOrUpdate(AutoItScript script)
         {
             int result = 0;
             try
@@ -606,7 +589,7 @@ namespace UnisoftTest.Repositories
             return null;
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             try
             {
@@ -621,7 +604,7 @@ namespace UnisoftTest.Repositories
             }
         }
 
-        public async void FavScript(AutoItScript script)
+        public async Task FavScript(AutoItScript script)
         {
              await connection.UpdateAsync(script);
 

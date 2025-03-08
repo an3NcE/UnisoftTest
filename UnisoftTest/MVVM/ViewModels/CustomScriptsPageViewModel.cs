@@ -58,7 +58,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
             if (!string.IsNullOrEmpty(CurrentScript.CustomScriptName)  && !string.IsNullOrEmpty(CurrentScript.CustomScriptSQL) && !string.IsNullOrEmpty(CurrentScript.CustomScriptCMD))
             {
-                App.BaseRepo.AddOrUpdateCustomScript(CurrentScript);
+                await App.BaseRepo.AddOrUpdateCustomScript(CurrentScript);
 
                 Debug.WriteLine(App.BaseRepo.StatusMessage);
                 MessagingCenter.Send(this, "Alert", "Dodano skrypt!");

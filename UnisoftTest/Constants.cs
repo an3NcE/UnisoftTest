@@ -10,7 +10,7 @@ namespace UnisoftTest
     public static class Constants
     {
         private const string DBFileName = "DBUnisoftTest.db3";
-       
+        const string passKey = "HasłoDoBazySQLite";
 
        // public const SQLiteOpenFlags Flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache;
 
@@ -24,9 +24,16 @@ namespace UnisoftTest
         }
         public static async Task<string> GetDatabasePasswordAsync()
         {
-            string passwordToSave = "TwojeSuperSilneHasłoDoBazy";
-            await SecureStorage.SetAsync("TwojeSuperSilneHasłoDoBazy", passwordToSave);
-            return await SecureStorage.GetAsync("TwojeSuperSilneHasłoDoBazy");
+            var password = await SecureStorage.GetAsync(passKey);
+            if (password == null)
+            {
+                string passwordToSave = "TwojeSuperSilneHasłoDoBazy";
+                await SecureStorage.SetAsync(passKey, passwordToSave);
+                password = await SecureStorage.GetAsync(passKey);
+            }
+            //
+            
+            return password;
         }
 
     }
