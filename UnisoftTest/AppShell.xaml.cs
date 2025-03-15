@@ -13,25 +13,28 @@ namespace UnisoftTest
         public List<Modules> AllModules { get; set; }
 
         public AppSettings AppSettingsPassword { get; set; }
-        string secondAdminPW= "brakHasla";
+        string secondAdminPW = "brakHasla";
         public AppShell()
         {
             InitializeComponent();
             BindingContext = this;
-            App.BaseRepo.AddOrUpdateAppAdministrator(false);
+            //App.BaseRepo.InitializeDatabaseAsync();
+
+
             //Routing.RegisterRoute("ResultPageHome", typeof(ResultPage)); // Rejestracja trasy dla ResultPage
             //Routing.RegisterRoute("ConfigurationPageRoute", typeof(ConfigurationPage)); // Rejestracja trasy dla ConfigurationPage
             //App.BaseRepo.AddOrUpdateAppAdministrator(true);
             isAdministrator = false;
-            
+
             CheckModules();
         }
 
         private async Task CheckModules()
         {
+            await App.BaseRepo.AddOrUpdateAppAdministrator(false);
             AllModules = await App.BaseRepo.GetAllModules();
-            int countPage =0;
-            if (AllModules[1].ModuleAccess==true)
+            int countPage = 0;
+            if (AllModules[1].ModuleAccess == true)
             {
                 fiConfigurationPage.IsVisible = true;
                 countPage++;
@@ -49,7 +52,7 @@ namespace UnisoftTest
             else
             {
                 fiCopyBasePage.IsVisible = false;
-               
+
             }
 
             if (AllModules[3].ModuleAccess == true)
@@ -62,14 +65,14 @@ namespace UnisoftTest
                 fiCustomScriptsPage.IsVisible = false;
             }
 
-            if (countPage==0)
+            if (countPage == 0)
             {
                 fiStartPage.IsVisible = true;
-                
+
             }
             else
             {
-                fiStartPage.IsVisible= false;
+                fiStartPage.IsVisible = false;
             }
         }
 
@@ -91,7 +94,7 @@ namespace UnisoftTest
                                 maxLength: 20,
                                 keyboard: Keyboard.Text);
                 //password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                if (password == "1" || password==secondAdminPW)
+                if (password == "1" || password == secondAdminPW)
                 {
                     isAdministrator = true;
                     lblAdministrator.Text = "Jesteś Administratorem! :)";
@@ -115,7 +118,7 @@ namespace UnisoftTest
             }
             else
             {
-                
+
                 isAdministrator = false;
                 isAdministratorChecked = false;
                 lblAdministrator.Text = "Czy jesteś Administratorem?";
@@ -133,7 +136,7 @@ namespace UnisoftTest
 
 
             AppSettingsPassword = await App.BaseRepo.GetSettings(2);
-            if (AppSettingsPassword !=null && AppSettingsPassword.SettingsValue != null)
+            if (AppSettingsPassword != null && AppSettingsPassword.SettingsValue != null)
             {
                 secondAdminPW = AppSettingsPassword.SettingsValue;
             }

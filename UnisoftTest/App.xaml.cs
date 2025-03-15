@@ -11,11 +11,18 @@ namespace UnisoftTest
         {
             InitializeComponent();
             BaseRepo = repo;
-
+            //Task.Run(async () => await App.BaseRepo.InitializeDatabaseAsync());
+            //InitializeAppAsync();
             //MainPage = new NavigationPage( new ResultPage());
             MainPage = new AppShell();
             //NavigationPage.SetHasNavigationBar(this, false);
 
+        }
+
+        private async void InitializeAppAsync()
+        {
+            await BaseRepo.InitializeDatabaseAsync(); // Teraz czekasz na inicjalizację bazy!
+            MainPage = new AppShell();
         }
         protected override Window CreateWindow(IActivationState activationState)
         {

@@ -33,29 +33,33 @@ namespace UnisoftTest.Repositories
         public BaseRepository()
         {
             //connection = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
-            InitializeDatabaseAsync().ConfigureAwait(false);
-            
+            //InitializeDatabaseAsync().ConfigureAwait(true);
+            //InitializeDatabaseAsync().GetAwaiter().GetResult();
+            Task.Run(async () => await InitializeDatabaseAsync());
         }
 
-        private async Task InitializeDatabaseAsync()
+        public async Task InitializeDatabaseAsync()
         {
             string password = await Constants.GetDatabasePasswordAsync();
             var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
             c.Execute("PRAGMA cipher_compatibility = 3"));
             
             connection = new SQLiteAsyncConnection(options);
-            
 
 
+            await connection.CreateTableAsync<Modules>();
             await connection.CreateTableAsync<AutoItScript>();
             await connection.CreateTableAsync<AppSettings>();
             await connection.CreateTableAsync<CopyBaseScripts>();
-            await connection.CreateTableAsync<Modules>();
             await connection.CreateTableAsync<CustomScripts>();
 
 
             AllModules = await GetAllModules();
-            AddModules();
+            if (AllModules==null || AllModules.Count()==0)
+            {
+                AddModules();
+            }
+            
             
         }
         
@@ -155,17 +159,17 @@ namespace UnisoftTest.Repositories
         {
             try
             {
-                try
-                {
-                    var result3 = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
-                    var result2 = connection.ExecuteScalarAsync<int>("SELECT 1");
+                //try
+                //{
+                //    var result3 = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
+                //    var result2 = connection.ExecuteScalarAsync<int>("SELECT 1");
 
-                    Console.WriteLine("Wynik: " + result2);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Błąd: " + ex.Message);
-                }
+                //    Console.WriteLine("Wynik: " + result2);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine("Błąd: " + ex.Message);
+                //}
                 //return connection.Table<AutoItScript>().ToList();
                 var result = await connection.QueryAsync<Modules>("SELECT * FROM Modules");
                 if (result == null || result.Count == 0)
@@ -397,6 +401,44 @@ namespace UnisoftTest.Repositories
 
 
         }
+        public async Task AddOrUpdateModificatorCUstomScriptStatus(bool modifValue)
+        {
+            AppSettings ModificatorValue = new AppSettings();
+            ModificatorValue.SettingsId = 3;
+            ModificatorValue.SettingsName = "Modyfikator na widoku Dodatkowych skryptów";
+            ModificatorValue.SettingsCreatedAt = DateTime.Now;
+
+            var existingScript = await connection.FindAsync<AppSettings>(ModificatorValue.SettingsId);
+
+            try
+            {
+                if (existingScript != null)
+                {
+                    if (modifValue ==false)
+                    {
+                        ModificatorValue.SettingsValue = "1";
+                        await connection.UpdateAsync(ModificatorValue);
+                    }
+                    else
+                    {
+                        ModificatorValue.SettingsValue = "0";
+                        await connection.UpdateAsync(ModificatorValue);
+                    }
+                    
+                }
+                else
+                {
+                    ModificatorValue.SettingsValue = "1";
+                    await connection.InsertAsync(ModificatorValue);
+                   
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         public async Task AddOrUpdateAppSettingsPathExe(AppSettings appSettings)
         {
@@ -475,23 +517,23 @@ namespace UnisoftTest.Repositories
             }
         }
 
-        public async Task<AppSettings> GetAdministratorStatus()
-        {
-            int id = 1;
-            try
-            {
+        //public async Task<AppSettings> GetSettingsValue(int id)
+        //{
+        //    //int id = 1;
+        //    try
+        //    {
 
-                return await connection.Table<AppSettings>().FirstOrDefaultAsync(x => x.SettingsId == id);
-            }
-            catch (Exception ex)
-            {
+        //        return await connection.Table<AppSettings>().FirstOrDefaultAsync(x => x.SettingsId == id);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                StatusMessage = $"Error: {ex.Message}";
-            }
+        //        StatusMessage = $"Error: {ex.Message}";
+        //    }
 
-            Console.WriteLine(StatusMessage);
-            return null;
-        }
+        //    Console.WriteLine(StatusMessage);
+        //    return null;
+        //}
 
         #endregion
 

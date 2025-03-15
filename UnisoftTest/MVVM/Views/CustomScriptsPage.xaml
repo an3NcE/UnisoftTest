@@ -34,15 +34,25 @@
                              Command="{Binding AddOrUpdateCommand}" 
                              HeightRequest="35"
                              Aspect="AspectFit"
-                             BackgroundColor="Transparent"/>
+                             BackgroundColor="Transparent"
+                              IsVisible="{Binding modifVisible, Mode=TwoWay}"/>
                 <ImageButton Source="delete.png" Command="{Binding DeleteCommand}"  
                             HeightRequest="35" 
                             Aspect="AspectFit" 
-                            BackgroundColor="Transparent"/>
+                            BackgroundColor="Transparent"
+                             IsVisible="{Binding modifVisible, Mode=TwoWay}"/>
                 <ImageButton Source="rightarrow.png" Command="{Binding RunScript}"  
                                 HeightRequest="35" 
                                 Aspect="AspectFit" 
                                 BackgroundColor="Transparent"/>
+                <ImageButton Source="{Binding modifVisiblePNG}" Command="{Binding ModificatorVisible}"  
+                                HeightRequest="35" 
+                                Aspect="AspectFit" 
+                                BackgroundColor="Transparent"
+                                SemanticProperties.Hint="Widoczność modyfikatorów dla zwykłego użytkownika"
+                             
+                                IsVisible="{Binding isAdministrator, Mode=TwoWay}"/>
+                
             </HorizontalStackLayout>
            
             <!--<ScrollView HorizontalOptions="FillAndExpand" Margin="0,10,0,0"

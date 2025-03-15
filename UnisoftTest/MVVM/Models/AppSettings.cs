@@ -25,3 +25,4 @@ namespace UnisoftTest.MVVM.Models
 // exe path script id 0
 // administrator  status id 1
 // pw administrator id 2   
+// widocznosc modyfikatorow customscript id 3   

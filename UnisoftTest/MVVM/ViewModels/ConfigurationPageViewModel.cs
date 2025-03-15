@@ -54,7 +54,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
         }
 
-        private void SavePathExe()
+        private async void SavePathExe()
         {
             if (AppSettingsExePath == null)
             {
@@ -68,13 +68,13 @@ namespace UnisoftTest.MVVM.ViewModels
             //}
             
 
-            App.BaseRepo.AddOrUpdateAppSettingsPathExe(AppSettingsExePath);
+            await App.BaseRepo.AddOrUpdateAppSettingsPathExe(AppSettingsExePath);
             Refresh();
         }
 
-        private void DeleteComm(object obj)
+        private async void DeleteComm(object obj)
         {
-            App.BaseRepo.Delete(CurrentScript.ScriptId);
+            await App.BaseRepo.Delete(CurrentScript.ScriptId);
             Refresh();
         }
 
@@ -95,7 +95,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 {
                     //CurrentScript.ScriptName = _nameScript;
                     //CurrentScript.ScriptPath = _pathScript;
-                    App.BaseRepo.AddOrUpdate(CurrentScript);
+                    await App.BaseRepo.AddOrUpdate(CurrentScript);
                     
 
                     Debug.WriteLine(App.BaseRepo.StatusMessage);

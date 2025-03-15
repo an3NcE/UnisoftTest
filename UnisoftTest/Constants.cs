@@ -19,7 +19,15 @@ namespace UnisoftTest
         {
             get
             {
-                return Path.Combine(FileSystem.AppDataDirectory, DBFileName);
+                string appDirectory = AppContext.BaseDirectory;
+                string dataFolder = Path.Combine(appDirectory, "Data");
+
+                if (!Directory.Exists(dataFolder))
+                {
+                    Directory.CreateDirectory(dataFolder); 
+                }
+
+                return Path.Combine(dataFolder, DBFileName);
             }
         }
         public static async Task<string> GetDatabasePasswordAsync()

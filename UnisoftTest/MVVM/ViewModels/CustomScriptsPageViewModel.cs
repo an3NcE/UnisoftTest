@@ -14,7 +14,10 @@ namespace UnisoftTest.MVVM.ViewModels
     public class CustomScriptsPageViewModel
     {
         public bool isAdministrator { get; set; }
+        public bool modifVisible { get; set; }
+        public string modifVisiblePNG { get; set; }
         public AppSettings AppSettingsAdministrator { get; set; }
+        public AppSettings AppSettingsModificatorVisible { get; set; }
         public List<CustomScripts> CustomScripts { get; set; }
         public CustomScripts CurrentScript { get; set; }
 
@@ -22,6 +25,10 @@ namespace UnisoftTest.MVVM.ViewModels
         public ICommand DeleteCommand => new Command(DeleteComm);
 
         public ICommand RunScript => new Command(RunCustomScript);
+        public ICommand ModificatorVisible => new Command(ModificatorVisibleChange);
+
+
+
         public string ResultLabel { get; set; }
         public CustomScriptsPageViewModel()
         {
@@ -33,18 +40,55 @@ namespace UnisoftTest.MVVM.ViewModels
             CustomScripts = await App.BaseRepo.GetAllCustomScripts();
             CurrentScript = new CustomScripts();
 
-            AppSettingsAdministrator = await App.BaseRepo.GetAdministratorStatus();
-            
+            AppSettingsAdministrator = await App.BaseRepo.GetSettings(1);
+            AppSettingsModificatorVisible = await App.BaseRepo.GetSettings(3);
+
             if (AppSettingsAdministrator.SettingsValue == "0" || AppSettingsAdministrator == null)
             {
                 isAdministrator = false;
+                modifVisible = false;
+
+                
+
+                if (AppSettingsModificatorVisible == null || AppSettingsModificatorVisible.SettingsValue == "0")
+                {
+                    modifVisible = false;
+                }
+                else
+                {
+                    modifVisible = true;
+                }
             }
             else
             {
                 isAdministrator = true;
+                modifVisible = true;
+
+                if (AppSettingsModificatorVisible == null || AppSettingsModificatorVisible.SettingsValue == "0")
+                {
+                    modifVisiblePNG = "eyeon.png";
+                }
+                else
+                {
+                    modifVisiblePNG = "eyeoff.png";
+                }
             }
+            
             //AppSettingsExePath = new AppSettings();
 
+        }
+
+        private async void ModificatorVisibleChange(object obj)
+        {
+            if (AppSettingsModificatorVisible == null || AppSettingsModificatorVisible.SettingsValue == "0")
+            {
+                await App.BaseRepo.AddOrUpdateModificatorCUstomScriptStatus(false);
+            }
+            else
+            {
+                await App.BaseRepo.AddOrUpdateModificatorCUstomScriptStatus(true);
+            }
+            Refresh();
         }
 
         private async void AddOrUpdateComm()
@@ -56,14 +100,14 @@ namespace UnisoftTest.MVVM.ViewModels
                 CurrentScript = new CustomScripts();
             }
 
-            if (!string.IsNullOrEmpty(CurrentScript.CustomScriptName)  && !string.IsNullOrEmpty(CurrentScript.CustomScriptSQL) && !string.IsNullOrEmpty(CurrentScript.CustomScriptCMD))
+            if (!string.IsNullOrEmpty(CurrentScript.CustomScriptName) && !string.IsNullOrEmpty(CurrentScript.CustomScriptSQL) && !string.IsNullOrEmpty(CurrentScript.CustomScriptCMD))
             {
                 await App.BaseRepo.AddOrUpdateCustomScript(CurrentScript);
 
                 Debug.WriteLine(App.BaseRepo.StatusMessage);
                 MessagingCenter.Send(this, "Alert", "Dodano skrypt!");
                 Refresh();
-                
+
 
             }
             else
@@ -87,20 +131,21 @@ namespace UnisoftTest.MVVM.ViewModels
             {
                 return;
             }
-
-            if (CurrentScript.CustomScriptSQL.ToLower().Contains("drop") || CurrentScript.CustomScriptSQL.ToLower().Contains("delete"))
-            {
-                MessagingCenter.Send(this, "Alert", "Niewłaściwy skrypt!");
-                return;
-            }
-
-            
-
             if (CurrentScript.CustomScriptCMD == null || CurrentScript.CustomScriptSQL == null)
             {
                 ResultLabel = "Niepoprawny skrypt!";
                 return;
             }
+
+            if (CurrentScript.CustomScriptSQL.ToLower().Contains("drop") || CurrentScript.CustomScriptSQL.ToLower().Contains("delete"))
+            {
+                MessagingCenter.Send(this, "Alert", "Nic nie usuwaj z bazy!");
+                return;
+            }
+
+
+
+
 
             string txtScript = CurrentScript.CustomScriptCMD;
 
@@ -124,14 +169,16 @@ namespace UnisoftTest.MVVM.ViewModels
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = true;
 
-                    process.OutputDataReceived += (sender, e) => {
+                    process.OutputDataReceived += (sender, e) =>
+                    {
                         if (!string.IsNullOrEmpty(e.Data))
                         {
                             ResultLabel += e.Data + Environment.NewLine;
                         }
                     };
 
-                    process.ErrorDataReceived += (sender, e) => {
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
                         if (!string.IsNullOrEmpty(e.Data))
                         {
                             ResultLabel += "ERROR: " + e.Data + Environment.NewLine;
@@ -182,7 +229,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 //LoadingIcon(false);
             }
             File.Delete(sqlFilePath);
-            
+
         }
     }
 }
