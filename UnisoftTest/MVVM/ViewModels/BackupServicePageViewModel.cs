@@ -14,9 +14,16 @@ namespace UnisoftTest.MVVM.ViewModels
     public class BackupServicePageViewModel
     {
         public ICommand InstallService => new Command(RunInstallService);
+        public ICommand TurnOnService => new Command(RunService);
+
+        
+
         string servicePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BackupServiceZSI\BackupServiceZSI.exe");
-        string serviceName = "BackupServiceZSI";
+        string serviceName = "BackupServiceZSIfk";
         public string serviceStatus { get; set; }
+        public string serviceButtonInstall { get; set; }
+        public string serviceStartStopBtn { get; set; }
+        public bool serviceStartStopBtnStatus { get; set; }
 
         public BackupServicePageViewModel()
         {
@@ -28,6 +35,7 @@ namespace UnisoftTest.MVVM.ViewModels
             Process process = new Process();
             if (IsServiceInstalled(serviceName))
             {
+                RunService();
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "sc",
@@ -36,7 +44,7 @@ namespace UnisoftTest.MVVM.ViewModels
                     UseShellExecute = true
                 };
 
-                 process = Process.Start(psi);
+                process = Process.Start(psi);
             }
             else
             {
@@ -52,7 +60,7 @@ namespace UnisoftTest.MVVM.ViewModels
                         UseShellExecute = true
                     };
 
-                     process = Process.Start(psi);
+                    process = Process.Start(psi);
                     //await DisplayAlert("Sukces", "Usługa została zainstalowana!", "OK");
 
 
@@ -72,7 +80,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
 
 
-        public  bool IsServiceInstalled(string serviceN)
+        public bool IsServiceInstalled(string serviceN)
         {
             ProcessStartInfo psi = new ProcessStartInfo
             {
@@ -92,15 +100,39 @@ namespace UnisoftTest.MVVM.ViewModels
                     if (output != null)
                     {
                         if (output.ToLower().Contains("stopped") || output.ToLower().Contains("zatrzymana"))
+                        {
                             serviceStatus = "Status usługi: Zatrzymana";
+                            serviceButtonInstall = "Odinstaluj usługę";
+                            serviceStartStopBtn = "Uruchom usługę";
+                            serviceStartStopBtnStatus = true;
+                        }
                         else if (output.ToLower().Contains("running") || output.ToLower().Contains("działa"))
+                        {
                             serviceStatus = "Status usługi: Uruchomiona";
+                            serviceButtonInstall = "Odinstaluj usługę";
+                            serviceStartStopBtn = "Zatrzymaj usługę";
+                            serviceStartStopBtnStatus = true;
+                        }
                         else if (output.ToLower().Contains("paused"))
+                        {
                             serviceStatus = "Status usługi: Wstrzymana";
+                            serviceButtonInstall = "Odinstaluj usługę";
+                            serviceStartStopBtn = "Uruchom usługę";
+                            serviceStartStopBtnStatus = true;
+                        }
                         else if (output.ToLower().Contains("nie istnieje"))
+                        {
                             serviceStatus = "Status usługi: Niezainstalowana!";
+                            serviceButtonInstall = "Zainstaluj usługę";
+                            serviceStartStopBtnStatus = false;
+                        }
                         else
+                        {
                             serviceStatus = "Nieznany stan";
+                            serviceButtonInstall = "Zainstaluj usługę";
+                            serviceStartStopBtnStatus = false;
+                        }
+
                     }
 
                     return !output.Contains("FAILED 1060"); // 1060 = brak usługi
@@ -109,6 +141,39 @@ namespace UnisoftTest.MVVM.ViewModels
         }
 
 
+        private void RunService()
+        {
+            Process process = new Process();
+            IsServiceInstalled(serviceName);
+            if (serviceStatus.ToLower().Contains("zatrzymana") || serviceStatus.ToLower().Contains("wstrzymana"))
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "sc",
+                    Arguments = $"start {serviceName}",
+                    Verb = "runas",
+                    UseShellExecute = true
+                };
+
+                process=Process.Start(psi);
+                process.WaitForExit();
+            }
+            else if (serviceStatus.ToLower().Contains("uruchomiona"))
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "sc",
+                    Arguments = $"stop {serviceName}",
+                    Verb = "runas",
+                    UseShellExecute = true
+                };
+
+                process=Process.Start(psi);
+                process.WaitForExit();
+            }
+            
+            IsServiceInstalled(serviceName);
+        }
 
     }
 }

@@ -19,7 +19,11 @@
                 <Label Grid.Column="1" Text="{Binding serviceStatus, Mode=TwoWay}" 
        HorizontalOptions="End"
                        FontSize="Medium"/>
-                <Button Text="instalacja" Command="{Binding InstallService}"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Button Text="{Binding serviceButtonInstall}" Command="{Binding InstallService}"/>
+                    <Button Text="{Binding serviceStartStopBtn}" Command="{Binding TurnOnService}" IsVisible="{Binding serviceStartStopBtnStatus}"/>
+                </HorizontalStackLayout>
+                
             </VerticalStackLayout>
             
 
