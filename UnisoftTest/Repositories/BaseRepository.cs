@@ -52,6 +52,7 @@ namespace UnisoftTest.Repositories
             await connection.CreateTableAsync<AppSettings>();
             await connection.CreateTableAsync<CopyBaseScripts>();
             await connection.CreateTableAsync<CustomScripts>();
+            await connection.CreateTableAsync<BackupServiceConfiguration>();
 
 
             AllModules = await GetAllModules();

@@ -29,7 +29,7 @@ namespace UnisoftTest.MVVM.ViewModels
         {
             IsServiceInstalled(serviceName);
         }
-
+        
         private void RunInstallService(object obj)
         {
             Process process = new Process();

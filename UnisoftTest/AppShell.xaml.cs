@@ -105,9 +105,10 @@ namespace UnisoftTest
                                 maxLength: 20,
                                 keyboard: Keyboard.Text);
                 //password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                if (password == "1" || password == secondAdminPW)
+                if (password == "!@#$" || password == secondAdminPW)
                 {
                     isAdministrator = true;
+                    Shell.SetTabBarIsVisible(this, isAdministrator);
                     lblAdministrator.Text = "Jesteś Administratorem! :)";
                     App.BaseRepo.AddOrUpdateAppAdministrator(true);
                     isAdministratorChecked = true;
@@ -131,6 +132,7 @@ namespace UnisoftTest
             {
 
                 isAdministrator = false;
+                Shell.SetTabBarIsVisible(this,isAdministrator);
                 isAdministratorChecked = false;
                 lblAdministrator.Text = "Czy jesteś Administratorem?";
                 await App.BaseRepo.AddOrUpdateAppAdministrator(false);

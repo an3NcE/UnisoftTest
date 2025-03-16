@@ -2,17 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.CustomScriptsPage"
-             Title="CustomScriptsPage"
-             >
-    
-    <Grid RowDefinitions=".08*,.57*,.45*"
-      ColumnDefinitions=".5*,.5*"
-     BackgroundColor="MediumPurple"
-      VerticalOptions="FillAndExpand">
+             Title="CustomScriptsPage">
+    <Grid RowDefinitions=".15*,.85*"
+          BackgroundColor="MediumPurple">
         <Image Grid.Row="0" 
+               Grid.RowSpan="2"
+               Source="bg4.png"  Aspect="Fill" Opacity="1"/>
+        
+        <Image 
+               Source="logocustomscript.png"  
+               Aspect="AspectFit" 
+               HorizontalOptions="Start" 
+               Margin="5,10,0,0"/>
+    
+    <Grid Grid.Row="1"
+        RowDefinitions=".08*,.57*,.45*"
+      ColumnDefinitions=".5*,.5*"
+      VerticalOptions="FillAndExpand">
+        <!--<Image Grid.Row="0" 
            Grid.RowSpan="3"
            Grid.ColumnSpan="2"
-           Source="bg4.png"  Aspect="Fill" Opacity="0.8"/>
+           Source="bg4.png"  Aspect="Fill" Opacity="0.8"/>-->
         <Label Text="Wybierz i uruchom skrypt" 
            Grid.ColumnSpan="2"
            VerticalOptions="Center"
@@ -63,13 +73,14 @@
                         MinimumHeightRequest="100"
                         />
             </ScrollView>-->
-            <Editor  Margin="0,10,0,0"
+            <Editor  Margin="10,10,10,0"
                     Placeholder="Wynik skryptu"
                     Text="{Binding ResultLabel, Mode=TwoWay}" 
                     AutoSize="TextChanges"
                     HeightRequest="100"
                     VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                     BackgroundColor="SlateGrey"/>
 
         </VerticalStackLayout>
 
@@ -84,7 +95,7 @@
                     SelectedItem="{Binding CurrentScript}" 
                     SelectionMode="Single" 
                     SelectionChangedCommand="{Binding}"
-                    BackgroundColor="Gray">
+                    BackgroundColor="SlateGrey">
                     <CollectionView.Header>
 
                         <Grid ColumnDefinitions=".6*,.4*">
@@ -165,7 +176,7 @@
                     Text="{Binding CurrentScript.CustomScriptSQL, Mode=TwoWay}" 
                     HorizontalOptions="FillAndExpand" 
                     VerticalOptions="FillAndExpand"
-                    
+                    IsVisible="{Binding isAdministrator, Mode=TwoWay}"
                     Margin="10"
                     AutoSize="TextChanges"
                     />
@@ -175,5 +186,6 @@
 
 
 
+    </Grid>
     </Grid>
 </ContentPage>

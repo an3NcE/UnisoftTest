@@ -6,10 +6,11 @@
     xmlns:local="clr-namespace:UnisoftTest.MVVM.Views"
     Shell.FlyoutBehavior="Flyout"
     Title="UniToolbox"
-    Shell.TabBarIsVisible="True"
+    
     Shell.NavBarIsVisible="False"
     Shell.TabBarUnselectedColor="DarkSlateGray"
     >
+    <!--Shell.TabBarIsVisible="false"-->
     <Shell.ItemTemplate>
         <DataTemplate>
             <HorizontalStackLayout   HorizontalOptions="FillAndExpand" >
@@ -35,7 +36,7 @@
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="Wheat">
-            <Image Source="bg4.png" Opacity=".3"/>
+            <Image Source="bg4.png" Opacity=".1"/>
             <Image Source="logo.png" Margin="5"/>
         </Grid>
 
