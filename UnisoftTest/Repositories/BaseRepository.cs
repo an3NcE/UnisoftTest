@@ -55,10 +55,10 @@ namespace UnisoftTest.Repositories
 
 
             AllModules = await GetAllModules();
-            if (AllModules==null || AllModules.Count()==0)
-            {
+            //if (AllModules==null || AllModules.Count()==0)
+            //{
                 AddModules();
-            }
+            //}
             
             
         }
@@ -72,7 +72,8 @@ namespace UnisoftTest.Repositories
                                 new Modules { ModulID = 0, ModuleName = "PanelAdministracyjny", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
                                 new Modules { ModulID = 1, ModuleName = "TestyWydajnosciowe", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
                                 new Modules { ModulID = 2, ModuleName = "KopiowanieBazy", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
-                                new Modules { ModulID = 3, ModuleName = "DodatkoweSkrypty", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" }
+                                new Modules { ModulID = 3, ModuleName = "DodatkoweSkrypty", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
+                                new Modules { ModulID = 4, ModuleName = "BackupService", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" }
                             };
             if (AllModules.Count != newModules.Count)
             {
@@ -84,44 +85,7 @@ namespace UnisoftTest.Repositories
                     }
                 }
             }
-            //Modules AdministratorPage = new Modules
-            //{
-            //    ModulID = 0,
-            //    ModuleName = "PanelAdministracyjny",
-            //    ModuleAccess = false,
-            //    LastModified = DateTime.Now,
-            //    ImgVisualState = "fav.png"
-            //};
-            //connection.InsertAsync(AdministratorPage);
 
-            //Modules ResultPage = new Modules
-            //{
-            //    ModulID = 1,
-            //    ModuleName = "TestyWydajnosciowe",
-            //    ModuleAccess = false,
-            //    LastModified = DateTime.Now,
-            //    ImgVisualState = "fav.png"
-            //};
-            //connection.InsertAsync(ResultPage);
-
-            //Modules CopyBasePage = new Modules
-            //{
-            //    ModulID = 2,
-            //    ModuleName = "KopiowanieBazy",
-            //    ModuleAccess = false,
-            //    LastModified = DateTime.Now,
-            //    ImgVisualState = "fav.png"
-            //};
-            //connection.InsertAsync(CopyBasePage);
-            //Modules CustomScriptsPage = new Modules
-            //{
-            //    ModulID = 3,
-            //    ModuleName = "DodatkoweSkrypty",
-            //    ModuleAccess = false,
-            //    LastModified = DateTime.Now,
-            //    ImgVisualState = "fav.png"
-            //};
-            //connection.InsertAsync(CopyBasePage);
         }
         public async void AddOrUpdateModule(Modules module)
         {

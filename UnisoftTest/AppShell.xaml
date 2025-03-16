@@ -76,13 +76,13 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Kopia Bazy" 
-                Icon="base.png"
+                Icon="basetobase.png"
                 
                 x:Name="fiCopyBasePage">
         <ShellContent
             Title="Kopia Bazy"
             ContentTemplate="{DataTemplate local:CopyBasePage}"
-            Icon="base.png"
+            Icon="basetobase.png"
             Route="CopyBasePage" />
         <ShellContent
                     Title="Konfiguracja kopii"
@@ -115,6 +115,18 @@
                 ContentTemplate="{DataTemplate local:AdministratorPage}"
                 Icon="administrator.png"
                 Route="AdministratorPage" />
+
+    </FlyoutItem>
+    <FlyoutItem Title="Usługa Backup'u" 
+        Icon="basebackup.png"
+        
+                x:Name="fiBackupServicePage"
+        >
+        <ShellContent 
+            Title="Usługa Backup'u"
+            ContentTemplate="{DataTemplate local:BackupServicePage}"
+            Icon="basebackup.png"
+            Route="BackupServicePage" />
 
     </FlyoutItem>
 

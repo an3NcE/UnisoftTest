@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UnisoftTest.MVVM.Views.BackupServicePage"
+             Title="BackupServicePage">
+    <Grid RowDefinitions=".15*, .9*"
+    ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
+        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
+        <Grid Grid.Row="0" 
+        ColumnDefinitions=".5*,.5*"
+        VerticalOptions="End"
+        Grid.ColumnSpan="2">
+            <Image 
+             Source="logobackupservicepage.png"  
+             Aspect="AspectFit" 
+             HorizontalOptions="Start" 
+             Margin="5,10,0,0"/>
+            <VerticalStackLayout Grid.Column="1">
+                <Label Grid.Column="1" Text="{Binding serviceStatus, Mode=TwoWay}" 
+       HorizontalOptions="End"
+                       FontSize="Medium"/>
+                <Button Text="instalacja" Command="{Binding InstallService}"/>
+            </VerticalStackLayout>
+            
+
+        </Grid>
+
+        <Frame CornerRadius="20" Grid.Row="1" BackgroundColor="Transparent" Margin="10,20,10,0" 
+               >
+            <Grid BackgroundColor="Transparent"
+                ColumnDefinitions=".5*,.3*,.2*" RowDefinitions=".5*,.5*">
+                <Image  Grid.ColumnSpan="3" Source="bgpink.png"  Aspect="Fill" Opacity="0.4" Grid.RowSpan="2"/>
+                
+            </Grid>
+        </Frame >
+
+        
+
+        <!--<Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>-->
+
+    </Grid>
+</ContentPage>

@@ -65,6 +65,17 @@ namespace UnisoftTest
                 fiCustomScriptsPage.IsVisible = false;
             }
 
+            if (AllModules[4].ModuleAccess == true)
+            {
+                fiBackupServicePage.IsVisible = true;
+                countPage++;
+            }
+            else
+            {
+
+                fiBackupServicePage.IsVisible = false;
+            }
+
             if (countPage == 0)
             {
                 fiStartPage.IsVisible = true;
@@ -125,6 +136,7 @@ namespace UnisoftTest
                 await App.BaseRepo.AddOrUpdateAppAdministrator(false);
                 fiCopyBasePage.IsVisible = false;
                 fiConfigurationPage.IsVisible = false;
+                fiBackupServicePage.IsVisible = false;
                 fiCustomScriptsPage.IsVisible = false;
                 CheckModules();
             }
