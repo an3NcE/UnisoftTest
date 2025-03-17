@@ -32,15 +32,15 @@ namespace UnisoftTest
         }
         public static async Task<string> GetDatabasePasswordAsync()
         {
-            var password = await SecureStorage.GetAsync(passKey);
-            if (password == null)
-            {
-                string passwordToSave = "TwojeSuperSilneHasłoDoBazy";
-                await SecureStorage.SetAsync(passKey, passwordToSave);
-                password = await SecureStorage.GetAsync(passKey);
-            }
+            //var password = await SecureStorage.GetAsync(passKey);
+            //if (password == null)
+            //{
+            //    string passwordToSave = "TwojeSuperSilneHasłoDoBazy";
+            //    await SecureStorage.SetAsync(passKey, passwordToSave);
+            //    password = await SecureStorage.GetAsync(passKey);
+            //}
             //
-            
+            var password= "TwojeSuperSilneHasłoDoBazy";
             return password;
         }
 

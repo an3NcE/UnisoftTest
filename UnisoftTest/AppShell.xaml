@@ -5,11 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:UnisoftTest.MVVM.Views"
     Shell.FlyoutBehavior="Flyout"
-    Title="UniToolbox"
     
+    
+    FlyoutBackgroundColor="Black"
     Shell.NavBarIsVisible="False"
-    Shell.TabBarUnselectedColor="DarkSlateGray"
-    >
+    Shell.TabBarUnselectedColor="DarkSlateGray">
     <!--Shell.TabBarIsVisible="false"-->
     <Shell.ItemTemplate>
         <DataTemplate>
@@ -32,7 +32,7 @@
         </DataTemplate>
     </Shell.ItemTemplate>
 
-
+    
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="Wheat">
@@ -42,6 +42,9 @@
 
     </Shell.FlyoutHeader>
 
+    
+        
+    
 
     <FlyoutItem Title="Strona startowa"
         Icon="rocket.png"
@@ -131,7 +134,7 @@
 
     </FlyoutItem>
 
-
+    
     <Shell.FlyoutFooter >
         <Grid HorizontalOptions="FillAndExpand" BackgroundColor="CadetBlue" RowDefinitions=".7*,.3*" >
 

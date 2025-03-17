@@ -34,6 +34,7 @@ namespace UnisoftTest
             window.MaximumHeight = newHeight;
             window.MinimumWidth = newWidth;
             window.MinimumHeight = newHeight;
+            
 
             return window;
 
