@@ -413,7 +413,7 @@
         <Setter Property="Shell.BackgroundColor" Value="Red" />
         
         <!--<Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource SecondaryDarkText}}" />-->
-        <Setter Property="Shell.ForegroundColor" Value="Wheat" />
+        <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource CadetBlue}, Dark={StaticResource Wheat}}" />
         <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource SecondaryDarkText}}" />
         <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}" />

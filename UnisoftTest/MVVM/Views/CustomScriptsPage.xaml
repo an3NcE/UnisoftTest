@@ -4,10 +4,10 @@
              x:Class="UnisoftTest.MVVM.Views.CustomScriptsPage"
              Title="CustomScriptsPage">
     <Grid RowDefinitions=".15*,.85*"
-          BackgroundColor="MediumPurple">
+          BackgroundColor="DarkSlateGray">
         <Image Grid.Row="0" 
                Grid.RowSpan="2"
-               Source="bg4.png"  Aspect="Fill" Opacity="1"/>
+               Source="bg4.png"  Aspect="Fill" Opacity="0.3"/>
         
         <Image 
                Source="logocustomscript.png"  

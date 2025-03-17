@@ -115,6 +115,7 @@ namespace UnisoftTest
                     fiCopyBasePage.IsVisible = true;
                     fiConfigurationPage.IsVisible = true;
                     fiCustomScriptsPage.IsVisible = true;
+                    fiBackupServicePage.IsVisible = true;
                     await Shell.Current.GoToAsync("//AdministratorPage");
                     //await Shell.Current.Navigation.PopToRootAsync();
                 }

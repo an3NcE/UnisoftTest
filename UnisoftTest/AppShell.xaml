@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:UnisoftTest.MVVM.Views"
     Shell.FlyoutBehavior="Flyout"
     
-    
+    BackgroundColor="Black"
     FlyoutBackgroundColor="Black"
     Shell.NavBarIsVisible="False"
     Shell.TabBarUnselectedColor="DarkSlateGray">
