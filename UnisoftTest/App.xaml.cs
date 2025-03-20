@@ -9,6 +9,7 @@ namespace UnisoftTest
 
         public App(BaseRepository repo)
         {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
             InitializeComponent();
             BaseRepo = repo;
             //Task.Run(async () => await App.BaseRepo.InitializeDatabaseAsync());
@@ -21,6 +22,8 @@ namespace UnisoftTest
 
         private async void InitializeAppAsync()
         {
+             
+
             await BaseRepo.InitializeDatabaseAsync(); // Teraz czekasz na inicjalizację bazy!
             MainPage = new AppShell();
         }

@@ -1,4 +1,4 @@
-Aplikacja umożliwia zarządzanie skryptami SQL do kopiowania baz danych oraz testowanie wydajności aplikacji poprzez automatyczne uruchamianie zdefiniowanych operacji na bazach SQLite. Użytkownik może dodawać, edytować i uruchamiać skrypty, a także monitorować ich wykonanie w czasie rzeczywistym.
+Aplikacja umożliwia zarządzanie skryptami SQL do kopiowania baz danych oraz testowanie wydajności aplikacji poprzez automatyczne uruchamianie zdefiniowanych operacji na bazach SQLite. Użytkownik może dodawać, edytować i uruchamiać skrypty, a także monitorować ich wykonanie w czasie rzeczywistym. 
 
 Kluczowe funkcjonalności:
 Tworzenie, edycja i przechowywanie skryptów SQL w bazie SQLite.
