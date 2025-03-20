@@ -163,7 +163,7 @@ namespace UnisoftTest.MVVM.ViewModels
                     Process process = new Process();
                     process.StartInfo.FileName = "cmd.exe";
                     //process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
-                    process.StartInfo.Arguments = $"/c {txtScript}";
+                    //process.StartInfo.Arguments = $"/c {txtScript}";
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
                     process.StartInfo.UseShellExecute = false;
