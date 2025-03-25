@@ -61,30 +61,101 @@ namespace UnisoftTest.MVVM.ViewModels
 
                 File.WriteAllText(sqlFilePath, currentCopyBaseScript.CopyBaseScript);
 
-                // Wykonaj ciężkie zadanie w tle
                 await Task.Run(() =>
                 {
-                    // Symulacja ciężkiego zadania
                     Process process = new Process();
                     process.StartInfo.FileName = "cmd.exe";
                     process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
-                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.UseShellExecute = false; // WAŻNE: NIE MOŻNA MIEĆ TEGO NA TRUE, GDY JEST REDIRECT
                     process.StartInfo.CreateNoWindow = true;
 
+                    process.OutputDataReceived += (sender, e) => {
+                        if (!string.IsNullOrEmpty(e.Data))
+                            ResultEditor += e.Data + Environment.NewLine;
+                    };
+
+                    process.ErrorDataReceived += (sender, e) => {
+                        if (!string.IsNullOrEmpty(e.Data))
+                            ResultEditor += e.Data + Environment.NewLine;
+                    };
+
                     process.Start();
-
-                    // Czytaj dane wyjściowe na bieżąco
-                    while (!process.StandardOutput.EndOfStream)
-                    {
-                        string line = process.StandardOutput.ReadLine();
-                        ResultEditor += line + Environment.NewLine; // Dodanie do wyniku
-                        //PropertyChanged(nameof(ResultEditor)); // Powiadomienie o zmianie
-                    }
-
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
                     process.WaitForExit();
                 });
+
+                //// Wykonaj ciężkie zadanie w tle
+                //await Task.Run(() =>
+                //{
+                //    // Symulacja ciężkiego zadania
+                //    Process process = new Process();
+                //    process.StartInfo.FileName = "cmd.exe";
+                //    //process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
+                //    process.StartInfo.Arguments = $"/k {txtScript} @{sqlFilePath}";
+                //    //process.StartInfo.Arguments = $"/c {txtScript}  pause";
+                //    //process.StartInfo.Arguments = $"/k {txtScript}";
+                //    //process.StartInfo.RedirectStandardOutput = true;
+                //    //process.StartInfo.RedirectStandardError = true;
+                //    process.StartInfo.UseShellExecute = true;
+                //    process.StartInfo.CreateNoWindow = false;
+
+                //    process.Start();
+
+                //    //// Czytaj dane wyjściowe na bieżąco
+                //    //while (!process.StandardOutput.EndOfStream)
+                //    //{
+                //    //    string line = process.StandardOutput.ReadLine();
+                //    //    ResultEditor += line + Environment.NewLine; // Dodanie do wyniku
+                //    //    //PropertyChanged(nameof(ResultEditor)); // Powiadomienie o zmianie
+                //    //}
+
+
+                //    process.WaitForExit();
+                //});
+
+                //await Task.Run(async () =>
+                //{
+                //    Process process = new Process();
+                //    process.StartInfo.FileName = "cmd.exe";
+                //    //process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
+                //    process.StartInfo.Arguments = $"/c {txtScript} ";
+                //    process.StartInfo.RedirectStandardOutput = true;
+                //    process.StartInfo.RedirectStandardError = true;
+                //    process.StartInfo.UseShellExecute = false;
+                //    process.StartInfo.CreateNoWindow = true;
+
+                //    process.OutputDataReceived += (sender, e) =>
+                //    {
+                //        if (!string.IsNullOrEmpty(e.Data))
+                //        {
+                //            MainThread.BeginInvokeOnMainThread(() =>
+                //            {
+                //                ResultEditor += e.Data + Environment.NewLine;
+                //            });
+                //        }
+                //    };
+
+                //    process.ErrorDataReceived += (sender, e) =>
+                //    {
+                //        if (!string.IsNullOrEmpty(e.Data))
+                //        {
+                //            MainThread.BeginInvokeOnMainThread(() =>
+                //            {
+                //                ResultEditor +=  e.Data + Environment.NewLine;
+                //            });
+                //        }
+                //    };
+
+                //    process.Start();
+                //    process.BeginOutputReadLine();
+                //    process.BeginErrorReadLine();
+
+                //    await process.WaitForExitAsync();
+                //});
+
             }
             catch (Exception ex)
             {

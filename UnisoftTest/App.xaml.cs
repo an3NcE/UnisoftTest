@@ -9,7 +9,7 @@ namespace UnisoftTest
 
         public App(BaseRepository repo)
         {
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            //System.Diagnostics.Process.GetCurrentProcess().Kill();
             InitializeComponent();
             BaseRepo = repo;
             //Task.Run(async () => await App.BaseRepo.InitializeDatabaseAsync());

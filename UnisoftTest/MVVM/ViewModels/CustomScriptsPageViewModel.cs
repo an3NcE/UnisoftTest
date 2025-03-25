@@ -157,12 +157,12 @@ namespace UnisoftTest.MVVM.ViewModels
                 // Włącz ikonę ładowania
                 //LoadingIcon(true);
 
-                File.WriteAllText(sqlFilePath, CurrentScript.CustomScriptSQL);
+                File.WriteAllText(sqlFilePath, CurrentScript.CustomScriptSQL + " exit;");
                 await Task.Run(() =>
                 {
                     Process process = new Process();
                     process.StartInfo.FileName = "cmd.exe";
-                    //process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
+                    process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
                     //process.StartInfo.Arguments = $"/c {txtScript}";
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
