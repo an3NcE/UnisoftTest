@@ -12,6 +12,10 @@ public partial class CopyBasePage : ContentPage
 
     protected override void OnAppearing()
     {
+        MessagingCenter.Subscribe<CopyBasePageViewModel, string>(this, "Alert", async (sender, message) =>
+        {
+            await DisplayAlert("Informacja - Kopiowanie bazy.", message, "OK");
+        });
         base.OnAppearing();
         if (BindingContext is CopyBasePageViewModel viewModel)
         {
@@ -19,5 +23,18 @@ public partial class CopyBasePage : ContentPage
             viewModel.Refresh();
 
         }
+    }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        MessagingCenter.Unsubscribe<CopyBasePageViewModel, string>(this, "Alert");
+    }
+
+    private void FocusOnLastLine(object sender, TextChangedEventArgs e)
+    {
+
+        resultEditorFocus.CursorPosition = resultEditorFocus.Text.Length - 1;
+        resultEditorFocus.Focus();
+
     }
 }

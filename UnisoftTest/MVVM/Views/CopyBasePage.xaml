@@ -6,7 +6,7 @@
 
     <Grid RowDefinitions=".15*, .3*, .6*"
       ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
-        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
+        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.3"/>
         <Grid Grid.Row="0" 
           HorizontalOptions="FillAndExpand"
           VerticalOptions="End"
@@ -37,7 +37,8 @@
              HeightRequest="10"
              HorizontalOptions="Center"
              VerticalOptions="Center"
-             BackgroundColor="Transparent" />
+             BackgroundColor="Transparent"
+                             IsVisible="{Binding modifVisibleRunBtn, Mode=TwoWay}"/>
                 <ActivityIndicator Grid.Column="2"
                                    IsRunning="{Binding ActIndIsRunning}"
                                    Color="Orange"
@@ -54,7 +55,7 @@
                   RowDefinitions=".1*,.9*"
                   >
                     <Label Text="Rezultat Kopiowania Bazy:" FontAttributes="Bold" Margin="10,0,0,0"/>
-                    <Editor Grid.Row="1" Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" />
+                    <Editor Grid.Row="1" Text="{Binding ResultEditor, Mode=TwoWay}" MinimumHeightRequest="100" TextChanged="FocusOnLastLine" x:Name="resultEditorFocus"/>
                 </Grid>
             </Grid>
         </Frame>

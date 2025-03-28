@@ -99,7 +99,7 @@ namespace UnisoftTest
             {
                 string password = await Application.Current.MainPage.DisplayPromptAsync(
                                 "Autoryzacja",
-                                "Podaj hasło administratora:",
+                                "Podaj hasło serwisanta:",
                                 "OK", "Anuluj",
                                 placeholder: "Hasło",
                                 maxLength: 20,
@@ -109,7 +109,7 @@ namespace UnisoftTest
                 {
                     isAdministrator = true;
                     Shell.SetTabBarIsVisible(this, isAdministrator);
-                    lblAdministrator.Text = "Jesteś Administratorem! :)";
+                    lblAdministrator.Text = "Jesteś serwisantem! :)";
                     App.BaseRepo.AddOrUpdateAppAdministrator(true);
                     isAdministratorChecked = true;
                     fiCopyBasePage.IsVisible = true;
@@ -123,7 +123,7 @@ namespace UnisoftTest
                 {
                     await Application.Current.MainPage.DisplayAlert(
                                "Autoryzacja",
-                               "Chyba nie jesteś administratorem. :)",
+                               "Chyba nie jesteś serwisantem. :)",
                                "OK");
                     isAdministratorChecked = false;
 
@@ -135,7 +135,7 @@ namespace UnisoftTest
                 isAdministrator = false;
                 Shell.SetTabBarIsVisible(this,isAdministrator);
                 isAdministratorChecked = false;
-                lblAdministrator.Text = "Czy jesteś Administratorem?";
+                lblAdministrator.Text = "Czy jesteś serwisantem?";
                 await App.BaseRepo.AddOrUpdateAppAdministrator(false);
                 fiCopyBasePage.IsVisible = false;
                 fiConfigurationPage.IsVisible = false;

@@ -17,10 +17,11 @@ namespace UnisoftTest.MVVM.ViewModels
         public List<CopyBaseScripts> BaseScripts { get; set; }
         public CopyBaseScripts CurrentScript { get; set; }
 
+        string path = AppDomain.CurrentDomain.BaseDirectory + "\\Logs";
         public ICommand RunScript => new Command(RunCopyBaseScript);
         public string ResultEditor { get; set; }
         public bool ActIndIsRunning { get; set; }
-
+        public bool modifVisibleRunBtn { get; set; }
 
         public CopyBasePageViewModel()
         {
@@ -32,6 +33,15 @@ namespace UnisoftTest.MVVM.ViewModels
         public async void Refresh()
         {
             BaseScripts = await App.BaseRepo.GetAllBaseScripts();
+            if (ActIndIsRunning==false )
+            {
+                modifVisibleRunBtn = true;
+            }
+            else
+            {
+                modifVisibleRunBtn = false;
+            }
+                
 
         }
         private async void RunCopyBaseScript(object obj)
@@ -46,6 +56,7 @@ namespace UnisoftTest.MVVM.ViewModels
             if (currentCopyBaseScript.CopyBaseScript == null || currentCopyBaseScript.CopyBaseScriptCMD == null)
             {
                 ResultEditor = "Niepoprawny skrypt!";
+                MessagingCenter.Send(this, "Alert", "Skrypt jest niepoprawny.");
                 return;
             }
 
@@ -58,7 +69,7 @@ namespace UnisoftTest.MVVM.ViewModels
             {
                 // Włącz ikonę ładowania
                 LoadingIcon(true);
-
+                ResultEditor = "";
                 File.WriteAllText(sqlFilePath, currentCopyBaseScript.CopyBaseScript);
 
                 await Task.Run(() =>
@@ -167,11 +178,42 @@ namespace UnisoftTest.MVVM.ViewModels
                 LoadingIcon(false);
             }
             File.Delete(sqlFilePath);
+            WriteToFile(ResultEditor);
+            MessagingCenter.Send(this, "Alert", "Skrypt wykonany.");
         }
 
         public void LoadingIcon(bool isRunning)
         {
             ActIndIsRunning = isRunning;
+        }
+
+        public void WriteToFile(string cbLogs)
+        {
+
+
+            if (!Directory.Exists(path))
+
+                Directory.CreateDirectory(path);
+
+            string filepath = Path.Combine(path, "CopyBaseLog_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".txt");
+
+            if (!File.Exists(filepath))
+            {
+
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(filepath))
+
+                    sw.WriteLine(cbLogs);
+
+            }
+            else
+            {
+
+                using (StreamWriter sw = File.AppendText(filepath))
+                {
+                    sw.WriteLine(cbLogs);
+                }
+            }
         }
 
     }

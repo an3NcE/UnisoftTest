@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:UnisoftTest.MVVM.Views"
     Shell.FlyoutBehavior="Flyout"
-    
+    Title="UniToolbox"
     BackgroundColor="Black"
     FlyoutBackgroundColor="Black"
     Shell.NavBarIsVisible="False"
@@ -139,7 +139,7 @@
         <Grid HorizontalOptions="FillAndExpand" BackgroundColor="CadetBlue" RowDefinitions=".7*,.3*" >
 
             <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" >
-                <Label x:Name="lblAdministrator" Text="Czy jesteś Administratorem?" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Wheat"/>
+                <Label x:Name="lblAdministrator" Text="Czy jesteś serwisantem?" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Wheat"/>
                 <!--<CheckBox  HorizontalOptions="End" Color="Wheat" IsChecked="{Binding SetAdministrator}"/>-->
                 <CheckBox CheckedChanged="SetAdministrator" HorizontalOptions="End" Color="Wheat" IsChecked="{Binding isAdministratorChecked, Mode=TwoWay}"/>
             </HorizontalStackLayout>

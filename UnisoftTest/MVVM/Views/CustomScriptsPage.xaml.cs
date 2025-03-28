@@ -14,7 +14,7 @@ public partial class CustomScriptsPage : ContentPage
     {
         MessagingCenter.Subscribe<CustomScriptsPageViewModel, string>(this, "Alert", async (sender, message) =>
         {
-            await DisplayAlert("Informacja", message, "OK");
+            await DisplayAlert("Informacja - Dodatkowe skrypty.", message, "OK");
         });
 
         base.OnAppearing();
