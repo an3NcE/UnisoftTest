@@ -1,4 +1,6 @@
-﻿using PropertyChanged;
+﻿using CommunityToolkit.Maui.Views;
+using PropertyChanged;
+using unisofttest.MVVM.Views;
 using UnisoftTest.MVVM.Models;
 using UnisoftTest.MVVM.Views;
 using UniToolbox.MVVM.Models;
@@ -14,6 +16,7 @@ namespace UnisoftTest
 
         public AppSettings AppSettingsPassword { get; set; }
         string secondAdminPW = "brakHasla";
+        string password = "";
         public AppShell()
         {
             InitializeComponent();
@@ -87,6 +90,15 @@ namespace UnisoftTest
             }
         }
 
+        public async Task<string> ShowPopupPasword(LoginPopUpPage loginPopUpPage)
+        {
+            
+            await this.ShowPopupAsync(loginPopUpPage);
+
+            
+            return loginPopUpPage.GetPasswordEntry(); 
+        }
+
         private async void SetAdministrator(object sender, EventArgs e)
         {
             GetSecondPW();
@@ -97,14 +109,23 @@ namespace UnisoftTest
 
             if (isAdministrator == false && isAdministratorChecked == true)
             {
-                string password = await Application.Current.MainPage.DisplayPromptAsync(
-                                "Autoryzacja",
-                                "Podaj hasło serwisanta:",
-                                "OK", "Anuluj",
-                                placeholder: "Hasło",
-                                maxLength: 20,
-                                keyboard: Keyboard.Text);
-                //password = "opat"; //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //string password = await Application.Current.MainPage.DisplayPromptAsync(
+                //                "Autoryzacja",
+                //                "Podaj hasło serwisanta:",
+                //                "OK", "Anuluj",
+                //                placeholder: "Hasło",
+                //                maxLength: 20,
+                //                keyboard: Keyboard.Text);
+
+                //this.ShowPopup(new LoginPopUpPage());
+
+                //string password =""; 
+                //string password = this.ShowPopup(new LoginPopUpPage()); 
+                string password = await ShowPopupPasword(new LoginPopUpPage());
+
+                
+
+                // //do usuniecia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if (password == "!@#$" || password == secondAdminPW)
                 {
                     isAdministrator = true;
@@ -119,6 +140,10 @@ namespace UnisoftTest
                     await Shell.Current.GoToAsync("//AdministratorPage");
                     //await Shell.Current.Navigation.PopToRootAsync();
                 }
+                else if (password=="Close")
+                {
+                    FalseAdministrator();
+                }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert(
@@ -132,18 +157,23 @@ namespace UnisoftTest
             else
             {
 
-                isAdministrator = false;
-                Shell.SetTabBarIsVisible(this,isAdministrator);
-                isAdministratorChecked = false;
-                lblAdministrator.Text = "Czy jesteś serwisantem?";
-                await App.BaseRepo.AddOrUpdateAppAdministrator(false);
-                fiCopyBasePage.IsVisible = false;
-                fiConfigurationPage.IsVisible = false;
-                fiBackupServicePage.IsVisible = false;
-                fiCustomScriptsPage.IsVisible = false;
-                CheckModules();
+                FalseAdministrator();
             }
 
+        }
+
+        public async void FalseAdministrator()
+        {
+            isAdministrator = false;
+            Shell.SetTabBarIsVisible(this, isAdministrator);
+            isAdministratorChecked = false;
+            lblAdministrator.Text = "Czy jesteś serwisantem?";
+            await App.BaseRepo.AddOrUpdateAppAdministrator(false);
+            fiCopyBasePage.IsVisible = false;
+            fiConfigurationPage.IsVisible = false;
+            fiBackupServicePage.IsVisible = false;
+            fiCustomScriptsPage.IsVisible = false;
+            CheckModules();
         }
 
         private async void GetSecondPW()

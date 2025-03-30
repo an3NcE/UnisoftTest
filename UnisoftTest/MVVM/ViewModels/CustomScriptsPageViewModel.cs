@@ -163,26 +163,19 @@ namespace UnisoftTest.MVVM.ViewModels
                     Process process = new Process();
                     process.StartInfo.FileName = "cmd.exe";
                     process.StartInfo.Arguments = $"/c {txtScript} @{sqlFilePath}";
-                    //process.StartInfo.Arguments = $"/c {txtScript}";
                     process.StartInfo.RedirectStandardOutput = true;
                     process.StartInfo.RedirectStandardError = true;
-                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.UseShellExecute = false; // WAŻNE: NIE MOŻNA MIEĆ TEGO NA TRUE, GDY JEST REDIRECT
                     process.StartInfo.CreateNoWindow = true;
 
-                    process.OutputDataReceived += (sender, e) =>
-                    {
+                    process.OutputDataReceived += (sender, e) => {
                         if (!string.IsNullOrEmpty(e.Data))
-                        {
                             ResultLabel += e.Data + Environment.NewLine;
-                        }
                     };
 
-                    process.ErrorDataReceived += (sender, e) =>
-                    {
+                    process.ErrorDataReceived += (sender, e) => {
                         if (!string.IsNullOrEmpty(e.Data))
-                        {
-                            ResultLabel += "ERROR: " + e.Data + Environment.NewLine;
-                        }
+                            ResultLabel += e.Data + Environment.NewLine;
                     };
 
                     process.Start();

@@ -21,7 +21,8 @@
                     <Entry Placeholder="Podaj hasło dodatkowe" Text="{Binding AppSettingsPassword.SettingsValue, Mode=TwoWay}" 
                         HorizontalOptions="FillAndExpand" 
                         VerticalOptions="Center"
-                           x:Name="entryPW" />
+                           x:Name="entryPW"
+                           IsPassword="True"/>
                     <ImageButton Source="save1.png" 
                               Command="{Binding SaveNewPassworCm}" 
                               Aspect="AspectFit"

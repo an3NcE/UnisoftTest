@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             x:Class="unisofttest.MVVM.Views.LoginPopUpPage"
+             CanBeDismissedByTappingOutsideOfPopup="False"
+             Color="CadetBlue"
+             
+             >
+    <VerticalStackLayout BackgroundColor="Transparent" WidthRequest="200" Spacing="5" HeightRequest="170" >
+        <Grid ColumnDefinitions=".5*,.5*" Margin="2">
+            <Label 
+                    Text="Logowanie..."
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    TextColor="Black"
+                FontAttributes="Bold"/>
+            <Button Grid.Column="1"
+                Text="X" Clicked="Button_Close" BackgroundColor="IndianRed" TextColor="Black"
+        BorderColor="Black" BorderWidth="1" WidthRequest="10" HorizontalOptions="End"
+                    />
+        </Grid>
+        
+        <Entry TextColor="Black"
+               IsPassword="True"
+               x:Name="pwEntry"
+               BackgroundColor="AliceBlue" Placeholder="Podaj hasło"
+               Margin="5"/>
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5" >
+            <Button Text="Zaloguj" Clicked="Button_Loggin" BackgroundColor="Wheat" TextColor="Black"
+                    BorderColor="Black" BorderWidth="1"/>
+            
+            
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</mct:Popup>
