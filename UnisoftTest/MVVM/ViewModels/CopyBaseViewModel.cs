@@ -69,6 +69,7 @@ namespace UnisoftTest.MVVM.ViewModels
             {
                 // Włącz ikonę ładowania
                 LoadingIcon(true);
+                modifVisibleRunBtn = false;
                 ResultEditor = "";
                 File.WriteAllText(sqlFilePath, currentCopyBaseScript.CopyBaseScript);
 
@@ -176,6 +177,7 @@ namespace UnisoftTest.MVVM.ViewModels
             {
                 // Wyłącz ikonę ładowania
                 LoadingIcon(false);
+                modifVisibleRunBtn = true;
             }
             File.Delete(sqlFilePath);
             WriteToFile(ResultEditor);

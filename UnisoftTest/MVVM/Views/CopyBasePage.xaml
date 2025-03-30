@@ -41,7 +41,7 @@
                              IsVisible="{Binding modifVisibleRunBtn, Mode=TwoWay}"/>
                 <ActivityIndicator Grid.Column="2"
                                    IsRunning="{Binding ActIndIsRunning}"
-                                   Color="Orange"
+                                   Color="Wheat"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"/>
 

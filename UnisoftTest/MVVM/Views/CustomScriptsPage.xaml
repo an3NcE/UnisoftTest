@@ -176,7 +176,7 @@
                     Text="{Binding CurrentScript.CustomScriptSQL, Mode=TwoWay}" 
                     HorizontalOptions="FillAndExpand" 
                     VerticalOptions="FillAndExpand"
-                    IsVisible="{Binding isAdministrator, Mode=TwoWay}"
+                    IsVisible="{Binding modifVisible, Mode=TwoWay}"
                     Margin="10"
                     AutoSize="TextChanges"
                     />

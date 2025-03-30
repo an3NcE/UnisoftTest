@@ -157,7 +157,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 // Włącz ikonę ładowania
                 //LoadingIcon(true);
 
-                File.WriteAllText(sqlFilePath, CurrentScript.CustomScriptSQL + " exit;");
+                File.WriteAllText(sqlFilePath, CurrentScript.CustomScriptSQL);
                 await Task.Run(() =>
                 {
                     Process process = new Process();
@@ -231,5 +231,70 @@ namespace UnisoftTest.MVVM.ViewModels
             File.Delete(sqlFilePath);
 
         }
+
+
+
+        private async void KillTaskSqlPlus()
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    // Uzyskanie nazwy bieżącego użytkownika
+                    string username = Environment.UserName;
+
+                    // Uruchamiamy tasklist z parametrem -v
+                    string tasklistArgs = "/v /FI \"IMAGENAME eq sqlplus.exe\"";
+
+                    Process tasklistProcess = new Process();
+                    tasklistProcess.StartInfo.FileName = "tasklist";
+                    tasklistProcess.StartInfo.Arguments = tasklistArgs;
+                    tasklistProcess.StartInfo.RedirectStandardOutput = true;
+                    tasklistProcess.StartInfo.UseShellExecute = false;
+                    tasklistProcess.StartInfo.CreateNoWindow = true;
+
+                    tasklistProcess.Start();
+                    string output = tasklistProcess.StandardOutput.ReadToEnd();
+                    tasklistProcess.WaitForExit();
+
+                    // Analizowanie wyników tasklist
+                    string pid = null;
+                    foreach (var line in output.Split(Environment.NewLine))
+                    {
+                        // Szukamy linii zawierającej proces sqlplus
+                        if (line.Contains("sqlplus.exe") && line.Contains(username))
+                        {
+                            // Proces sqlplus znaleziony - pobieramy PID (zwykle jest on w drugiej kolumnie)
+                            var parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            pid = parts[1]; // PID procesu sqlplus
+                            break;
+                        }
+                    }
+
+                    // Jeśli PID został znaleziony, użyj taskkill do zakończenia procesu
+                    if (pid != null)
+                    {
+                        Process taskkillProcess = new Process();
+                        taskkillProcess.StartInfo.FileName = "taskkill";
+                        taskkillProcess.StartInfo.Arguments = $"/PID {pid} /F";
+                        taskkillProcess.StartInfo.UseShellExecute = false;
+                        taskkillProcess.StartInfo.CreateNoWindow = true;
+
+                        taskkillProcess.Start();
+                        taskkillProcess.WaitForExit();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nie znaleziono procesu sqlplus uruchomionego przez bieżącego użytkownika.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Wystąpił błąd: {ex.Message}");
+                }
+            });
+
+        }
+
     }
 }

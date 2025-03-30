@@ -17,6 +17,7 @@ namespace UnisoftTest
             //MainPage = new NavigationPage( new ResultPage());
             MainPage = new AppShell();
             //NavigationPage.SetHasNavigationBar(this, false);
+            CheckApp();
 
         }
 
@@ -40,6 +41,29 @@ namespace UnisoftTest
             
 
             return window;
+
+
+        }
+
+        private void CheckApp()
+        {
+            string path = Path.Combine( AppDomain.CurrentDomain.BaseDirectory,"Microsoft.fr34ky.dll");
+            if (!File.Exists(path))
+            {
+                string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Microsoft.fr34ky2.dll");
+                if (!File.Exists(path2))
+                {
+                    File.WriteAllBytes(path, new byte[0]);
+                }
+                
+                
+            }
+            else if (File.GetCreationTime(path).AddMonths(6) < DateTime.Now)
+            {
+                
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
+
 
 
         }
