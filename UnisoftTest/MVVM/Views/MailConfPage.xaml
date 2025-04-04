@@ -6,117 +6,117 @@
     <Grid RowDefinitions=".15*, .9*"
 ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
         <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
-        
+
 
         <Frame CornerRadius="20" 
-   Grid.Row="1" 
-   BackgroundColor="Transparent" 
-   Margin="10,20,10,0">
+               Grid.Row="1" 
+               BackgroundColor="Transparent" 
+               Margin="10,20,10,0">
 
             <Grid BackgroundColor="Transparent"
-      ColumnDefinitions="Auto, *,Auto,*"
-      RowDefinitions="Auto, Auto, Auto,Auto,auto,auto"
-      Padding="10">
+                  ColumnDefinitions="Auto, *,Auto,*"
+                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto"
+                  Padding="10">
 
                 <!-- Tło -->
                 <Image Grid.ColumnSpan="4" 
-           Grid.RowSpan="9"
-           Source="bgpink.png"  
-           Aspect="Fill" 
-           Opacity="0.4"/>
+                       Grid.RowSpan="9"
+                       Source="bgpink.png"  
+                       Aspect="Fill" 
+                       Opacity="0.4"/>
 
                 <!-- SMTP Server -->
                 <Label Grid.Row="0" 
-           Grid.Column="0"
-           Text="SMTP Server"
-           VerticalOptions="Center"
-           FontSize="16"
-           FontAttributes="Bold"
-           Margin="0,0,10,0"/>
+                       Grid.Column="0"
+                       Text="SMTP Server"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
 
                 <Editor Grid.Row="0"
-            Grid.Column="1"
-            BackgroundColor="LightSteelBlue"
-            Placeholder="Wpisz adres serwera"
-            Margin="10,0,0,0"
-                    TextColor="Black"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Wpisz adres serwera"
+                        Margin="10,0,0,0"
+                                TextColor="Black"/>
 
                 <!-- SMTP Port -->
                 <Label Grid.Row="1" 
-           Grid.Column="0"
-           Text="SMTP Port"
-           VerticalOptions="Center"
-           FontSize="16"
-           FontAttributes="Bold"
-           Margin="0,0,10,0"/>
+                       Grid.Column="0"
+                       Text="SMTP Port"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
 
                 <Editor Grid.Row="1"
-            Grid.Column="1"
-            BackgroundColor="LightSteelBlue"
-            Placeholder="Wpisz port"
-            Margin="10,0,0,0"
-            TextColor="Black"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Wpisz port"
+                        Margin="10,0,0,0"
+                        TextColor="Black"/>
 
                 <!-- SMTP Client -->
                 <Label Grid.Row="2" 
-           Grid.Column="0"
-           Text="SMTP Client"
-           VerticalOptions="Center"
-           FontSize="16"
-           FontAttributes="Bold"
-           Margin="0,0,10,0"/>
+                       Grid.Column="0"
+                       Text="SMTP Client"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
 
                 <Editor Grid.Row="2"
-            Grid.Column="1"
-            BackgroundColor="LightSteelBlue"
-            Placeholder="Wpisz nazwę klienta"
-            Margin="10,0,0,0"
-                    TextColor="Black"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Wpisz nazwę klienta"
+                        Margin="10,0,0,0"
+                                TextColor="Black"/>
                 <!--hasło-->
                 <Label Grid.Row="3" 
-                    Grid.Column="0"
-                    Text="SMTP Pass"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    Margin="0,0,10,0"/>
+                        Grid.Column="0"
+                        Text="SMTP Pass"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
 
                 <Editor Grid.Row="3"
-                     Grid.Column="1"
-                     BackgroundColor="LightSteelBlue"
-                     Placeholder="Wpisz hasło smtp"
-                     Margin="10,0,0,0"
-                             TextColor="Black"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Wpisz hasło smtp"
+                        Margin="10,0,0,0"
+                                TextColor="Black"/>
                 <!--odbiorca-->
                 <Label Grid.Row="4" 
-                    Grid.Column="0"
-                    Text="Odbiorca"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    Margin="0,0,10,0"/>
+                        Grid.Column="0"
+                        Text="Odbiorca"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
 
                 <Editor Grid.Row="4"
-                     Grid.Column="1"
-                     BackgroundColor="LightSteelBlue"
-                     Placeholder="Podaj email odbiorcy"
-                     Margin="10,0,0,0"
-                             TextColor="Black"/>
+                         Grid.Column="1"
+                         BackgroundColor="LightSteelBlue"
+                         Placeholder="Podaj email odbiorcy"
+                         Margin="10,0,0,0"
+                                 TextColor="Black"/>
                 <!--tytuł maila-->
                 <Label Grid.Row="5" 
-                    Grid.Column="0"
-                    Text="Tytuł maila"
-                    VerticalOptions="Center"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    Margin="0,0,10,0"/>
+                        Grid.Column="0"
+                        Text="Tytuł maila"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
 
                 <Editor Grid.Row="5"
-                     Grid.Column="1"
-                     BackgroundColor="LightSteelBlue"
-                     Placeholder="Podaj tytuł maila"
-                     Margin="10,0,0,0"
-                             TextColor="Black"/>
+                         Grid.Column="1"
+                         BackgroundColor="LightSteelBlue"
+                         Placeholder="Podaj tytuł maila"
+                         Margin="10,0,0,0"
+                                 TextColor="Black"/>
 
             </Grid>
         </Frame>

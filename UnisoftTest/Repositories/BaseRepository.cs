@@ -65,7 +65,57 @@ namespace UnisoftTest.Repositories
             
             
         }
-        
+
+        #region MailConfiguration
+        public async Task AddOrUpdateMailConfiguration(MailConfiguration mailConfiguration)
+        {
+            int result = 0;
+            var existingScript = await connection.FindAsync<MailConfiguration>(mailConfiguration.mailconf_id);
+            try
+            {
+
+                if (existingScript != null)
+                {
+                    mailConfiguration.mailconf_createdate = DateTime.Now;
+                    result = await connection.UpdateAsync(mailConfiguration);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    mailConfiguration.mailconf_createdate = DateTime.Now;
+                    result = await connection.InsertAsync(mailConfiguration);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            Console.WriteLine(StatusMessage);
+        }
+
+        public async Task<MailConfiguration> GetMailConfiguration(int id)
+        {
+            try
+            {
+                //connection.Execute($"DELETE FROM AppSettings where SettingsName<>{name}");
+                return await connection.Table<MailConfiguration>().FirstOrDefaultAsync(x => x.mailconf_id == id);
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        }
+
+        #endregion
+
 
         #region Module
         public void AddModules()
