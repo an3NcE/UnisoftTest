@@ -23,6 +23,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
 
         public string testMailAddress { get; set; }
+        public string imgResultSource { get; set; }
 
 
         public MailConfPageViewModel()
@@ -35,6 +36,7 @@ namespace UnisoftTest.MVVM.ViewModels
             if (MailConfiguration.mailconf_smtpclientaddresss != null && MailConfiguration.mailconf_smtpserver != null && MailConfiguration.mailconf_smtpclientpassword != null && MailConfiguration.mailconf_smtpport != null)
             {
                 await App.BaseRepo.AddOrUpdateMailConfiguration(MailConfiguration);
+                await Shell.Current.DisplayAlert("Sukces", "Konfiguracja zapisana.", "OK");
             }
 
         }
@@ -74,12 +76,20 @@ namespace UnisoftTest.MVVM.ViewModels
                 {
                     await smtpClient.SendMailAsync(mailMessage);
                     Debug.WriteLine("Mail wysłany pomyślnie.");
+                    imgResultSource = "confirm.png";
+                    await Shell.Current.DisplayAlert("Sukces", "Wiadomość została wysłana pomyślnie.", "OK");
 
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Błąd przy wysyłce maila: {ex.Message}");
+                    imgResultSource = "confirm_wrong.png";
+                    await Shell.Current.DisplayAlert("Błąd", $"Nie udało się wysłać wiadomości.\n{ex.Message}", "OK");
                 }
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Uwaga", "Nie podano adresu e-mail.", "OK");
             }
         }
 
@@ -90,7 +100,7 @@ namespace UnisoftTest.MVVM.ViewModels
             {
                 MailConfiguration = new MailConfiguration();
             }
-
+            imgResultSource = "confirm_question.png";
 
         }
     }
