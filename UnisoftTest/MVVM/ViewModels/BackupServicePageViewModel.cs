@@ -19,7 +19,7 @@ namespace UnisoftTest.MVVM.ViewModels
         
 
         string servicePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BackupServiceZSI\BackupServiceZSI.exe");
-        string serviceName = "BackupServiceZSIfkk";
+        string serviceName = "BackupServiceZSIfk";
         public string serviceStatus { get; set; }
         public string serviceButtonInstall { get; set; }
         public string serviceStartStopBtn { get; set; }
