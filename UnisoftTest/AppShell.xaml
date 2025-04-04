@@ -119,6 +119,12 @@
                 ContentTemplate="{DataTemplate local:AdministratorPage}"
                 Icon="administrator.png"
                 Route="AdministratorPage" />
+        <ShellContent
+            Title="Konfiguracja Maila"
+            ContentTemplate="{DataTemplate local:MailConfPage}"
+            Route="MailConfPage" 
+            Icon="wrench.png"
+            />
 
     </FlyoutItem>
     <FlyoutItem Title="Usługa Backup'u" 

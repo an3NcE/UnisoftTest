@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using unisofttest.MVVM.Models;
 using UnisoftTest.MVVM.Models;
 using UniTest.MVVM.Models;
 using UniToolbox.MVVM.Models;
@@ -53,6 +54,7 @@ namespace UnisoftTest.Repositories
             await connection.CreateTableAsync<CopyBaseScripts>();
             await connection.CreateTableAsync<CustomScripts>();
             await connection.CreateTableAsync<BackupServiceConfiguration>();
+            await connection.CreateTableAsync<MailConfiguration>();
 
 
             AllModules = await GetAllModules();
