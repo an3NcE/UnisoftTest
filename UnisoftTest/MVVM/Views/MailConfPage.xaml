@@ -4,7 +4,7 @@
              x:Class="UnisoftTest.MVVM.Views.MailConfPage"
              Title="MailConfPage">
     <Grid RowDefinitions=".15*, .9*"
-ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
+ BackgroundColor="DarkSlateGray">
         <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
 
 
@@ -14,16 +14,17 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                Margin="10,20,10,0">
 
             <Grid BackgroundColor="Transparent"
-                  ColumnDefinitions="Auto, *,Auto,*"
-                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto"
+                  ColumnDefinitions="Auto, *,*,*"
+                  RowDefinitions="Auto, Auto, Auto,Auto,auto"
                   Padding="10">
 
                 <!-- Tło -->
                 <Image Grid.ColumnSpan="4" 
                        Grid.RowSpan="9"
                        Source="bgpink.png"  
-                       Aspect="Fill" 
-                       Opacity="0.4"/>
+                       Aspect="AspectFit" 
+                       Opacity="0.4"
+                       Margin="-10"/>
 
                 <!-- SMTP Server -->
                 <Label Grid.Row="0" 
@@ -34,12 +35,13 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                        FontAttributes="Bold"
                        Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="0"
+                <Entry Grid.Row="0"
                         Grid.Column="1"
                         BackgroundColor="LightSteelBlue"
                         Placeholder="Wpisz adres serwera"
                         Margin="10,0,0,0"
-                                TextColor="Black"/>
+                                TextColor="Black"
+                        Text="{Binding MailConfiguration.mailconf_smtpserver, Mode=TwoWay}" />
 
                 <!-- SMTP Port -->
                 <Label Grid.Row="1" 
@@ -50,12 +52,13 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                        FontAttributes="Bold"
                        Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="1"
+                <Entry Grid.Row="1"
                         Grid.Column="1"
                         BackgroundColor="LightSteelBlue"
                         Placeholder="Wpisz port"
                         Margin="10,0,0,0"
-                        TextColor="Black"/>
+                        TextColor="Black"
+                        Text="{Binding MailConfiguration.mailconf_smtpport, Mode=TwoWay}"/>
 
                 <!-- SMTP Client -->
                 <Label Grid.Row="2" 
@@ -66,12 +69,13 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                        FontAttributes="Bold"
                        Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="2"
+                <Entry Grid.Row="2"
                         Grid.Column="1"
                         BackgroundColor="LightSteelBlue"
-                        Placeholder="Wpisz nazwę klienta"
+                        Placeholder="Wpisz adres email"
                         Margin="10,0,0,0"
-                                TextColor="Black"/>
+                                TextColor="Black"
+                        Text="{Binding MailConfiguration.mailconf_smtpclientaddresss, Mode=TwoWay}"/>
                 <!--hasło-->
                 <Label Grid.Row="3" 
                         Grid.Column="0"
@@ -81,42 +85,47 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="3"
+                <Entry Grid.Row="3"
                         Grid.Column="1"
                         BackgroundColor="LightSteelBlue"
                         Placeholder="Wpisz hasło smtp"
                         Margin="10,0,0,0"
-                                TextColor="Black"/>
-                <!--odbiorca-->
-                <Label Grid.Row="4" 
-                        Grid.Column="0"
-                        Text="Odbiorca"
-                        VerticalOptions="Center"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        Margin="0,0,10,0"/>
+                                TextColor="Black"
+                        IsPassword="True"
+                        Text="{Binding MailConfiguration.mailconf_smtpclientpassword, Mode=TwoWay}"/>
 
-                <Editor Grid.Row="4"
-                         Grid.Column="1"
-                         BackgroundColor="LightSteelBlue"
-                         Placeholder="Podaj email odbiorcy"
-                         Margin="10,0,0,0"
-                                 TextColor="Black"/>
-                <!--tytuł maila-->
-                <Label Grid.Row="5" 
-                        Grid.Column="0"
-                        Text="Tytuł maila"
-                        VerticalOptions="Center"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        Margin="0,0,10,0"/>
+                <ImageButton Grid.Row="2"
+                             Grid.Column="2"
+                             Source="save1.png" 
+                             WidthRequest="10"
+                             Command="{Binding SaveMailConfiguration}"
+                             BackgroundColor="Transparent"
+                             />
 
-                <Editor Grid.Row="5"
-                         Grid.Column="1"
-                         BackgroundColor="LightSteelBlue"
-                         Placeholder="Podaj tytuł maila"
-                         Margin="10,0,0,0"
-                                 TextColor="Black"/>
+                <VerticalStackLayout Grid.Row="4"
+                      Grid.ColumnSpan="4"
+                                     HorizontalOptions="Center"
+                                     Margin="10">
+                    <Button Grid.Column="3" Grid.Row="0" Text="Zapisz konfigurację" BackgroundColor="Wheat" Command="{Binding SaveMailConfiguration}"
+                            Margin="10"
+                            IsVisible="False"/>
+                    
+                    <Entry Grid.Row="2"
+                           Grid.Column="3"
+                           BackgroundColor="LightSteelBlue"
+                           Placeholder="adres @ do testu"
+                           Margin="10"
+                           TextColor="Black"
+                           Text="{Binding testMailAddress, Mode=TwoWay}"/>
+                    <HorizontalStackLayout>
+                        <Button Grid.Column="3" Grid.Row="1" Text="Wyślij testową wiadmość" BackgroundColor="Wheat" Command="{Binding SendTestMailMessage}"
+                                 Margin="10"/>
+                        <Image Source="{Binding imgResultSource}"/>
+                    </HorizontalStackLayout>
+                    
+                </VerticalStackLayout>
+                
+
 
             </Grid>
         </Frame>

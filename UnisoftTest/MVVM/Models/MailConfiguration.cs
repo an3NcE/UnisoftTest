@@ -14,10 +14,10 @@ namespace unisofttest.MVVM.Models
         [PrimaryKey, AutoIncrement]
         public int mailconf_id { get; set; }
         public string mailconf_smtpserver { get; set; }
-        public string mailconf_smtpport { get; set; }
+        public int mailconf_smtpport { get; set; }
         public string mailconf_smtpclientaddresss { get; set; }
         public string mailconf_smtpclientpassword { get; set; }
-        public string mailconf_emailreceiver { get; set; }
+        
 
 
         public DateTime mailconf_createdate { get; set; }
