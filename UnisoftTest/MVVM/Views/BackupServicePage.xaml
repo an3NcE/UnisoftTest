@@ -30,103 +30,105 @@
         </Grid>
 
         <Frame CornerRadius="20" 
-       Grid.Row="1" 
-       BackgroundColor="Transparent" 
-       Margin="10,20,10,0">
+               Grid.Row="1" 
+               BackgroundColor="Transparent" 
+               Margin="10,20,10,0">
 
             <Grid BackgroundColor="Transparent"
-          ColumnDefinitions="Auto, *,Auto,*"
-          RowDefinitions="Auto, Auto, Auto,Auto,auto,auto"
-          Padding="10">
+                  ColumnDefinitions="Auto, *,Auto,*"
+                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto"
+                  Padding="10">
 
                 <!-- Tło -->
                 <Image Grid.ColumnSpan="4" 
-               Grid.RowSpan="9"
-               Source="bgpink.png"  
-               Aspect="Fill" 
-               Opacity="0.4"/>
+                       Grid.RowSpan="9"
+                       Source="bgpink.png"  
+                       Aspect="Fill" 
+                       Opacity="0.4"
+                               Margin="-15"/>
 
                 <!-- SMTP Server -->
                 <Label Grid.Row="0" 
                Grid.Column="0"
-               Text="SMTP Server"
+               Text="Login"
                VerticalOptions="Center"
                FontSize="16"
                FontAttributes="Bold"
                Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="0"
+                <Entry Grid.Row="0"
                 Grid.Column="1"
                 BackgroundColor="LightSteelBlue"
-                Placeholder="Wpisz adres serwera"
+                Placeholder="Podaj login do bazy"
                 Margin="10,0,0,0"
                         TextColor="Black"/>
 
                 <!-- SMTP Port -->
                 <Label Grid.Row="1" 
                Grid.Column="0"
-               Text="SMTP Port"
+               Text="Hasło"
                VerticalOptions="Center"
                FontSize="16"
                FontAttributes="Bold"
                Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="1"
+                <Entry Grid.Row="1"
                 Grid.Column="1"
                 BackgroundColor="LightSteelBlue"
-                Placeholder="Wpisz port"
+                Placeholder="Podaj hasło do bazy"
                 Margin="10,0,0,0"
-                TextColor="Black"/>
+                TextColor="Black"
+                        IsPassword="True"/>
 
                 <!-- SMTP Client -->
                 <Label Grid.Row="2" 
                Grid.Column="0"
-               Text="SMTP Client"
+               Text="Directory"
                VerticalOptions="Center"
                FontSize="16"
                FontAttributes="Bold"
                Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="2"
+                <Entry Grid.Row="2"
                 Grid.Column="1"
                 BackgroundColor="LightSteelBlue"
-                Placeholder="Wpisz nazwę klienta"
+                Placeholder="Podaj directory"
                 Margin="10,0,0,0"
                         TextColor="Black"/>
                 <!--hasło-->
                 <Label Grid.Row="3" 
                         Grid.Column="0"
-                        Text="SMTP Pass"
+                        Text="Dumpfile"
                         VerticalOptions="Center"
                         FontSize="16"
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="3"
+                <Entry Grid.Row="3"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
-                         Placeholder="Wpisz hasło smtp"
+                         Placeholder="Podaj dumpfile"
                          Margin="10,0,0,0"
                                  TextColor="Black"/>
                 <!--odbiorca-->
                 <Label Grid.Row="4" 
                         Grid.Column="0"
-                        Text="Odbiorca"
+                        Text="Logfile"
                         VerticalOptions="Center"
                         FontSize="16"
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="4"
+                <Entry Grid.Row="4"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
-                         Placeholder="Podaj email odbiorcy"
+                         Placeholder="Podaj logfile"
                          Margin="10,0,0,0"
                                  TextColor="Black"/>
                 <!--tytuł maila-->
                 <Label Grid.Row="5" 
                         Grid.Column="0"
-                        Text="Tytuł maila"
+                        Text="Schemas"
                         VerticalOptions="Center"
                         FontSize="16"
                         FontAttributes="Bold"
@@ -134,6 +136,38 @@
 
                 <Editor Grid.Row="5"
                          Grid.Column="1"
+                         BackgroundColor="LightSteelBlue"
+                         Placeholder="Podaj schemat"
+                         Margin="10,0,0,0"
+                                 TextColor="Black"/>
+                
+                <!--DRUGA KOLUMNA-->
+
+                <Label Grid.Row="0" 
+                        Grid.Column="2"
+                        Text=" Odbiorca"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
+
+                <Editor Grid.Row="0"
+                         Grid.Column="3"
+                         BackgroundColor="LightSteelBlue"
+                         Placeholder="Podaj @ odbiorcy"
+                         Margin="10,0,0,0"
+                                 TextColor="Black"/>
+
+                <Label Grid.Row="1" 
+                        Grid.Column="2"
+                        Text=" Tytuł maila"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
+
+                <Editor Grid.Row="1"
+                         Grid.Column="3"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj tytuł maila"
                          Margin="10,0,0,0"
