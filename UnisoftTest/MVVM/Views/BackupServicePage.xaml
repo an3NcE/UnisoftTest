@@ -36,7 +36,7 @@
 
             <Grid BackgroundColor="Transparent"
                   ColumnDefinitions="Auto, *,Auto,*"
-                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto"
+                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto,Auto,Auto"
                   Padding="10">
 
                 <!-- Tło -->
@@ -47,7 +47,7 @@
                        Opacity="0.4"
                                Margin="-15"/>
 
-                <!-- SMTP Server -->
+                <!-- login -->
                 <Label Grid.Row="0" 
                        Grid.Column="0"
                        Text="Login"
@@ -64,7 +64,7 @@
                         TextColor="Black"
                        Text="{Binding BackupServiceConfiguration.backupserviceconf_loginserver, Mode=TwoWay}"/>
 
-                <!-- SMTP Port -->
+                <!-- hasło -->
                 <Label Grid.Row="1" 
                        Grid.Column="0"
                        Text="Hasło"
@@ -81,11 +81,10 @@
                         TextColor="Black"
                         IsPassword="True"
                        Text="{Binding BackupServiceConfiguration.backupserviceconf_passwordserver, Mode=TwoWay}"/>
-
-                <!-- SMTP Client -->
+                <!--instancja-->
                 <Label Grid.Row="2" 
                        Grid.Column="0"
-                       Text="Directory"
+                       Text="Instancja"
                        VerticalOptions="Center"
                        FontSize="16"
                        FontAttributes="Bold"
@@ -94,12 +93,29 @@
                 <Entry Grid.Row="2"
                         Grid.Column="1"
                         BackgroundColor="LightSteelBlue"
+                        Placeholder="Podaj instancje np: ora21"
+                        Margin="10,0,0,0"
+                        TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_instance, Mode=TwoWay}"/>
+
+                <!-- Directory -->
+                <Label Grid.Row="3" 
+                       Grid.Column="0"
+                       Text="Directory"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
+
+                <Entry Grid.Row="3"
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
                         Placeholder="Podaj directory"
                         Margin="10,0,0,0"
                         TextColor="Black"
                        Text="{Binding BackupServiceConfiguration.backupserviceconf_directory, Mode=TwoWay}"/>
-                <!--hasło-->
-                <Label Grid.Row="3" 
+                <!--Dumpfile-->
+                <Label Grid.Row="4" 
                         Grid.Column="0"
                         Text="Dumpfile"
                         VerticalOptions="Center"
@@ -107,15 +123,15 @@
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Entry Grid.Row="3"
+                <Entry Grid.Row="4"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj dumpfile"
                          Margin="10,0,0,0"
                                  TextColor="Black"
                        Text="{Binding BackupServiceConfiguration.backupserviceconf_dumpfile, Mode=TwoWay}" />
-                <!--odbiorca-->
-                <Label Grid.Row="4" 
+                <!--Logfile-->
+                <Label Grid.Row="5" 
                         Grid.Column="0"
                         Text="Logfile"
                         VerticalOptions="Center"
@@ -124,15 +140,15 @@
                         Margin="0,0,10,0"
                        />
 
-                <Entry Grid.Row="4"
+                <Entry Grid.Row="5"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj logfile"
                          Margin="10,0,0,0"
                                  TextColor="Black"
                        Text="{Binding BackupServiceConfiguration.backupserviceconf_logfile, Mode=TwoWay}" />
-                <!--tytuł maila-->
-                <Label Grid.Row="5" 
+                <!--Schemas-->
+                <Label Grid.Row="6" 
                         Grid.Column="0"
                         Text="Schemas"
                         VerticalOptions="Center"
@@ -140,7 +156,7 @@
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Entry Grid.Row="5"
+                <Entry Grid.Row="6"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj schemat"
@@ -201,13 +217,14 @@
 
                 <Switch Grid.Row="3"
                              Grid.Column="3"
-                             BackgroundColor="LightSteelBlue"
+                             BackgroundColor="Transparent"
                              Margin="10,0,0,0"
                              VerticalOptions="Center"
                         IsToggled="{Binding BackupServiceDaysOfWeekToggled}"
                         
                         
                            />
+                
                 <Label Grid.Row="3" 
                         Grid.Column="2"
                         Text="{Binding BackupServiceDaysOfWeeklabel}"
@@ -223,7 +240,14 @@
                              Command="{Binding SaveBackupServConfiguration}"
                              BackgroundColor="Transparent"
                              />
-
+                <Label Grid.Row="7"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="4"
+                       Text="{Binding ScriptViewLabel}"
+                       BackgroundColor="Wheat"
+                       TextColor="Black"
+                       Margin="0,15,0,0"
+                       Padding="2"/>
 
 
             </Grid>

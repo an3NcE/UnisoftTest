@@ -370,11 +370,13 @@
                         <VisualState.Setters>
                             <Setter Property="OnColor" Value="Wheat" />
                             <Setter Property="ThumbColor" Value="Black" />
+                            
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Off">
                         <VisualState.Setters>
                             <Setter Property="ThumbColor" Value="Wheat" />
+                            
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

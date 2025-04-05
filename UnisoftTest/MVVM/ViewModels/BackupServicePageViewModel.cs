@@ -21,8 +21,24 @@ namespace UnisoftTest.MVVM.ViewModels
         public BackupServiceConfiguration BackupServiceConfiguration { get; set; }
 
         public TimeSpan BackupServiceScheduleTime { get; set; }
-        public bool BackupServiceDaysOfWeekToggled { get; set; }
+
+        private bool _backupServiceDaysOfWeekToggled;
+        public bool BackupServiceDaysOfWeekToggled
+        {
+            get => _backupServiceDaysOfWeekToggled;
+            set
+            {
+                if (_backupServiceDaysOfWeekToggled != value)
+                {
+                    _backupServiceDaysOfWeekToggled = value;
+
+                    ChangeLabelOnToggle(value);
+                }
+            }
+        }
         public string BackupServiceDaysOfWeeklabel { get; set; }
+
+        public string ScriptViewLabel { get; set; }
         
 
         string servicePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BackupServiceZSI\BackupServiceZSI.exe");
@@ -43,7 +59,8 @@ namespace UnisoftTest.MVVM.ViewModels
             if (BackupServiceConfiguration.backupserviceconf_loginserver != null && BackupServiceConfiguration.backupserviceconf_passwordserver != null &&
                 BackupServiceConfiguration.backupserviceconf_directory != null && BackupServiceConfiguration.backupserviceconf_dumpfile != null &&
                 BackupServiceConfiguration.backupserviceconf_logfile != null && BackupServiceConfiguration.backupserviceconf_schemas != null &&
-                BackupServiceConfiguration.backupserviceconf_mailreceiver != null && BackupServiceConfiguration.backupserviceconf_mailtitle != null)
+                BackupServiceConfiguration.backupserviceconf_mailreceiver != null && BackupServiceConfiguration.backupserviceconf_mailtitle != null &&
+                BackupServiceConfiguration.backupserviceconf_instance != null)
             {
                 BackupServiceConfiguration.backupserviceconf_scheduletime_hour= BackupServiceScheduleTime.Hours;
                 BackupServiceConfiguration.backupserviceconf_scheduletime_minutes= BackupServiceScheduleTime.Minutes;
@@ -57,6 +74,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 }
                     await App.BaseRepo.AddOrUpdateBackupServiceConfiguration(BackupServiceConfiguration);
                 await Shell.Current.DisplayAlert("Sukces", "Konfiguracja zapisana.", "OK");
+                Refresh();
             }
         }
 
@@ -80,9 +98,9 @@ namespace UnisoftTest.MVVM.ViewModels
                     BackupServiceDaysOfWeekToggled = false;
                     ChangeLabelOnToggle(false);
                 }
+                ScriptViewLabel = $"expdp.exe {BackupServiceConfiguration.backupserviceconf_loginserver}/****@{BackupServiceConfiguration.backupserviceconf_instance} directory={BackupServiceConfiguration.backupserviceconf_directory} dumpfile={BackupServiceConfiguration.backupserviceconf_dumpfile} logfile={BackupServiceConfiguration.backupserviceconf_logfile} schemas={BackupServiceConfiguration.backupserviceconf_schemas} reuse_dumpfiles=y consistent=y";
 
             }
-            
 
         }
 

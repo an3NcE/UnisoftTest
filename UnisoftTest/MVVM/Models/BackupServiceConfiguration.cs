@@ -15,6 +15,7 @@ namespace UnisoftTest.MVVM.Models
         public int backupserviceconf_Id { get; set; }
         public string backupserviceconf_loginserver { get; set; }
         public string backupserviceconf_passwordserver { get; set; }
+        public string backupserviceconf_instance { get; set; }
         public string backupserviceconf_directory { get; set; }
         public string backupserviceconf_dumpfile{ get; set; }
         public string backupserviceconf_logfile { get; set; }
