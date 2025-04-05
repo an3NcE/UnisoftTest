@@ -12,15 +12,20 @@ namespace UnisoftTest.MVVM.Models
     {
 
         [PrimaryKey, AutoIncrement]
-        public int backupserviceconfId { get; set; }
-        public string backupserviceconf_smtpserver { get; set; }
-        public string backupserviceconf_smtpport { get; set; }
-        public string backupserviceconf_smtpclientaddresss { get; set; }
-        public string backupserviceconf_smtpclientpassword { get; set; }
-        public string backupserviceconf_emailreceiver { get; set; }
+        public int backupserviceconf_Id { get; set; }
+        public string backupserviceconf_loginserver { get; set; }
+        public string backupserviceconf_passwordserver { get; set; }
+        public string backupserviceconf_directory { get; set; }
+        public string backupserviceconf_dumpfile{ get; set; }
+        public string backupserviceconf_logfile { get; set; }
+        public string backupserviceconf_schemas { get; set; }
+        public string backupserviceconf_mailreceiver { get; set; }
+        public string backupserviceconf_mailtitle { get; set; }
+        public TimeOnly backupserviceconf_scheduletime { get; set; }
+        public int backupserviceconf_daysofweek { get; set; }
         
 
-        public DateTime CreateConfDate { get; set; }
+        public DateTime backupserviceconf_CreateConfDate { get; set; }
         
 
 

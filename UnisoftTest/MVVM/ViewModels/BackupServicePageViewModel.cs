@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ServiceProcess;
+using UnisoftTest.MVVM.Models;
 
 namespace UnisoftTest.MVVM.ViewModels
 {
@@ -15,6 +16,9 @@ namespace UnisoftTest.MVVM.ViewModels
     {
         public ICommand InstallService => new Command(RunInstallService);
         public ICommand TurnOnService => new Command(RunService);
+        public ICommand SaveBackupServConfiguration => new Command(SaveBackupServConf);
+
+        public BackupServiceConfiguration BackupServiceConfiguration { get; set; }
 
         
 
@@ -28,8 +32,32 @@ namespace UnisoftTest.MVVM.ViewModels
         public BackupServicePageViewModel()
         {
             IsServiceInstalled(serviceName);
+            Refresh();
         }
-        
+
+        private async void SaveBackupServConf(object obj)
+        {
+            if (BackupServiceConfiguration.backupserviceconf_loginserver != null && BackupServiceConfiguration.backupserviceconf_passwordserver != null &&
+                BackupServiceConfiguration.backupserviceconf_directory != null && BackupServiceConfiguration.backupserviceconf_dumpfile != null &&
+                BackupServiceConfiguration.backupserviceconf_logfile != null && BackupServiceConfiguration.backupserviceconf_schemas != null &&
+                BackupServiceConfiguration.backupserviceconf_mailreceiver != null && BackupServiceConfiguration.backupserviceconf_mailtitle != null)
+            {
+                await App.BaseRepo.AddOrUpdateBackupServiceConfiguration(BackupServiceConfiguration);
+                await Shell.Current.DisplayAlert("Sukces", "Konfiguracja zapisana.", "OK");
+            }
+        }
+
+        private async void Refresh()
+        {
+            BackupServiceConfiguration = await App.BaseRepo.GetBackupServiceConfiguration(1);
+            if (BackupServiceConfiguration == null)
+            {
+                BackupServiceConfiguration = new BackupServiceConfiguration();
+            }
+            
+
+        }
+
         private void RunInstallService(object obj)
         {
             Process process = new Process();

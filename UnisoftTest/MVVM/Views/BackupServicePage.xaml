@@ -49,52 +49,55 @@
 
                 <!-- SMTP Server -->
                 <Label Grid.Row="0" 
-               Grid.Column="0"
-               Text="Login"
-               VerticalOptions="Center"
-               FontSize="16"
-               FontAttributes="Bold"
-               Margin="0,0,10,0"/>
+                       Grid.Column="0"
+                       Text="Login"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
 
                 <Entry Grid.Row="0"
-                Grid.Column="1"
-                BackgroundColor="LightSteelBlue"
-                Placeholder="Podaj login do bazy"
-                Margin="10,0,0,0"
-                        TextColor="Black"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Podaj login do bazy"
+                        Margin="10,0,0,0"
+                        TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_loginserver, Mode=TwoWay}"/>
 
                 <!-- SMTP Port -->
                 <Label Grid.Row="1" 
-               Grid.Column="0"
-               Text="Hasło"
-               VerticalOptions="Center"
-               FontSize="16"
-               FontAttributes="Bold"
-               Margin="0,0,10,0"/>
+                       Grid.Column="0"
+                       Text="Hasło"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
 
                 <Entry Grid.Row="1"
-                Grid.Column="1"
-                BackgroundColor="LightSteelBlue"
-                Placeholder="Podaj hasło do bazy"
-                Margin="10,0,0,0"
-                TextColor="Black"
-                        IsPassword="True"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Podaj hasło do bazy"
+                        Margin="10,0,0,0"
+                        TextColor="Black"
+                        IsPassword="True"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_passwordserver, Mode=TwoWay}"/>
 
                 <!-- SMTP Client -->
                 <Label Grid.Row="2" 
-               Grid.Column="0"
-               Text="Directory"
-               VerticalOptions="Center"
-               FontSize="16"
-               FontAttributes="Bold"
-               Margin="0,0,10,0"/>
+                       Grid.Column="0"
+                       Text="Directory"
+                       VerticalOptions="Center"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="0,0,10,0"/>
 
                 <Entry Grid.Row="2"
-                Grid.Column="1"
-                BackgroundColor="LightSteelBlue"
-                Placeholder="Podaj directory"
-                Margin="10,0,0,0"
-                        TextColor="Black"/>
+                        Grid.Column="1"
+                        BackgroundColor="LightSteelBlue"
+                        Placeholder="Podaj directory"
+                        Margin="10,0,0,0"
+                        TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_directory, Mode=TwoWay}"/>
                 <!--hasło-->
                 <Label Grid.Row="3" 
                         Grid.Column="0"
@@ -109,7 +112,8 @@
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj dumpfile"
                          Margin="10,0,0,0"
-                                 TextColor="Black"/>
+                                 TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_dumpfile, Mode=TwoWay}" />
                 <!--odbiorca-->
                 <Label Grid.Row="4" 
                         Grid.Column="0"
@@ -117,14 +121,16 @@
                         VerticalOptions="Center"
                         FontSize="16"
                         FontAttributes="Bold"
-                        Margin="0,0,10,0"/>
+                        Margin="0,0,10,0"
+                       />
 
                 <Entry Grid.Row="4"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj logfile"
                          Margin="10,0,0,0"
-                                 TextColor="Black"/>
+                                 TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_logfile, Mode=TwoWay}" />
                 <!--tytuł maila-->
                 <Label Grid.Row="5" 
                         Grid.Column="0"
@@ -134,12 +140,13 @@
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="5"
+                <Entry Grid.Row="5"
                          Grid.Column="1"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj schemat"
                          Margin="10,0,0,0"
-                                 TextColor="Black"/>
+                                 TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_schemas, Mode=TwoWay}" />
                 
                 <!--DRUGA KOLUMNA-->
 
@@ -151,12 +158,13 @@
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="0"
+                <Entry Grid.Row="0"
                          Grid.Column="3"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj @ odbiorcy"
                          Margin="10,0,0,0"
-                                 TextColor="Black"/>
+                                 TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_mailreceiver, Mode=TwoWay}" />
 
                 <Label Grid.Row="1" 
                         Grid.Column="2"
@@ -166,12 +174,54 @@
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
 
-                <Editor Grid.Row="1"
+                <Entry Grid.Row="1"
                          Grid.Column="3"
                          BackgroundColor="LightSteelBlue"
                          Placeholder="Podaj tytuł maila"
                          Margin="10,0,0,0"
-                                 TextColor="Black"/>
+                                 TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_mailtitle, Mode=TwoWay}" />
+                <Label Grid.Row="2" 
+                        Grid.Column="2"
+                        Text=" Godzina wyk. kopii"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
+
+                <TimePicker Grid.Row="2"
+                         Grid.Column="3"
+                         BackgroundColor="LightSteelBlue"
+                         Format="HH:mm"
+                         Time="{Binding BackupServiceConfiguration.backupserviceconf_scheduletime, Mode=TwoWay}" 
+                         Margin="10,0,0,0"
+                         TextColor="Black"
+                         VerticalOptions="Center"
+                       />
+
+                <Switch Grid.Row="3"
+                             Grid.Column="3"
+                             BackgroundColor="LightSteelBlue"
+                             Margin="10,0,0,0"
+                             VerticalOptions="Center"
+                           />
+                <Label Grid.Row="3" 
+                        Grid.Column="2"
+                        Text=" Dni: Pn-Pt"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
+
+                <ImageButton Grid.Row="5"
+                             Grid.Column="3"
+                             Source="save1.png" 
+                             WidthRequest="10"
+                             Command="{Binding SaveBackupServConfiguration}"
+                             BackgroundColor="Transparent"
+                             />
+
+
 
             </Grid>
         </Frame>

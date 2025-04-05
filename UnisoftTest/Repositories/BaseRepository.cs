@@ -66,6 +66,56 @@ namespace UnisoftTest.Repositories
             
         }
 
+        #region BackupServiceConfiguration
+        public async Task AddOrUpdateBackupServiceConfiguration(BackupServiceConfiguration backupServiceConfiguration)
+        {
+            int result = 0;
+            var existingScript = await connection.FindAsync<BackupServiceConfiguration>(backupServiceConfiguration.backupserviceconf_Id);
+            try
+            {
+
+                if (existingScript != null)
+                {
+                    backupServiceConfiguration.backupserviceconf_CreateConfDate = DateTime.Now;
+                    result = await connection.UpdateAsync(backupServiceConfiguration);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    backupServiceConfiguration.backupserviceconf_CreateConfDate = DateTime.Now;
+                    result = await connection.InsertAsync(backupServiceConfiguration);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            Console.WriteLine(StatusMessage);
+        }
+
+        public async Task<BackupServiceConfiguration> GetBackupServiceConfiguration(int id)
+        {
+            try
+            {
+                //connection.Execute($"DELETE FROM AppSettings where SettingsName<>{name}");
+                return await connection.Table<BackupServiceConfiguration>().FirstOrDefaultAsync(x => x.backupserviceconf_Id == id);
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        }
+
+        #endregion
+
         #region MailConfiguration
         public async Task AddOrUpdateMailConfiguration(MailConfiguration mailConfiguration)
         {
