@@ -58,7 +58,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 var smtpClient = new SmtpClient(MailConfiguration.mailconf_smtpserver)
                 {
                     Port = MailConfiguration.mailconf_smtpport,
-                    Credentials = new NetworkCredential(MailConfiguration.mailconf_smtpclientaddresss, MailConfiguration.mailconf_smtpclientpassword),
+                    Credentials = new NetworkCredential(MailConfiguration.mailconf_smtpclientaddresss, MailConfiguration.DecryptedPassword),
                     EnableSsl = true,
                 };
 

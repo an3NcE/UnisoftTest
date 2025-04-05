@@ -92,7 +92,7 @@
                         Margin="10,0,0,0"
                                 TextColor="Black"
                         IsPassword="True"
-                        Text="{Binding MailConfiguration.mailconf_smtpclientpassword, Mode=TwoWay}"/>
+                        Text="{Binding MailConfiguration.DecryptedPassword, Mode=TwoWay}"/>
 
                 <ImageButton Grid.Row="2"
                              Grid.Column="2"

@@ -19,7 +19,14 @@ namespace UnisoftTest
             //NavigationPage.SetHasNavigationBar(this, false);
             CheckApp();
 
+
         }
+        //protected override async void OnStart()
+        //{
+
+        //await UnisoftTest.Services.AesCredentialManager.EnsureAsync();
+
+        //}
 
         private async void InitializeAppAsync()
         {

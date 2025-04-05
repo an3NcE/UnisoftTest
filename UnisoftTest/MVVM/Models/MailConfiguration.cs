@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnisoftTest.Helpers;
 
 namespace unisofttest.MVVM.Models
 {
@@ -17,8 +18,13 @@ namespace unisofttest.MVVM.Models
         public int mailconf_smtpport { get; set; }
         public string mailconf_smtpclientaddresss { get; set; }
         public string mailconf_smtpclientpassword { get; set; }
-        
 
+        [Ignore]
+        public string DecryptedPassword
+        {
+            get => AesEncryptionHelper.Decrypt(mailconf_smtpclientpassword);
+            set => mailconf_smtpclientpassword = AesEncryptionHelper.Encrypt(value);
+        }
 
         public DateTime mailconf_createdate { get; set; }
 

@@ -92,7 +92,7 @@ namespace UnisoftTest
 
         public async Task<string> ShowPopupPasword(LoginPopUpPage loginPopUpPage)
         {
-            
+            await UnisoftTest.Services.AesCredentialManager.EnsureAsync();
             await this.ShowPopupAsync(loginPopUpPage);
 
             
