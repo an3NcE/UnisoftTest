@@ -21,8 +21,9 @@ namespace UnisoftTest.MVVM.Models
         public string backupserviceconf_schemas { get; set; }
         public string backupserviceconf_mailreceiver { get; set; }
         public string backupserviceconf_mailtitle { get; set; }
-        public TimeOnly backupserviceconf_scheduletime { get; set; }
-        public int backupserviceconf_daysofweek { get; set; }
+        public int backupserviceconf_scheduletime_hour { get; set; }
+        public int backupserviceconf_scheduletime_minutes { get; set; }
+        public int backupserviceconf_daysofweek { get; set; } //0=Pn-Pt 1=Pn-Nd
         
 
         public DateTime backupserviceconf_CreateConfDate { get; set; }

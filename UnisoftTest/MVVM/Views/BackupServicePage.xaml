@@ -193,7 +193,7 @@
                          Grid.Column="3"
                          BackgroundColor="LightSteelBlue"
                          Format="HH:mm"
-                         Time="{Binding BackupServiceConfiguration.backupserviceconf_scheduletime, Mode=TwoWay}" 
+                         Time="{Binding BackupServiceScheduleTime, Mode=TwoWay}" 
                          Margin="10,0,0,0"
                          TextColor="Black"
                          VerticalOptions="Center"
@@ -204,10 +204,13 @@
                              BackgroundColor="LightSteelBlue"
                              Margin="10,0,0,0"
                              VerticalOptions="Center"
+                        IsToggled="{Binding BackupServiceDaysOfWeekToggled}"
+                        
+                        
                            />
                 <Label Grid.Row="3" 
                         Grid.Column="2"
-                        Text=" Dni: Pn-Pt"
+                        Text="{Binding BackupServiceDaysOfWeeklabel}"
                         VerticalOptions="Center"
                         FontSize="16"
                         FontAttributes="Bold"

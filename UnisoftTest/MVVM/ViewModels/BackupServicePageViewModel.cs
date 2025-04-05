@@ -20,6 +20,9 @@ namespace UnisoftTest.MVVM.ViewModels
 
         public BackupServiceConfiguration BackupServiceConfiguration { get; set; }
 
+        public TimeSpan BackupServiceScheduleTime { get; set; }
+        public bool BackupServiceDaysOfWeekToggled { get; set; }
+        public string BackupServiceDaysOfWeeklabel { get; set; }
         
 
         string servicePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"BackupServiceZSI\BackupServiceZSI.exe");
@@ -42,7 +45,17 @@ namespace UnisoftTest.MVVM.ViewModels
                 BackupServiceConfiguration.backupserviceconf_logfile != null && BackupServiceConfiguration.backupserviceconf_schemas != null &&
                 BackupServiceConfiguration.backupserviceconf_mailreceiver != null && BackupServiceConfiguration.backupserviceconf_mailtitle != null)
             {
-                await App.BaseRepo.AddOrUpdateBackupServiceConfiguration(BackupServiceConfiguration);
+                BackupServiceConfiguration.backupserviceconf_scheduletime_hour= BackupServiceScheduleTime.Hours;
+                BackupServiceConfiguration.backupserviceconf_scheduletime_minutes= BackupServiceScheduleTime.Minutes;
+                if (BackupServiceDaysOfWeekToggled==false)
+                {
+                    BackupServiceConfiguration.backupserviceconf_daysofweek = 0;//Pn-Pt
+                }
+                else
+                {
+                    BackupServiceConfiguration.backupserviceconf_daysofweek = 1;//Pn-Nd
+                }
+                    await App.BaseRepo.AddOrUpdateBackupServiceConfiguration(BackupServiceConfiguration);
                 await Shell.Current.DisplayAlert("Sukces", "Konfiguracja zapisana.", "OK");
             }
         }
@@ -54,8 +67,35 @@ namespace UnisoftTest.MVVM.ViewModels
             {
                 BackupServiceConfiguration = new BackupServiceConfiguration();
             }
+            else
+            {
+                BackupServiceScheduleTime= new TimeSpan(BackupServiceConfiguration.backupserviceconf_scheduletime_hour, BackupServiceConfiguration.backupserviceconf_scheduletime_minutes,0);
+                if(BackupServiceConfiguration.backupserviceconf_daysofweek == 1)
+                {
+                    BackupServiceDaysOfWeekToggled = true;
+                    ChangeLabelOnToggle(true);
+                }
+                else
+                {
+                    BackupServiceDaysOfWeekToggled = false;
+                    ChangeLabelOnToggle(false);
+                }
+
+            }
             
 
+        }
+
+        public void ChangeLabelOnToggle(bool checkValue)
+        {
+            if (checkValue)
+            {
+                BackupServiceDaysOfWeeklabel = " Dni: Pn-Nd";
+            }
+            else
+            {
+                BackupServiceDaysOfWeeklabel = " Dni: Pn-Pt";
+            }
         }
 
         private void RunInstallService(object obj)
