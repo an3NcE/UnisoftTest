@@ -2,6 +2,7 @@
 using PropertyChanged;
 using unisofttest.MVVM.Views;
 using UnisoftTest.MVVM.Models;
+using UnisoftTest.MVVM.Services;
 using UnisoftTest.MVVM.Views;
 using UniToolbox.MVVM.Models;
 
@@ -34,7 +35,19 @@ namespace UnisoftTest
 
         private async Task CheckModules()
         {
-            await App.BaseRepo.AddOrUpdateAppAdministrator(false);
+            try
+            {
+                await App.BaseRepo.AddOrUpdateAppAdministrator(false);
+            }
+            catch (Exception)
+            {
+                fiCustomScriptsPage.IsVisible = false;
+                fiCopyBasePage.IsVisible = false;
+                fiBackupServicePage.IsVisible = false;
+                fiConfigurationPage.IsVisible = false;
+                throw;
+            }
+            
             AllModules = await App.BaseRepo.GetAllModules();
             int countPage = 0;
             if (AllModules[1].ModuleAccess == true)
@@ -92,6 +105,7 @@ namespace UnisoftTest
 
         public async Task<string> ShowPopupPasword(LoginPopUpPage loginPopUpPage)
         {
+            await DatabasePasswordManager.EnsurePasswordAsync();
             await UnisoftTest.Services.AesCredentialManager.EnsureAsync();
             await this.ShowPopupAsync(loginPopUpPage);
 

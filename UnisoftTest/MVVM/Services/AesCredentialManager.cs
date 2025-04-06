@@ -10,8 +10,8 @@ namespace UnisoftTest.Services
 {
     public static class AesCredentialManager
     {
-        private const string AesKeyTarget = "AES_KEY";
-        private const string AesIvTarget = "AES_IV";
+        private const string AesKeyTarget = "UniToolbox.AES_KEY";
+        private const string AesIvTarget = "UniToolbox.AES_IV";
 
         public static bool CredentialsExist()
         {
@@ -36,13 +36,13 @@ namespace UnisoftTest.Services
 
             CredentialManager.WriteCredential(
                 AesKeyTarget,
-                "aes_user",
+                "aes_UniToolbox",
                 key,
                 CredentialPersistence.LocalMachine);
 
             CredentialManager.WriteCredential(
                 AesIvTarget,
-                "aes_user",
+                "aes_UniToolbox",
                 iv,
                 CredentialPersistence.LocalMachine);
         }
@@ -91,12 +91,16 @@ namespace UnisoftTest.Services
 
                     await Application.Current.MainPage.DisplayAlert("Sukces",
                         "Poświadczenia zapisano systemowo (LocalComputer).", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Sukces",
+                        "Uruchom ponownie aplikację.", "OK");
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     await Application.Current.MainPage.DisplayAlert("Błąd",
                         "Aplikacja musi być uruchomiona jako administrator, aby zapisać poświadczenia systemowe.\n\n" + ex.Message,
                         "OK");
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
                 }
                 catch (Exception ex)
                 {

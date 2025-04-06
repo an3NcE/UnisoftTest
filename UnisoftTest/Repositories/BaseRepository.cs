@@ -42,9 +42,17 @@ namespace UnisoftTest.Repositories
         public async Task InitializeDatabaseAsync()
         {
             string password = await Constants.GetDatabasePasswordAsync();
-            var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
-            c.Execute("PRAGMA cipher_compatibility = 3"));
-            
+            //var options = new SQLiteConnectionString(Constants.DatabasePath, true, password, postKeyAction: c =>
+            //c.Execute("PRAGMA cipher_compatibility = 3));
+
+            var options = new SQLiteConnectionString(
+                           Constants.DatabasePath,
+                           storeDateTimeAsTicks: true,
+                           key: password,
+                           postKeyAction: c =>
+                               c.Execute("PRAGMA cipher_compatibility = 4") 
+   );
+
             connection = new SQLiteAsyncConnection(options);
 
 

@@ -43,18 +43,26 @@ namespace UnisoftTest.Helpers
         {
             if (string.IsNullOrEmpty(cipherText))
                 return "";
+            try
+            {
+                using var aes = Aes.Create();
+                aes.Key = Key;
+                aes.IV = IV;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
 
-            using var aes = Aes.Create();
-            aes.Key = Key;
-            aes.IV = IV;
-            aes.Mode = CipherMode.CBC;
-            aes.Padding = PaddingMode.PKCS7;
+                using var decryptor = aes.CreateDecryptor();
+                var cipherBytes = Convert.FromBase64String(cipherText);
+                var decryptedBytes = decryptor.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
 
-            using var decryptor = aes.CreateDecryptor();
-            var cipherBytes = Convert.FromBase64String(cipherText);
-            var decryptedBytes = decryptor.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
+                return Encoding.UTF8.GetString(decryptedBytes);
+            }
+            catch (Exception)
+            {
 
-            return Encoding.UTF8.GetString(decryptedBytes);
+                throw;
+            }
+           
         }
     }
 }

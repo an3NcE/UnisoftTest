@@ -56,7 +56,7 @@ namespace UnisoftTest.MVVM.ViewModels
 
         private async void SaveBackupServConf(object obj)
         {
-            if (BackupServiceConfiguration.backupserviceconf_loginserver != null && BackupServiceConfiguration.backupserviceconf_passwordserver != null &&
+            if (BackupServiceConfiguration.backupserviceconf_loginserver != null && BackupServiceConfiguration.backupserviceconf_passwordserverDecryptedPassword != null &&
                 BackupServiceConfiguration.backupserviceconf_directory != null && BackupServiceConfiguration.backupserviceconf_dumpfile != null &&
                 BackupServiceConfiguration.backupserviceconf_logfile != null && BackupServiceConfiguration.backupserviceconf_schemas != null &&
                 BackupServiceConfiguration.backupserviceconf_mailreceiver != null && BackupServiceConfiguration.backupserviceconf_mailtitle != null &&

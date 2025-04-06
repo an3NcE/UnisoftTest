@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnisoftTest.Helpers;
 
 namespace UnisoftTest.MVVM.Models
 {
@@ -25,7 +26,14 @@ namespace UnisoftTest.MVVM.Models
         public int backupserviceconf_scheduletime_hour { get; set; }
         public int backupserviceconf_scheduletime_minutes { get; set; }
         public int backupserviceconf_daysofweek { get; set; } //0=Pn-Pt 1=Pn-Nd
-        
+
+        [Ignore]
+        public string backupserviceconf_passwordserverDecryptedPassword
+        {
+            get => AesEncryptionHelper.Decrypt(backupserviceconf_passwordserver);
+            set => backupserviceconf_passwordserver = AesEncryptionHelper.Encrypt(value);
+        }
+
 
         public DateTime backupserviceconf_CreateConfDate { get; set; }
         

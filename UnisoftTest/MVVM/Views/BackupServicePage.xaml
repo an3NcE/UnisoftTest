@@ -80,7 +80,7 @@
                         Margin="10,0,0,0"
                         TextColor="Black"
                         IsPassword="True"
-                       Text="{Binding BackupServiceConfiguration.backupserviceconf_passwordserver, Mode=TwoWay}"/>
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_passwordserverDecryptedPassword, Mode=TwoWay}"/>
                 <!--instancja-->
                 <Label Grid.Row="2" 
                        Grid.Column="0"
