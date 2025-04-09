@@ -22,4 +22,4 @@ Testowanie wydajności poprzez seryjne uruchamianie skryptów SQL.
 Monitorowanie i analiza wyników operacji SQL w czasie rzeczywistym.
 
 
-![unitoolbox](https://github.com/ImMan3NcE/UniToolbox/blob/master/UniToolbox.gif)
+![unitoolbox](https://github.com/an3NcE/UnisoftTest/blob/master/unit.gif)
