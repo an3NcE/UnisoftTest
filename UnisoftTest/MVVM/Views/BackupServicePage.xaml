@@ -232,8 +232,17 @@
                         FontSize="16"
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
+                <Entry Grid.Row="4"
+                       Margin="5,0,0,3"
+                       Grid.Column="2"
+                       Grid.RowSpan="2"
+                       Grid.ColumnSpan="2"
+                       Placeholder="Wprowadź dodatkowy skrypt cmd"
+                       PlaceholderColor="Gray"
+                       BackgroundColor="LightSteelBlue"
+                       VerticalTextAlignment="Start"/>
 
-                <ImageButton Grid.Row="5"
+                <ImageButton Grid.Row="6"
                              Grid.Column="3"
                              Source="save1.png" 
                              WidthRequest="10"

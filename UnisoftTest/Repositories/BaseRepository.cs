@@ -50,7 +50,7 @@ namespace UnisoftTest.Repositories
                            storeDateTimeAsTicks: true,
                            key: password,
                            postKeyAction: c =>
-                               c.Execute("PRAGMA cipher_compatibility = 4") 
+                               c.Execute("PRAGMA cipher_compatibility = 4")
    );
 
             connection = new SQLiteAsyncConnection(options);
@@ -68,10 +68,10 @@ namespace UnisoftTest.Repositories
             AllModules = await GetAllModules();
             //if (AllModules==null || AllModules.Count()==0)
             //{
-                AddModules();
+            AddModules();
             //}
-            
-            
+
+
         }
 
         #region BackupServiceConfiguration
@@ -449,7 +449,7 @@ namespace UnisoftTest.Repositories
                 AdministratorSet.SettingsValue = "0";
             }
 
-            
+
             var existingScript = await connection.FindAsync<AppSettings>(AdministratorSet.SettingsId);
 
 
@@ -489,7 +489,7 @@ namespace UnisoftTest.Repositories
             {
                 if (existingScript != null)
                 {
-                    if (modifValue ==false)
+                    if (modifValue == false)
                     {
                         ModificatorValue.SettingsValue = "1";
                         await connection.UpdateAsync(ModificatorValue);
@@ -499,13 +499,13 @@ namespace UnisoftTest.Repositories
                         ModificatorValue.SettingsValue = "0";
                         await connection.UpdateAsync(ModificatorValue);
                     }
-                    
+
                 }
                 else
                 {
                     ModificatorValue.SettingsValue = "1";
                     await connection.InsertAsync(ModificatorValue);
-                   
+
                 }
             }
             catch (Exception)
@@ -723,7 +723,7 @@ namespace UnisoftTest.Repositories
 
         public async Task FavScript(AutoItScript script)
         {
-             await connection.UpdateAsync(script);
+            await connection.UpdateAsync(script);
 
         }
 

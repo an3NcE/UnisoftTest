@@ -119,9 +119,24 @@ namespace UnisoftTest.MVVM.ViewModels
         private void RunInstallService(object obj)
         {
             Process process = new Process();
+            if (serviceStatus.ToLower().Contains("uruchomiona") || serviceStatus.ToLower().Contains("running"))
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "sc",
+                    Arguments = $"stop {serviceName}",
+                    Verb = "runas",
+                    UseShellExecute = true
+                };
+
+                process = Process.Start(psi);
+                process.WaitForExit();
+            }
+
+            //Process process = new Process();
             if (IsServiceInstalled(serviceName))
             {
-                RunService();
+                //RunService();
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "sc",
@@ -231,7 +246,7 @@ namespace UnisoftTest.MVVM.ViewModels
         {
             Process process = new Process();
             IsServiceInstalled(serviceName);
-            if (serviceStatus.ToLower().Contains("zatrzymana") || serviceStatus.ToLower().Contains("wstrzymana"))
+            if (serviceStatus.ToLower().Contains("zatrzymana") || serviceStatus.ToLower().Contains("wstrzymana") || serviceStatus.ToLower().Contains("stopped"))
             {
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
@@ -244,7 +259,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 process=Process.Start(psi);
                 process.WaitForExit();
             }
-            else if (serviceStatus.ToLower().Contains("uruchomiona"))
+            else if (serviceStatus.ToLower().Contains("uruchomiona") || serviceStatus.ToLower().Contains("running"))
             {
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
