@@ -21,6 +21,7 @@ namespace UnisoftTest.MVVM.Models
         public string backupserviceconf_dumpfile{ get; set; }
         public string backupserviceconf_logfile { get; set; }
         public string backupserviceconf_schemas { get; set; }
+        public string backupserviceconf_full { get; set; }
         public string backupserviceconf_mailreceiver { get; set; }
         public string backupserviceconf_mailtitle { get; set; }
         public string backupserviceconf_addedCmdScript { get; set; }

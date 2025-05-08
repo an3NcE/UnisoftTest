@@ -272,7 +272,7 @@ namespace UnisoftTest.MVVM.ViewModels
                 process=Process.Start(psi);
                 process.WaitForExit();
             }
-            
+            System.Threading.Thread.Sleep(2000);
             IsServiceInstalled(serviceName);
         }
 

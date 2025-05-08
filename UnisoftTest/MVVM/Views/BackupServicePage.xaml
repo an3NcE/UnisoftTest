@@ -36,7 +36,7 @@
 
             <Grid BackgroundColor="Transparent"
                   ColumnDefinitions="Auto, *,Auto,*"
-                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto,Auto,Auto"
+                  RowDefinitions="Auto, Auto, Auto,Auto,auto,auto,Auto,Auto,Auto"
                   Padding="10">
 
                 <!-- Tło -->
@@ -163,7 +163,23 @@
                          Margin="10,0,0,0"
                                  TextColor="Black"
                        Text="{Binding BackupServiceConfiguration.backupserviceconf_schemas, Mode=TwoWay}" />
-                
+                <!--Full-->
+                <Label Grid.Row="7" 
+                        Grid.Column="0"
+                        Text="Full"
+                        VerticalOptions="Center"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        Margin="0,0,10,0"/>
+
+                <Entry Grid.Row="7"
+                         Grid.Column="1"
+                         BackgroundColor="LightSteelBlue"
+                         Placeholder="Podaj full"
+                         Margin="10,0,0,0"
+                                 TextColor="Black"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_full, Mode=TwoWay}" />
+
                 <!--DRUGA KOLUMNA-->
 
                 <Label Grid.Row="0" 
@@ -224,7 +240,7 @@
                         
                         
                            />
-                
+
                 <Label Grid.Row="3" 
                         Grid.Column="2"
                         Text="{Binding BackupServiceDaysOfWeeklabel}"
@@ -232,24 +248,27 @@
                         FontSize="16"
                         FontAttributes="Bold"
                         Margin="0,0,10,0"/>
-                <Entry Grid.Row="4"
+                <Editor Grid.Row="4"
                        Margin="5,0,0,3"
                        Grid.Column="2"
                        Grid.RowSpan="2"
                        Grid.ColumnSpan="2"
                        Placeholder="Wprowadź dodatkowy skrypt cmd"
+                       Text="{Binding BackupServiceConfiguration.backupserviceconf_addedCmdScript,  Mode=TwoWay}"
+                       TextColor="Black"
                        PlaceholderColor="Gray"
                        BackgroundColor="LightSteelBlue"
-                       VerticalTextAlignment="Start"/>
+                       VerticalTextAlignment="Start"
+                        HeightRequest="90" />
 
-                <ImageButton Grid.Row="6"
+                <ImageButton Grid.Row="7"
                              Grid.Column="3"
                              Source="save1.png" 
                              WidthRequest="10"
                              Command="{Binding SaveBackupServConfiguration}"
                              BackgroundColor="Transparent"
                              />
-                <Label Grid.Row="7"
+                <Label Grid.Row="8"
                        Grid.Column="0"
                        Grid.ColumnSpan="4"
                        Text="{Binding ScriptViewLabel}"
