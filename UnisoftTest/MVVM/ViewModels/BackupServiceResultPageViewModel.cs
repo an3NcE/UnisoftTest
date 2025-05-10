@@ -26,7 +26,7 @@ namespace unisofttest.MVVM.ViewModels
         public ICommand AddOrUpdateCommand => new Command(AddOrUpdateComm);
         public ICommand OpenCopyLogCommand => new Command<BackupServiceResult>(async (result) => await OpenLogFileAsync(result));
 
-       
+
 
         public ICommand DownloadMessages => new Command(async () => await DownloadMessagesAsync());
         public ObservableCollection<string> MailSubjects { get; } = new();
@@ -115,14 +115,26 @@ namespace unisofttest.MVVM.ViewModels
                 var match = results.FirstOrDefault(r =>
                     r.Subject.Contains(client.backupserviceresult_clientsymbol, StringComparison.OrdinalIgnoreCase));
 
-                if (match == default)
+                //if (match == default)
+                //    continue;
+
+                if (string.IsNullOrEmpty(match.Subject))
+                {
+                    client.backupserviceresult_result = "BRAK INFORMACJI!";
+                    client.backupserviceresult_resultimage = "confirm_wrong.png";
+                    await App.BaseRepo.AddOrUpdateBackupServiceResult(client);
                     continue;
+                }
+                    
+
                 if (match.Subject.Contains("NIEPRAWIDŁOWA"))
                 {
+                    client.backupserviceresult_result = "Błąd kopii";
                     client.backupserviceresult_resultimage = "confirm_wrong.png";
                 }
                 else if (match.Subject.Contains("PRAWIDŁOWA"))
                 {
+                    client.backupserviceresult_result = "Poprawna";
                     client.backupserviceresult_resultimage = "confirm.png";
                 }
                 // Przypisz log i datę
