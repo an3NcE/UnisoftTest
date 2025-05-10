@@ -63,6 +63,7 @@ namespace UnisoftTest.Repositories
             await connection.CreateTableAsync<CustomScripts>();
             await connection.CreateTableAsync<BackupServiceConfiguration>();
             await connection.CreateTableAsync<MailConfiguration>();
+            await connection.CreateTableAsync<BackupServiceResult>();
 
 
             AllModules = await GetAllModules();
@@ -73,6 +74,57 @@ namespace UnisoftTest.Repositories
 
 
         }
+
+        #region BackupServiceResult
+        public async Task AddOrUpdateBackupServiceResult(BackupServiceResult backupServiceResult)
+        {
+            int result = 0;
+            var existingScript = await connection.FindAsync<BackupServiceResult>(backupServiceResult.backupserviceresult_Id);
+            try
+            {
+
+                if (existingScript != null)
+                {
+                    //backupServiceResult.backupserviceconf_CreateConfDate = DateTime.Now;
+                    result = await connection.UpdateAsync(backupServiceResult);
+                    StatusMessage = $"{result} wiersz zaktualizowany!";
+                }
+                else
+                {
+                    backupServiceResult.backupserviceresult_resultimage = "confirm_question.png";
+                    //backupServiceResult.backupserviceconf_CreateConfDate = DateTime.Now;
+                    result = await connection.InsertAsync(backupServiceResult);
+                    StatusMessage = $"{result} wiersz dodany!";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+            Console.WriteLine(StatusMessage);
+        }
+
+        public async Task<List<BackupServiceResult>> GetAllBackupServiceResults()
+        {
+            try
+            {
+                //return connection.Table<AutoItScript>().ToList();
+                var result = await connection.QueryAsync<BackupServiceResult>("SELECT * FROM BackupServiceResult");
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                StatusMessage = $"Error: {ex.Message}";
+            }
+
+            Console.WriteLine(StatusMessage);
+            return null;
+        }
+        #endregion
 
         #region BackupServiceConfiguration
         public async Task AddOrUpdateBackupServiceConfiguration(BackupServiceConfiguration backupServiceConfiguration)
