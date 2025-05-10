@@ -18,7 +18,7 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
             <VerticalStackLayout Grid.ColumnSpan="2" HorizontalOptions="End">
 
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" >
-                    <Button Text="Odśwież"  BackgroundColor="Wheat" />
+                    <Button Text="Odśwież" Command="{Binding DownloadMessages}"  BackgroundColor="Wheat" /> 
                     <!--<Button Text="Odśwież" Command="{Binding InstallService}" BackgroundColor="Wheat" />-->
                 </HorizontalStackLayout>
                 <Grid HorizontalOptions="Center" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" Margin="0,1,10,0">
@@ -57,7 +57,7 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                    Opacity="0.4"
                            Margin="-15"/>
                 
-                <CollectionView x:Name="clcVScriptsFAV"                          
+                <CollectionView x:Name="clcvClients"                          
                                 ItemsSource="{Binding Clients}"    
                                 SelectedItem="{Binding CurrentClient}" 
                                 SelectionMode="Single" 
@@ -142,6 +142,7 @@ ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
                                              HeightRequest="35"
                                              HorizontalOptions="Center"
                                              BackgroundColor="Transparent"
+                                             Command="{Binding BindingContext.OpenCopyLogCommand, Source={x:Reference clcvClients}}"
                                              />
                                 <Label Text="{Binding backupserviceresult_resultlogDate}" 
                                         HorizontalOptions="Center" 
