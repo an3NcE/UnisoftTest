@@ -91,6 +91,16 @@ namespace UnisoftTest
 
                 fiBackupServicePage.IsVisible = false;
             }
+            if (AllModules[5].ModuleAccess == true)
+            {
+                fiBackupServiceResultPage.IsVisible = true;
+                countPage++;
+            }
+            else
+            {
+
+                fiBackupServiceResultPage.IsVisible = false;
+            }
 
             if (countPage == 0)
             {

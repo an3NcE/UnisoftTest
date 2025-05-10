@@ -184,7 +184,8 @@ namespace UnisoftTest.Repositories
                                 new Modules { ModulID = 1, ModuleName = "TestyWydajnosciowe", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
                                 new Modules { ModulID = 2, ModuleName = "KopiowanieBazy", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
                                 new Modules { ModulID = 3, ModuleName = "DodatkoweSkrypty", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
-                                new Modules { ModulID = 4, ModuleName = "BackupService", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" }
+                                new Modules { ModulID = 4, ModuleName = "BackupService", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" },
+                                new Modules { ModulID = 5, ModuleName = "PanelWynikowyBackupService", ModuleAccess = false, LastModified = DateTime.Now, ImgVisualState = "fav.png" }
                             };
             if (AllModules.Count != newModules.Count)
             {

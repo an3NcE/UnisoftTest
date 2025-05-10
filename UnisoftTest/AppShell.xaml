@@ -139,8 +139,20 @@
             Route="BackupServicePage" />
 
     </FlyoutItem>
+    <FlyoutItem Title="Weryfikacja usług Backupu" 
+        Icon="basebackup.png"
+        
+                x:Name="fiBackupServiceResultPage"
+        >
+        <ShellContent 
+            Title="Weryfikacja usług Backupu"
+            ContentTemplate="{DataTemplate local:BackupServiceResultPage}"
+            Icon="basebackup.png"
+            Route="BackupServiceResultPage" />
 
-    
+    </FlyoutItem>
+
+
     <Shell.FlyoutFooter >
         <Grid HorizontalOptions="FillAndExpand" BackgroundColor="CadetBlue" RowDefinitions=".7*,.3*" >
 
