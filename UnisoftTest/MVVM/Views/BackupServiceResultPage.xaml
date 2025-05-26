@@ -3,169 +3,124 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.BackupServiceResultPage"
              Title="BackupServiceResultPage">
-    <Grid RowDefinitions=".15*, .1,.75*"
-ColumnDefinitions=".5*" BackgroundColor="DarkSlateGray">
-        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.1"/>
-        <Grid Grid.Row="0" 
-    ColumnDefinitions=".5*,.5*"
-    VerticalOptions="End"
-    Grid.ColumnSpan="2">
-            <Image 
-         Source="logobackupservicepage.png"  
-         Aspect="AspectFit" 
-         HorizontalOptions="Start" 
-         Margin="5,10,0,0"/>
-            <VerticalStackLayout Grid.ColumnSpan="2" HorizontalOptions="End">
+    <Grid RowDefinitions="Auto,Auto,*"
+          ColumnDefinitions="*"
+          BackgroundColor="DarkSlateGray">
 
-                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" >
-                    <Button Text="Odśwież" Command="{Binding DownloadMessages}"  BackgroundColor="Wheat" /> 
-                    <!--<Button Text="Odśwież" Command="{Binding InstallService}" BackgroundColor="Wheat" />-->
-                </HorizontalStackLayout>
-                <Grid HorizontalOptions="Center" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" Margin="0,1,10,0">
-                    
-                    <Label Text="Nazwa klienta:"  VerticalTextAlignment="Center" />
-                    <Entry Text="{Binding CurrentClient.backupserviceresult_clientname}" Grid.Column="1" Background="Gray" Placeholder="PGK Testowy Klient"/>
-                    <Label Text="Symbol klienta:"  VerticalTextAlignment="Center" Grid.Column="2"/>
-                    <Entry Text="{Binding CurrentClient.backupserviceresult_clientsymbol}" Grid.Column="3" Background="Gray" Placeholder="123456789"/>
-                    <!--<Button Text="Odśwież" Command="{Binding InstallService}" BackgroundColor="Wheat" />-->
-                    <ImageButton Grid.Column="4" 
-                                 Source="save1.png"
-                                 Command="{Binding AddOrUpdateCommand}" 
-                                 HeightRequest="35"
-                                 Aspect="AspectFit"
-                                 />
-                </Grid>
+        <!-- Tło z małą przezroczystością -->
+        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="1"
+               Source="bg4.png" Aspect="AspectFill" Opacity="0.08" />
 
-            </VerticalStackLayout>
+        <!-- Nagłówek z logo i przyciskiem -->
+        <Grid Grid.Row="0" Padding="10"
+              ColumnDefinitions="*,Auto" VerticalOptions="Start">
+            <Image Source="logobackupservicepage.png"
+                   Aspect="AspectFit"
+                   HeightRequest="60"
+                   HorizontalOptions="Start" />
 
-
+            <Button Text="Odśwież"
+                    Command="{Binding DownloadMessages}"
+                    BackgroundColor="Wheat"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    TextColor="Black"/>
         </Grid>
 
-        <Frame CornerRadius="20" 
-           Grid.Row="2" 
-           BackgroundColor="Transparent" 
-           Margin="10,20,10,0">
+        <!-- Formularz klienta -->
+        <Grid Grid.Row="1" Padding="10"
+              ColumnSpacing="10"
+              ColumnDefinitions="Auto,*,Auto,Auto,Auto">
 
-            <Grid BackgroundColor="Transparent"
-                  Padding="10">
+            <Label Text="Nazwa klienta:" VerticalTextAlignment="Center" />
+            <Entry Text="{Binding CurrentClient.backupserviceresult_clientname}"
+                   Grid.Column="1" BackgroundColor="LightGray" Placeholder="PGK Testowy Klient" />
 
-                <!-- Tło -->
-                <Image Grid.ColumnSpan="4" 
-                   Grid.RowSpan="9"
-                   Source="bgpink.png"  
-                   Aspect="Fill" 
-                   Opacity="0.4"
-                           Margin="-15"/>
-                
-                <CollectionView x:Name="clcvClients"                          
-                                ItemsSource="{Binding Clients}"    
-                                SelectedItem="{Binding CurrentClient}" 
-                                SelectionMode="Single" 
-                                SelectionChangedCommand="{Binding}" >
-                   
+            <Label Text="Symbol klienta:" Grid.Column="2" VerticalTextAlignment="Center" />
+            <Entry Text="{Binding CurrentClient.backupserviceresult_clientsymbol}"
+                   Grid.Column="3" BackgroundColor="LightGray" Placeholder="123456789" />
+
+            <ImageButton Grid.Column="4"
+                         Source="save1.png"
+                         Command="{Binding AddOrUpdateCommand}"
+                         HeightRequest="35"
+                         BackgroundColor="Transparent"
+                         Aspect="AspectFit" />
+        </Grid>
+
+        <!-- Lista wyników -->
+        <Frame Grid.Row="2" CornerRadius="20" Margin="10"
+               BackgroundColor="Transparent" HasShadow="True">
+            <Grid Padding="10">
+
+                <Image Source="bgpink.png"
+                       Grid.RowSpan="2" Grid.ColumnSpan="1"
+                       Aspect="Fill" Opacity="0.2"
+                       Margin="-10" />
+
+                <CollectionView x:Name="clcvClients"
+                                ItemsSource="{Binding Clients}"
+                                SelectedItem="{Binding CurrentClient}"
+                                SelectionMode="Single">
+
                     <CollectionView.Header>
-                        <Grid ColumnDefinitions=".25*,.15*,.15*,.1*,.1*,.25*">
-                            <Label Text="Nazwa Klienta"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"/>
-                            <Label Text=" Symbol klienta"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="1"/>
-                            <Label Text=" Wynik"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="2"/>
-                            <Label Text="X"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="3"/>
-                            <Label Text="Y"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="4"/>
-                            <Label Text=" Data"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="5"/>
-
+                        <Grid Padding="5" ColumnDefinitions="*,*,*,Auto,Auto,*">
+                            <Label Text="Nazwa Klienta" FontAttributes="Bold" HorizontalOptions="Center" />
+                            <Label Text="Symbol klienta" FontAttributes="Bold" Grid.Column="1" HorizontalOptions="Center" />
+                            <Label Text="Wynik" FontAttributes="Bold" Grid.Column="2" HorizontalOptions="Center" />
+                            <Label Text="X" FontAttributes="Bold" Grid.Column="3" HorizontalOptions="Center" />
+                            <Label Text="Y" FontAttributes="Bold" Grid.Column="4" HorizontalOptions="Center" />
+                            <Label Text="Data" FontAttributes="Bold" Grid.Column="5" HorizontalOptions="Center" />
                         </Grid>
                     </CollectionView.Header>
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical"
-           ItemSpacing="10" />
-                    </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-
-
-                            <Grid  ColumnDefinitions=".25*,.15*,.15*,.1*,.1*,.25*">
-
+                            <Grid Padding="5" ColumnDefinitions="*,*,*,Auto,Auto,*"
+                                  
+                                  Margin="0,5" RowSpacing="5">
                                 <Grid.Background>
 
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
                                         <GradientStop Color="Wheat" Offset="0.0" />
                                         <!-- Jasnoszary -->
-                                        <GradientStop Color="#A9A9A9" Offset="0.5" />
+                                        <GradientStop Color="Black" Offset="0.5" />
                                         <!-- Średni szary -->
                                         <GradientStop Color="Wheat" Offset="1.0" />
                                         <!-- Jasnoszary -->
                                     </LinearGradientBrush>
                                 </Grid.Background>
 
+                                <Label Text="{Binding backupserviceresult_clientname}" Grid.Column="0"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
 
-                                <Label Text="{Binding backupserviceresult_clientname}" 
-                                       HorizontalOptions="Center" 
-                                               TextColor="Black"
-                                                   FontAttributes="Bold"
-                                               VerticalOptions="Center" />
-                                <Label Text="{Binding backupserviceresult_clientsymbol}" 
-                                       HorizontalOptions="Center" 
-                                               TextColor="Black"
-                                                   FontAttributes="Bold"
-                                               VerticalOptions="Center" 
-                                       Grid.Column="1"/>
-                                <Label Text="{Binding backupserviceresult_result}" 
-                                       HorizontalOptions="Center" 
-                                               TextColor="Black"
-                                                   FontAttributes="Bold"
-                                               VerticalOptions="Center" 
-                                       Grid.Column="2"/>
-                                <Image Source="{Binding backupserviceresult_resultimage}" 
-                                       HorizontalOptions="Center" 
-                                               VerticalOptions="Center" 
-                                       Grid.Column="3"
-                                       HeightRequest="35"
-                                       />
-                                <ImageButton Grid.Column="4" Source="zoom.png" CommandParameter="{Binding .}" 
-                                             HeightRequest="35"
-                                             HorizontalOptions="Center"
-                                             BackgroundColor="Transparent"
+                                <Label Text="{Binding backupserviceresult_clientsymbol}" Grid.Column="1"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+
+                                <Label Text="{Binding backupserviceresult_result}" Grid.Column="2"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+
+                                <Image Source="{Binding backupserviceresult_resultimage}" Grid.Column="3"
+                                       HeightRequest="30" WidthRequest="30"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+
+                                <ImageButton Grid.Column="4" Source="zoom.png" CommandParameter="{Binding .}"
                                              Command="{Binding BindingContext.OpenCopyLogCommand, Source={x:Reference clcvClients}}"
-                                             />
-                                <Label Text="{Binding backupserviceresult_resultlogDate}" 
-                                        HorizontalOptions="Center" 
-                                                TextColor="Black"
-                                                    FontAttributes="Bold"
-                                                VerticalOptions="Center" 
-                                        Grid.Column="5"/>
-                                <!--<ImageButton Grid.Column="1" Source="rightarrow.png" Command="{Binding BindingContext.RunScript, Source={x:Reference Name=clcVScriptsFAV}}" CommandParameter="{Binding .}"-->
-                            </Grid>
+                                             BackgroundColor="Transparent"
+                                             HeightRequest="30" WidthRequest="30"
+                                             HorizontalOptions="Center" VerticalOptions="Center" />
 
+                                <Label Text="{Binding backupserviceresult_resultlogDate}" Grid.Column="5"
+                                       HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
                 </CollectionView>
-
-
             </Grid>
         </Frame>
-
-
-
-
-
-        <!--<Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>-->
-
     </Grid>
 </ContentPage>
