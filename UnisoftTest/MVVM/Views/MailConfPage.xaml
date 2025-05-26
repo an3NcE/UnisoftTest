@@ -1,141 +1,73 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UnisoftTest.MVVM.Views.MailConfPage"
-             Title="MailConfPage">
-    <Grid RowDefinitions=".15*, .9*"
- BackgroundColor="DarkSlateGray">
-        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2" Source="bg4.png"  Aspect="Fill" Opacity="0.5"/>
+             Title="MailConfPage"
+             BackgroundColor="DarkSlateGray"
+             Padding="10"
+             >
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *">
+            <!-- Tło -->
+            <Image Source="bg4.png"
+                   Aspect="AspectFill"
+                   Opacity="0.3"
+                   Grid.RowSpan="2"
+                   />
 
+            <Frame CornerRadius="20"
+                   BackgroundColor="Transparent"
+                   Margin="0"
+                   Grid.Row="1"
+                   HasShadow="False">
+                <Grid
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                    ColumnDefinitions="Auto,*,Auto"
+                    Padding="20"
+                    BackgroundColor="Transparent"
+                    >
 
-        <Frame CornerRadius="20" 
-               Grid.Row="1" 
-               BackgroundColor="Transparent" 
-               Margin="10,20,10,0">
+                    <!-- Tło półprzezroczyste -->
+                    <Image Source="bgpink.png"
+                           Aspect="AspectFit"
+                           Opacity="0.2"
+                           Grid.RowSpan="6"
+                           Grid.ColumnSpan="3"
+                           />
 
-            <Grid BackgroundColor="Transparent"
-                  ColumnDefinitions="Auto, *,*,*"
-                  RowDefinitions="Auto, Auto, Auto,Auto,auto"
-                  Padding="10">
+                    <!-- SMTP Server -->
+                    <Label Text="SMTP Server" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Entry Text="{Binding MailConfiguration.mailconf_smtpserver}" Grid.Row="0" Grid.Column="1" BackgroundColor="LightSteelBlue" />
 
-                <!-- Tło -->
-                <Image Grid.ColumnSpan="4" 
-                       Grid.RowSpan="9"
-                       Source="bgpink.png"  
-                       Aspect="AspectFit" 
-                       Opacity="0.4"
-                       Margin="-10"/>
+                    <!-- SMTP Port -->
+                    <Label Text="SMTP Port" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Entry Text="{Binding MailConfiguration.mailconf_smtpport}" Grid.Row="1" Grid.Column="1" BackgroundColor="LightSteelBlue" />
 
-                <!-- SMTP Server -->
-                <Label Grid.Row="0" 
-                       Grid.Column="0"
-                       Text="SMTP Server"
-                       VerticalOptions="Center"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       Margin="0,0,10,0"/>
+                    <!-- SMTP Client -->
+                    <Label Text="SMTP Client" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Entry Text="{Binding MailConfiguration.mailconf_smtpclientaddresss}" Grid.Row="2" Grid.Column="1" BackgroundColor="LightSteelBlue" />
 
-                <Entry Grid.Row="0"
-                        Grid.Column="1"
-                        BackgroundColor="LightSteelBlue"
-                        Placeholder="Wpisz adres serwera"
-                        Margin="10,0,0,0"
-                                TextColor="Black"
-                        Text="{Binding MailConfiguration.mailconf_smtpserver, Mode=TwoWay}" />
+                    <!-- SMTP Password -->
+                    <Label Text="SMTP Pass" Grid.Row="3" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Entry Text="{Binding MailConfiguration.DecryptedPassword}" IsPassword="True" Grid.Row="3" Grid.Column="1" BackgroundColor="LightSteelBlue" />
 
-                <!-- SMTP Port -->
-                <Label Grid.Row="1" 
-                       Grid.Column="0"
-                       Text="SMTP Port"
-                       VerticalOptions="Center"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       Margin="0,0,10,0"/>
+                    <!-- Save Button -->
+                    <ImageButton Grid.Row="2" Grid.Column="2" Source="save1.png"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding SaveMailConfiguration}"
+                                 WidthRequest="40" HeightRequest="40" />
 
-                <Entry Grid.Row="1"
-                        Grid.Column="1"
-                        BackgroundColor="LightSteelBlue"
-                        Placeholder="Wpisz port"
-                        Margin="10,0,0,0"
-                        TextColor="Black"
-                        Text="{Binding MailConfiguration.mailconf_smtpport, Mode=TwoWay}"/>
+                    <!-- Test Email -->
+                    <Label Text="Test Email" Grid.Row="4" Grid.Column="0" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                    <Entry Text="{Binding testMailAddress}" Grid.Row="4" Grid.Column="1" BackgroundColor="LightSteelBlue" />
 
-                <!-- SMTP Client -->
-                <Label Grid.Row="2" 
-                       Grid.Column="0"
-                       Text="SMTP Client"
-                       VerticalOptions="Center"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       Margin="0,0,10,0"/>
+                    <Button Grid.Row="5" Grid.Column="1" Text="Wyślij testową wiadomość"
+                            Command="{Binding SendTestMailMessage}"
+                            BackgroundColor="Wheat"
+                            Margin="0,10,0,0"/>
 
-                <Entry Grid.Row="2"
-                        Grid.Column="1"
-                        BackgroundColor="LightSteelBlue"
-                        Placeholder="Wpisz adres email"
-                        Margin="10,0,0,0"
-                                TextColor="Black"
-                        Text="{Binding MailConfiguration.mailconf_smtpclientaddresss, Mode=TwoWay}"/>
-                <!--hasło-->
-                <Label Grid.Row="3" 
-                        Grid.Column="0"
-                        Text="SMTP Pass"
-                        VerticalOptions="Center"
-                        FontSize="16"
-                        FontAttributes="Bold"
-                        Margin="0,0,10,0"/>
-
-                <Entry Grid.Row="3"
-                        Grid.Column="1"
-                        BackgroundColor="LightSteelBlue"
-                        Placeholder="Wpisz hasło smtp"
-                        Margin="10,0,0,0"
-                                TextColor="Black"
-                        IsPassword="True"
-                        Text="{Binding MailConfiguration.DecryptedPassword, Mode=TwoWay}"/>
-
-                <ImageButton Grid.Row="2"
-                             Grid.Column="2"
-                             Source="save1.png" 
-                             WidthRequest="10"
-                             Command="{Binding SaveMailConfiguration}"
-                             BackgroundColor="Transparent"
-                             />
-
-                <VerticalStackLayout Grid.Row="4"
-                      Grid.ColumnSpan="4"
-                                     HorizontalOptions="Center"
-                                     Margin="10">
-                    <Button Grid.Column="3" Grid.Row="0" Text="Zapisz konfigurację" BackgroundColor="Wheat" Command="{Binding SaveMailConfiguration}"
-                            Margin="10"
-                            IsVisible="False"/>
-                    
-                    <Entry Grid.Row="2"
-                           Grid.Column="3"
-                           BackgroundColor="LightSteelBlue"
-                           Placeholder="adres @ do testu"
-                           Margin="10"
-                           TextColor="Black"
-                           Text="{Binding testMailAddress, Mode=TwoWay}"/>
-                    <HorizontalStackLayout>
-                        <Button Grid.Column="3" Grid.Row="1" Text="Wyślij testową wiadmość" BackgroundColor="Wheat" Command="{Binding SendTestMailMessage}"
-                                 Margin="10"/>
-                        <Image Source="{Binding imgResultSource}" HeightRequest="40"/>
-                        
-                    </HorizontalStackLayout>
-                    
-                </VerticalStackLayout>
-                
-
-
-            </Grid>
-        </Frame>
-
-
-
-
-
-        <!--<Label Grid.Row="2" Grid.Column="1" Text="ver 1.0" HorizontalOptions="End" VerticalOptions="End"/>-->
-
-    </Grid>
+                    <Image Source="{Binding imgResultSource}" Grid.Row="5" Grid.Column="2" HeightRequest="40"/>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ScrollView>
 </ContentPage>

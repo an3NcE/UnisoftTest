@@ -176,6 +176,11 @@ namespace unisofttest.MVVM.ViewModels
             var results = new List<(string Subject, byte[] LogAttachment, DateTime SentDate)>();
             //var imapserver = config.mailconf_smtpserver.Replace("smtp","imap");
             using var client = new ImapClient();
+
+#if ANDROID
+            client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+#endif
+
             await client.ConnectAsync(config.mailconf_smtpserver.Replace("smtp", "imap"), 993, SecureSocketOptions.SslOnConnect);
             await client.AuthenticateAsync(config.mailconf_smtpclientaddresss, config.DecryptedPassword);
 

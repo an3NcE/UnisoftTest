@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnisoftTest.MVVM.Services;
+using Microsoft.Maui.Storage;
 
 namespace UnisoftTest
 {
@@ -21,6 +22,9 @@ namespace UnisoftTest
         {
             get
             {
+#if ANDROID
+                return Path.Combine(FileSystem.AppDataDirectory, DBFileName);
+#else
                 string appDirectory = AppContext.BaseDirectory;
                 string dataFolder = Path.Combine(appDirectory, "Data");
 
@@ -30,6 +34,7 @@ namespace UnisoftTest
                 }
 
                 return Path.Combine(dataFolder, DBFileName);
+#endif
             }
         }
         public static async Task<string> GetDatabasePasswordAsync()
