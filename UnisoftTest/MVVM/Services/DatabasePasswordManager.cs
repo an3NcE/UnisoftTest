@@ -2,6 +2,12 @@
 using System.Security.Principal;
 using System.Threading.Tasks;
 
+#if WINDOWS
+using Meziantou.Framework.Win32;
+#else
+using Microsoft.Maui.Storage;
+#endif
+
 namespace UnisoftTest.MVVM.Services
 {
     public static class DatabasePasswordManager
@@ -10,20 +16,30 @@ namespace UnisoftTest.MVVM.Services
 
         public static bool PasswordExists()
         {
+#if WINDOWS
             return CredentialManager.ReadCredential(DbPasswordCredentialTarget) != null;
+#else
+            var value = SecureStorage.Default.GetAsync(DbPasswordCredentialTarget).GetAwaiter().GetResult();
+            return value != null;
+#endif
         }
 
         public static string GetPassword()
         {
+#if WINDOWS
             var credential = CredentialManager.ReadCredential(DbPasswordCredentialTarget);
             if (credential == null)
                 throw new InvalidOperationException("Brak zapisanych poświadczeń hasła do bazy danych.");
 
             return credential.Password;
+#else 
+            return SecureStorage.Default.GetAsync(DbPasswordCredentialTarget).GetAwaiter().GetResult();
+#endif
         }
 
         public static void SavePassword(string password)
         {
+#if WINDOWS
             EnsureRunningAsAdministrator();
 
             CredentialManager.WriteCredential(
@@ -31,8 +47,12 @@ namespace UnisoftTest.MVVM.Services
                 "UniToolbox_pw",
                 password,
                 CredentialPersistence.LocalMachine);
+#else
+            SecureStorage.Default.SetAsync(DbPasswordCredentialTarget, password).Wait();
+#endif
         }
 
+#if WINDOWS
         public static bool IsRunningAsAdministrator()
         {
             var identity = WindowsIdentity.GetCurrent();
@@ -47,7 +67,9 @@ namespace UnisoftTest.MVVM.Services
                 throw new UnauthorizedAccessException("Aplikacja musi być uruchomiona jako administrator, aby zapisać poświadczenia systemowe.");
             }
         }
-
+#else
+        public static void EnsureRunningAsAdministrator() { }
+#endif
 
         public static async Task EnsurePasswordAsync()
         {
